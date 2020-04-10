@@ -1,0 +1,245 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+/* GENERAL SELECTORS */
+body {
+  font: 400 16px /1.5 Roboto, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #343434;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+ul {
+  list-style: none;
+}
+
+h2 {
+  font-size: 1rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.btn {
+  padding: 0.25em;
+  background: none;
+  border: none;
+  color: inherit;
+}
+
+.btn svg {
+  width: 1em;
+  height: 1em;
+}
+
+.test,
+.test > * {
+  border: 1px solid #aaa;
+}
+
+/* HEADER */
+header {
+  border-bottom: 1px solid #ddd;
+  padding: 0.25rem 1rem;
+  position: relative;
+  height: min-content;
+  flex: 0 0 auto;
+}
+
+.header__title {
+  text-align: center;
+}
+
+.header__button {
+  position: absolute;
+  top: 0.25rem;
+  right: 1rem;
+}
+
+/* NAVIGATION */
+nav {
+  border-top: 1px solid #ddd;
+  padding: 0.5rem 0;
+  order: 1;
+  height: min-content;
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 9999;
+}
+
+.nav__list {
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav__item {
+  text-align: center;
+  font-size: 0.85em;
+}
+
+.nav__item img {
+  width: 40px;
+}
+
+.nav__item__title {
+  margin-top: -0.5rem;
+  color: #aaa;
+}
+
+/* MAIN */
+main {
+  flex: 1 0 auto;
+  height: 80vh;
+  display: flex;
+}
+
+main > section {
+  max-width: 400px;
+}
+
+/* RESULTS SECTION */
+.results {
+  display: none;
+  padding: 0.75rem 0.75rem 0;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(245, 245, 245);
+}
+
+.results__fig {
+  display: flex;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px -1px rgba(221, 221, 221, 0.6);
+  margin-bottom: 1rem;
+  background-color: #fff;
+}
+
+.results__fig img {
+  flex: 0 0 30%;
+  align-self: center;
+  object-fit: contain;
+}
+
+.results__info {
+  padding: 0 1rem;
+  flex: 0 0 70%;
+}
+
+.results__name {
+  width: 11em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.results__calories {
+  padding-bottom: 0.45em;
+  border-bottom: 1px solid #ccc;
+  font-size: 0.75em;
+}
+
+.results__calories strong {font-size: 1.25em;}
+
+.results__data__list {
+  font-size: 0.75em;
+  margin-top: 0.65em;
+  display: flex;
+  flex-flow: column wrap;
+  height: 3rem;
+  font-weight: bolder;
+}
+
+.results__data__list > * {
+  color: #888;
+  flex: 0 0 50%;
+}
+
+.results__data__list dt::after {
+  content: ":";
+}
+
+.results__data__list dd {
+  color: unset;
+}
+
+/* FOOD DETAILS SECTION */
+.food {
+  height: 100%;
+  overflow: auto;
+}
+
+.food__fig img {
+  width: 100%;
+}
+
+.food__info {
+  box-shadow: 0 -20rem 0 0 rgba(0, 0, 0, 0.4);
+  position: relative;
+  margin-top: -10%;
+  background-color: white;
+  border-radius: 15px;
+  padding: 1rem;
+}
+
+.food__info > * {
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.food__balance__values {
+  display: flex;
+  padding: 2rem 0;
+}
+
+.food__balance__values > li {
+  flex: 1;
+  padding: 0 0.05rem;
+}
+
+.progress {
+  display: inline-block;
+  background: pink;
+  border-radius: 20px 0 0 20px;
+  height: 0.5rem;
+  width: 100%;
+}
+
+.bar {
+  transform: translateY(-48%);
+}
+
+.bar__title {
+  transform: translateX(-8%);
+}
+
+.bar__body {
+  display: block;
+  height: 1rem;
+  width: 0.1rem;
+  background-color: #ddd;
+}
+
+.values__now__title {
+  text-align: right;
+}
+
+/* .progress::after {
+  display: inline-block;
+  content: "";
+  border-left: 1px solid black;
+  width: 10px;
+  height: 10px;
+} */
