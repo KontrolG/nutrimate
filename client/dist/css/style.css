@@ -16,10 +16,12 @@ body {
   color: #343434;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   height: 100vh;
 }
 
-ul {
+ul,
+ol {
   list-style: none;
 }
 
@@ -42,6 +44,13 @@ a {
 .btn svg {
   width: 1em;
   height: 1em;
+}
+
+.rounded__box {
+  background-color: white;
+  border-radius: 15px;
+  padding: 1rem;
+  position: relative;
 }
 
 .test,
@@ -145,13 +154,18 @@ main > section {
   white-space: nowrap;
 }
 
-.results__calories {
-  padding-bottom: 0.45em;
-  border-bottom: 1px solid #ccc;
+.results__calories,
+.foods__ate__calories {
   font-size: 0.75em;
 }
 
-.results__calories strong {font-size: 1.25em;}
+.results__calories {
+  padding-bottom: 0.45em;
+  border-bottom: 1px solid #ccc;
+}
+
+.results__calories strong,
+.foods__ate__calories strong {font-size: 1.25em;}
 
 .results__data__list {
   font-size: 0.75em;
@@ -178,7 +192,8 @@ main > section {
 /* FOOD DETAILS SECTION */
 .food {
   height: 100%;
-  overflow: auto;
+  overflow: hidden;
+  display: none;
 }
 
 .food__fig img {
@@ -187,42 +202,55 @@ main > section {
 
 .food__info {
   box-shadow: 0 -20rem 0 0 rgba(0, 0, 0, 0.4);
-  position: relative;
   margin-top: -10%;
-  background-color: white;
-  border-radius: 15px;
-  padding: 1rem;
 }
 
 .food__info > * {
-  padding: 1rem 0;
+  padding: 1.25rem 0;
   border-bottom: 1px solid #ddd;
 }
 
 .food__balance__values {
   display: flex;
-  padding: 2rem 0;
+  padding: 2rem 0 0;
 }
 
 .food__balance__values > li {
-  flex: 1;
-  padding: 0 0.05rem;
+  flex: 0;
+  padding: 0 0.1rem;
 }
+
+li.values__now {flex-basis: 50%;}
+li.values__food {flex-basis: 20%;}
+li.values__remaining {flex-basis: 30%;}
 
 .progress {
   display: inline-block;
-  background: pink;
-  border-radius: 20px 0 0 20px;
   height: 0.5rem;
   width: 100%;
 }
 
-.bar {
-  transform: translateY(-48%);
+.values__now .progress {
+  background: pink;
+  border-radius: 20px 0 0 20px;
+}
+
+.values__food .progress {
+  background: rgb(19, 41, 66);
+}
+
+.values__remaining .progress {
+  background: gray;
+  border-radius: 0 20px 20px 0;
+}
+
+li.bar {
+  transform: translate(-25%, 20%);
 }
 
 .bar__title {
-  transform: translateX(-8%);
+  position: absolute;
+  transform: translate(-50%, -1.75rem);
 }
 
 .bar__body {
@@ -232,14 +260,79 @@ main > section {
   background-color: #ddd;
 }
 
-.values__now__title {
-  text-align: right;
+/* DAILY ACTIVITY SECTION */
+.daily__activity {
+  background: #eee;
+  padding: 0 0.75rem;
+  flex: 1;
 }
 
-/* .progress::after {
+.daily__activity > * {margin: 1.25rem 0;}
+
+.day__select__form {
+  text-align: center;
+}
+
+.day__input {
+  border: none;
+  background: none;
+  width: 1rem;
+}
+
+.total__calories {
+  border: 0.5rem solid skyblue;
+  margin: 0 auto 3rem;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.meals__buttons {
+  background-color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  border-radius: 20px;
+  padding: 0.25rem;
+  align-items: center;
+  font-size: 0.75rem;
+  box-shadow: 0 5px 10px -1px rgba(221, 221, 221, 0.4);
+}
+
+.meals__buttons > li {
+  flex: 1;
+  text-align: center;
+  margin: 0 -0.5rem;
+}
+
+.meals__buttons > li:first-child {margin-left: 0;}
+.meals__buttons > li:last-child {margin-right: 0;}
+
+.meals__buttons > li a {
   display: inline-block;
-  content: "";
-  border-left: 1px solid black;
-  width: 10px;
-  height: 10px;
-} */
+  width: 100%;
+  padding: 0.20rem 0;
+  border-radius: 20px;
+}
+
+.meals__buttons > li a:hover {background-color: #fff;}
+
+.foods__ate__list {
+  padding: 0 1rem;
+  width: 100%;
+  box-shadow: 0 5px 10px -1px rgba(221, 221, 221, 0.6);
+  border-radius: 10px;
+}
+
+.foods__ate__name {
+  width: 60%;
+}
+
+.foods__ate__list tr td {
+  border-bottom: 1px solid #ddd;
+  padding: 0.75rem 0.15rem;
+}
+
+.foods__ate__list tr:last-child td {border: none;}

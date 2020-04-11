@@ -9,7 +9,7 @@
 </head>
 <body>
   <header>
-    <h2 class="header__title">Results</h2>
+    <h2 class="header__title">Los divs no estan del mismo width</h2>
     <button class="header__button btn search__btn">
       <svg class="search__icon">
         <use href="img/icons.svg#icon-magnifying-glass"></use>
@@ -82,17 +82,14 @@
     <section class="food">
       <figure class="food__fig">
         <img src="img/test-food.jpg" alt="">
-        <figcaption class="food__info">
+        <figcaption class="food__info rounded__box">
           <h3 class="food_name">
             Pasta <span class="food_portion">200g</span>
           </h3>
           <div class="food__balance">
             <h4 class="food__balance__title">Calories balance</h4>
             <ul class="food__balance__values">
-              <li>
-                <!-- <p class="values__now__title">
-                  now
-                </p> -->
+              <li class="values__now">
                 <span class="progress"></span>
               </li>
               <li class="bar">
@@ -100,6 +97,18 @@
                   now
                 </p>
                 <span class="bar__body"></span>
+              </li>
+              <li class="values__food">
+                <span class="progress"></span>
+              </li>
+              <li class="bar">
+                <p class="bar__title">
+                  remaining
+                </p>
+                <span class="bar__body"></span>
+              </li>
+              <li class="values__remaining">
+                <span class="progress"></span>
               </li>
             </ul>
           </div>
@@ -114,8 +123,35 @@
         </figcaption>
       </figure>
     </section>
-    <section class="day__counter">
-
+    <section class="daily__activity">
+      <form action="#" class="day__select__form">
+        <label for="day__input">Today</label>
+        <input type="date" class="day__input" name="day__input" id="day__input">
+      </form>
+      <div class="total__calories">
+        <p><strong>1234</strong></p>
+        <p>Total kcal</p>
+      </div>
+      <ol class="meals__buttons">
+        <li><a href="">Breakfast</a></li>
+        <li><a href="">Lunch</a></li>
+        <li><a href="">Dinner</a></li>
+        <li><a href="">Snack</a></li>
+      </ol>
+      <table class="foods__ate__list rounded__box">
+        <tbody>
+          <tr>
+            <td class="foods__ate__name">
+              <h4>Coffe</h4>
+            </td>
+            <td class="foods__ate__calories"><strong>140</strong> kcal</td>
+          </tr>
+          <tr>
+            <td>Coffe</td>
+            <td>140kcal</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
   </main>
 </body>
