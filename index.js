@@ -27,6 +27,10 @@ const server = http.createServer((request, response) => {
               portionDefault,
               portionAmount,
               portionDisplayName,
+              addedSugars,
+              alcohol,
+              solidFats,
+              saturatedFats,
               calories
             }) => ({
               foodCode,
@@ -34,16 +38,21 @@ const server = http.createServer((request, response) => {
               portionDefault,
               portionAmount,
               portionDisplayName,
+              addedSugars,
+              alcohol,
+              solidFats,
+              saturatedFats,
               calories
             })
           );
         
         response.end(
-          `Buscando por query: ${JSON.stringify({
+          JSON.stringify(results)
+          /* `Buscando por query: ${JSON.stringify({
             searchQuery,
             start,
             limit
-          })}\rResultados: ${JSON.stringify(results) || "Sin resultados"}`
+          })}\rResultados: ${JSON.stringify(results) || "Sin resultados"}` */
         );
         break;
       case "get":
@@ -51,9 +60,9 @@ const server = http.createServer((request, response) => {
         const result = foodData.find(
           ({ foodCode }) => foodCode == foodCodeQuery
         );
-        response.end(
-          `Buscando por id: ${foodCodeQuery}; ${JSON.stringify(result) ||
-            "ningun resultado"}`
+        response.end(JSON.stringify(result)
+          /* `Buscando por id: ${foodCodeQuery}; ${JSON.stringify(result) ||
+            "ningun resultado"}` */
         );
         break;
       default:

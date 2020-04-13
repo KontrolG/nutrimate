@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="css/style.css">
-  <title>Calorie Counter</title>
+  <title>&kappa;alco // Calorie Counter</title>
 </head>
 <body>
   <header>
     <h2 class="header__title">&kappa;alco<!-- Los divs no estan del mismo width --></h2>
     <form action="#" class="search__form">
-      <input type="search" class="search__input" name="search__input" id="search__input" placeholder="Search food you like...">
-      <button type="button" class="btn search__btn highlight">
+      <button type="reset" class="btn">X</button>
+      <input type="text" class="search__input" name="search__input" id="search__input" placeholder="Search food that you like...">
+      <button type="submit" class="btn search__btn">
         &leftarrow;
       </button>
     </form>
@@ -54,12 +55,17 @@
           </a>
         </li> -->
       </ul>
-      <p class="results__placeholder">
-        Click "<strong>&leftarrow;</strong>" to search food for your meal plan.
+      <figure class="results__placeholder">
+        <!-- <img src="img/eggs.jpg" alt="ASd"> -->
+        &kappa;
+        <figcaption>
+          Search foods for your meal plan.
+        </figcaption>
+      </figure>
+      <button type="button" class="btn btn-rounded results__clear__btn">C</button>
+      <p class="loader results__loader">
+        <strong>&hearts;</strong> Loading...
       </p>
-      <!-- <div class="loader">
-        Loading...
-      </div> -->
     </section>
     <section class="food">
       <figure class="food__fig">

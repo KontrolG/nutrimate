@@ -35,10 +35,11 @@ a {
 }
 
 .btn {
-  padding: 0.25em;
+  padding: 0.25rem 0.5rem;
   background: none;
   border: none;
   color: inherit;
+  cursor: pointer;
 }
 
 .btn svg {
@@ -46,11 +47,27 @@ a {
   height: 1em;
 }
 
+.btn-rounded {
+  border-radius: 50%;
+}
+
 .rounded__box {
   background-color: white;
   border-radius: 15px;
   padding: 1rem;
   position: relative;
+}
+
+.highlight {
+  animation: highlight__keyframes 1.5s infinite;
+}
+
+@keyframes highlight__keyframes {
+  100% {
+    transform: scale(1.5);
+    line-height: 0.5;
+    font-size: 1.5em;
+  }
 }
 
 .test,
@@ -61,21 +78,50 @@ a {
 /* HEADER */
 header {
   border-bottom: 1px solid #ddd;
-  padding: 0.25rem 1rem;
-  position: relative;
-  height: min-content;
+  padding: 0.5rem 0.65rem;
   flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .header__title {
-  text-align: center;
+  padding-left: 0.25rem;
+  flex: 0.1 0 auto;
+  opacity: 1;
+  /* 
+  width: 60%;
+  opacity: 0;
+  width: 0;
+  display: none; */
 }
 
-.header__button {
-  position: absolute;
-  top: 0.25rem;
-  right: 1rem;
+.search__form {
+  display: flex;
+  justify-content: center;
+  flex: 1 1 auto;
 }
+
+
+.search__input {
+  padding-right: 00.25em;
+  max-width: 300px;
+  border: none;
+  outline: none;
+  flex: 1 1 auto;
+  font: inherit;
+  text-decoration: none;
+}
+
+/* TOGGLE SEARCH */
+.search__closed .header__title {
+  opacity: 1;
+  display: block;
+  width: 60%;
+}
+
+.search__closed .search__form {flex: 0 1 auto;}
+.search__closed .search__input { display: none;}
 
 /* NAVIGATION */
 nav {
@@ -110,7 +156,7 @@ nav {
 /* MAIN */
 main {
   flex: 1 0 auto;
-  height: 80vh;
+  height: 78vh;
   display: flex;
 }
 
@@ -120,23 +166,53 @@ main > section {
 
 /* RESULTS SECTION */
 .results {
-  display: none;
-  padding: 0.75rem 0.75rem 0;
+  /* display: none; */
+  position: relative;
+  padding: 0.85rem 0.75rem 0;
   height: 100%;
   overflow: auto;
   background-color: rgb(245, 245, 245);
 }
 
+.results__placeholder {
+  color: #777;
+  font-size: 1.25em;
+  text-align: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-70%);
+  padding: 0 0.25rem;
+}
+
+.results__clear__btn {
+  position: fixed;
+  top: 22rem;
+  left: 15rem;
+  background: #fff;
+  box-shadow: 0 1px 6px 0px rgba(0, 0, 0, 0.4);
+  width: 3rem;
+  height: 3rem;
+  visibility: hidden;
+}
+
+.results__found .results__placeholder {display: none;}
+.results__found .results__clear__btn {visibility: visible;}
+
+.results__loader {
+  text-align: center;
+}
+
 .results__fig {
   display: flex;
-  padding: 0.5rem 1rem;
+  padding: 0.65rem 0.45rem;
   border-radius: 10px;
-  box-shadow: 0 5px 10px -1px rgba(221, 221, 221, 0.6);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 1px 6px -1px rgba(0, 0, 0, 0.2);
   background-color: #fff;
 }
 
 .results__fig img {
+  height: 50px;
   flex: 0 0 30%;
   align-self: center;
   object-fit: contain;
@@ -160,7 +236,7 @@ main > section {
 }
 
 .results__calories {
-  padding-bottom: 0.45em;
+  padding-bottom: 0.65em;
   border-bottom: 1px solid #ccc;
 }
 
@@ -169,10 +245,11 @@ main > section {
 
 .results__data__list {
   font-size: 0.75em;
-  margin-top: 0.65em;
+  margin-left: 0.15em;
+  margin-top: 0.75em;
   display: flex;
   flex-flow: column wrap;
-  height: 3rem;
+  height: 2.5rem;
   font-weight: bolder;
 }
 
@@ -187,6 +264,7 @@ main > section {
 
 .results__data__list dd {
   color: unset;
+  margin-top: -0.25em;
 }
 
 /* FOOD DETAILS SECTION */
@@ -262,6 +340,7 @@ li.bar {
 
 /* DAILY ACTIVITY SECTION */
 .daily__activity {
+  display: none;
   background: #eee;
   padding: 0 0.75rem;
   flex: 1;
