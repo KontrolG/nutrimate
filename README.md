@@ -5,9 +5,8 @@ Getting and staying healthy requires a combination of mental balance, exercise, 
 This app provides the number of calories based on the result of a user search for a type of food. The U.S. Department of Agriculture MyPyramid Food Raw Data will be searched to determine the calorie values.
 
 Calorie Counter also provides you, the developer, with experience in transforming raw data into a format that will make it easier to search. In this case, the MyPyramid Food Raw Data file, which is an MS Excel spreadsheet, must be downloaded and transformed into a JSON file that will be easier to load and search at runtime (hint: take a look at the CSV file format).
-App powered by MyPiramid Food Display Table.
 
-margin-bottom: 8px;
+App powered by MyPiramid Food Display Table.
 
 A wildcard character is a special character that represents one or more other characters. The most commonly used wildcard characters are the asterisk (*), which typically represents zero or more characters in a string of characters, and the question mark (?), which typically represents any one character.
 ## Problems && Solutions

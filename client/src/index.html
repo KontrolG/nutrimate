@@ -8,14 +8,13 @@
   <title>&kappa;alco // Calorie Counter</title>
 </head>
 <body>
-  <header>
+  <header class="search__closed">
     <h2 class="header__title">&kappa;alco<!-- Los divs no estan del mismo width --></h2>
-    <form action="#" class="search__form">
-      <button type="reset" class="btn">X</button>
-      <input type="text" class="search__input" name="search__input" id="search__input" placeholder="Search food that you like...">
-      <button type="submit" class="btn search__btn">
-        &leftarrow;
+    <form action="/" class="search__form">
+      <button type="button" class="btn search__btn" title="Back">
       </button>
+      <input type="text" class="search__input" name="search__input" id="search__input" placeholder="Search food" required><!--  that you like... -->
+      <button type="reset" class="btn search__reset" title="Clear input">X</button>
     </form>
   </header>
   <nav>
@@ -33,7 +32,7 @@
     </ul>
   </nav>
   <main>
-    <section class="results">
+    <section class="results results__not__searched">
       <ul class="results__list">
         <!-- <li>
           <a href="#">
@@ -55,15 +54,15 @@
           </a>
         </li> -->
       </ul>
-      <figure class="results__placeholder">
+      <figure class="results__placeholder centered">
         <!-- <img src="img/eggs.jpg" alt="ASd"> -->
         &kappa;
         <figcaption>
           Search foods for your meal plan.
         </figcaption>
       </figure>
-      <button type="button" class="btn btn-rounded results__clear__btn">C</button>
-      <p class="loader results__loader">
+      <!-- <button type="button" class="btn btn-rounded results__clear__btn">C</button> -->
+      <p class="loader results__loader hidden centered">
         <strong>&hearts;</strong> Loading...
       </p>
     </section>

@@ -7,6 +7,12 @@ export const fixDecimals = (number, digits = 1) => number.toFixed(digits).replac
 
 export const removeHighlight = element => element.classList.remove("highlight");
 
+export const toggleCentered = (element, force = false) => element.classList.toggle("centered", force);
+
+export const hide = element => element.classList.add("hidden");
+
+export const show = element => element.classList.remove("hidden");
+
 export const elements = {
   header: $("header"),
   searchForm: $(".search__form"),
@@ -14,7 +20,6 @@ export const elements = {
   searchInput: $(".search__input"),
   resultsSection: $(".results"),
   resultsList: $(".results__list"),
-  resultsClearBtn: $(".results__clear__btn"),
   resultsLoader: $(".results__loader")
 }
 

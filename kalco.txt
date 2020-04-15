@@ -1,0 +1,10 @@
+[4/14 5:47 AM] German ACA: https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_branded_food_csv_2020-03-31.zip
+[4/14 5:47 AM] German ACA: https://fdc.nal.usda.gov/download-datasets.html
+[4/14 6:13 AM] German ACA: U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019.fdc.nal.usda.gov.
+[4/14 6:43 AM] German ACA: Kalco permite buscar los alimentos que consumes en tu dieta y te ofrece información nutricional sobre los mismos basandose en la [data] compartida por la USDA, para que puedas armar tu plan de dieta correctamente, tomando en consideración los carg
+Bohidratos, proteínas y sobre todo calorías.
+[4/14 6:44 AM] German ACA: En tu dieta -> diariamente
+[4/14 6:44 AM] German ACA: Ofreciéndote
+[4/14 6:53 AM] German ACA: Kalco te ofrece la información nutricional de los alimentos que consumes diariamente, ayudandote a mantener una dieta saludable tomando en cuenta los nutrientes que ingieres.
+[4/14 6:53 AM] German ACA: ... En tus comidas
+[4/14 6:53 AM] German ACA: Para el readme y overview del proyecto :v

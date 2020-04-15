@@ -30,20 +30,29 @@ export const renderResult = ({foodCode, displayName, calories, alcohol, addedSug
           </a>
         </li>`;
   
-  elements.resultsList.insertAdjacentHTML("afterBegin", markup);
+  elements.resultsList.insertAdjacentHTML("beforeEnd", markup);
 }
 
-export const addResultsFoundClass = () => elements.resultsSection.classList.add("results__found");
+export const addResultsNotSearchedClass = () =>
+         elements.resultsSection.classList.add("results__not__searched");
 
-export const removeResultsFoundClass = () => elements.resultsSection.classList.remove("results__found");
+export const removeResultsNotSearchedClass = () =>
+         elements.resultsSection.classList.remove("results__not__searched");
 
 export const clearResultsList = () => elements.resultsList.innerHTML = "";
-/* TOGGLE SEARCH 
+
+export const resetSearchForm = () => elements.searchForm.reset();
+
 export const searchIsClosed = () => elements.header.classList.contains("search__closed");
+
+export const focusSearchInput = () => elements.searchInput.focus();
+
+export const blurSearchInput = () => elements.searchInput.blur();
 
 export const openSearch = () => {
   elements.header.classList.remove("search__closed");
-  elements.searchInput.focus();
 }
 
-export const closeSearch = () => elements.header.classList.add("search__closed"); */
+export const closeSearch = () => elements.header.classList.add("search__closed");
+
+export const toggleSearchFilledClass = isFilled => elements.header.classList.toggle("search__filled", isFilled);

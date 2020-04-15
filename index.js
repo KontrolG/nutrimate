@@ -13,47 +13,21 @@ const server = http.createServer((request, response) => {
     switch (pathname.replace(/^\/api\//, "")) {
       case "search":
         // PARAMS: q: query, start, end o limit
-        const { q: searchQuery } = query;
-        const start = parseInt(query.start, 10) || 0;
-        const limit = parseInt(query.limit, 10) || 5;
-        const regExp = new RegExp(searchQuery, "gi");
-        const results = foodData
-          .filter(food => regExp.test(food.displayName))
-          .slice(start, start + limit)
-          .map(
-            ({
-              foodCode,
-              displayName,
-              portionDefault,
-              portionAmount,
-              portionDisplayName,
-              addedSugars,
-              alcohol,
-              solidFats,
-              saturatedFats,
-              calories
-            }) => ({
-              foodCode,
-              displayName,
-              portionDefault,
-              portionAmount,
-              portionDisplayName,
-              addedSugars,
-              alcohol,
-              solidFats,
-              saturatedFats,
-              calories
-            })
-          );
-        
-        response.end(
-          JSON.stringify(results)
-          /* `Buscando por query: ${JSON.stringify({
-            searchQuery,
-            start,
-            limit
-          })}\rResultados: ${JSON.stringify(results) || "Sin resultados"}` */
-        );
+        new Promise((resolve, reject) => {
+          const { q: searchQuery } = query;
+          const start = parseInt(query.start, 10) || 0;
+          const limit = parseInt(query.limit, 10) || 10;
+          const regExp = new RegExp(searchQuery, "gi");
+          const results = foodData
+            .filter(food => regExp.test(food.displayName))
+            .slice(start, start + limit);
+            resolve(results);
+        }).then(results => {
+          setTimeout(() => {
+            response.writeHead(200, { "Content-type": "application/json" });
+            response.end(JSON.stringify(results));
+          }, 1000);
+        });
         break;
       case "get":
         const { foodCode: foodCodeQuery } = query;

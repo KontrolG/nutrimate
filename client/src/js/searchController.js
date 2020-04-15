@@ -1,107 +1,94 @@
 import * as searchView from "./views/searchView";
 import Search from "./models/Search";
-import { elements, removeHighlight, debounce } from "./views/base";
+import { elements, toggleCentered, hide, show, debounce } from "./views/base";
 
 const state = {
   lastScroll: 0
 };
 
+const renderResults = results => {
+  results.forEach(searchView.renderResult);
+  toggleCentered(elements.resultsLoader);
+  hide(elements.resultsLoader);  
+}
+
 const searchResults = async query => {
   if (!state.search) state.search = new Search(query);
   return await state.search.fetchResults();
-}
-
-const renderResults = results => {
-  /* IF: no hay resultados */
-  results.forEach(searchView.renderResult);
-  searchView.addResultsFoundClass();
-}
+};
 
 const getResults = async query => {
+  searchView.removeResultsNotSearchedClass();
+  show(elements.resultsLoader);
   const newResults = await searchResults(query);
-  renderResults(newResults);
+  if (newResults.length) renderResults(newResults);
+  else alert("No results found");
 }
 
-const searchFormController = async e => {
+const clearResults = () => {
+  state.search = null;
+  searchView.clearResultsList();
+  searchView.addResultsNotSearchedClass();
+  toggleCentered(elements.resultsLoader, true);
+};
+
+const searchFormSubmitController = async e => {
   e.preventDefault();
   const query = searchView.getInput();
   if (!query) {
     alert("Maneja cuando la query esta vacia");
     return;
   }
+  searchView.blurSearchInput();
   if (state.search) clearResults();
   await getResults(query);
 }
 
-const clearResults = e => {
-  state.search = null;
+const deleteSearch = () => {
+  clearResults();
   searchView.clearInput();
-  searchView.clearResultsList();
-  searchView.removeResultsFoundClass();
+  searchView.toggleSearchFilledClass(false);
+  searchView.closeSearch();
+}
+
+const activeSearch = () => {
+  searchView.openSearch();
+  searchView.focusSearchInput();
+}
+
+const toggleSearch = e => {
+  searchView.searchIsClosed() ? activeSearch() : deleteSearch();
 };
 
-const getMoreResults = () => {
+const searchInputController = e => {
+  const isFilled = searchView.getInput() !== "";
+  searchView.toggleSearchFilledClass(isFilled);  
+};
 
+const searchFormResetController = e => {
+  searchView.focusSearchInput();
+  searchView.toggleSearchFilledClass(false);
 }
 
 const handleScroll = async e => {
-  const {scrollTop, offsetHeight} = e.target;
-  const scrollingToBottom = scrollTop > state.lastScroll; 
-  const loaderPosition = elements.resultsList.offsetHeight - offsetHeight;
-  if (scrollingToBottom && scrollTop >= loaderPosition) {
-    console.log(scrollingToBottom);
-    await getResults();    
+  const { scrollTop, offsetHeight } = e.target;
+  const scrollingToBottom = scrollTop > state.lastScroll;
+  const loaderBottomEdgePosition = (elements.resultsList.offsetHeight - offsetHeight) + elements.resultsLoader.offsetHeight;
+  if (scrollingToBottom && scrollTop >= loaderBottomEdgePosition) {
+    await getResults();
   }
   state.lastScroll = scrollTop;
-}
-
-window.state = state;
-getResults("A");
-
-
-elements.searchForm.addEventListener("submit", searchFormController);
-elements.resultsClearBtn.addEventListener("click", clearResults);
-elements.resultsSection.addEventListener("scroll", debounce(handleScroll));
-
-/* 
-function scrollController(e) {
-  const newPositionY = this.pageYOffset || this.scrollY;
-  const {y: paginationPositionY, height} = elements.pagination.getBoundingClientRect();
-  const direction = newPositionY > state.lastPositionY ? "down" : "up";
-  const elementReached = paginationPositionY + height < window.innerHeight;
-
-  if (direction === "down" && elementReached && !state.fetchingPosts) {
-    state.fetchingPosts = true;
-    toggleLoader();
-    setTimeout(loadMorePosts, 1000);
-  }
-  state.lastPositionY = newPositionY;
-}
-
-function debounce(func, wait = 20, immediate = true) {
-  var timeout;
-  return function() {
-    var context = this,
-      args = arguments;
-    var later = function() {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    var callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-}
-
-const debouncedFunction = debounce(scrollController, 20, false); */
-
-/* elements.searchInput.addEventListener("focus", hideLogo); */
-/* const toggleSearch = () => {
-  removeHighlight(elements.searchBtn);
-  searchView.searchIsClosed()
-    ? searchView.openSearch()
-    : searchView.closeSearch();
 };
 
-elements.searchBtn.addEventListener("click",toggleSearch); */
+window.state = state;
+
+elements.searchBtn.addEventListener("click", toggleSearch);
+elements.searchForm.addEventListener("submit", searchFormSubmitController);
+elements.searchForm.addEventListener("reset", searchFormResetController);
+elements.searchInput.addEventListener("input", searchInputController);
+elements.resultsSection.addEventListener("scroll", debounce(handleScroll, 50, false));
+
+/* 
+786559,"survey_fndds_food","Orange, raw","","2020-04-01"
+
+*/

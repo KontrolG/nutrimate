@@ -47,7 +47,7 @@ a {
   height: 1em;
 }
 
-.btn-rounded {
+.btn-circle {
   border-radius: 50%;
 }
 
@@ -56,6 +56,16 @@ a {
   border-radius: 15px;
   padding: 1rem;
   position: relative;
+}
+
+.centered {
+  position: relative;
+  top: 50%;
+  transform: translateY(-70%);
+}
+
+.hidden {
+  opacity: 0;
 }
 
 .highlight {
@@ -81,36 +91,60 @@ header {
   padding: 0.5rem 0.65rem;
   flex: 0 0 auto;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
 }
 
 .header__title {
   padding-left: 0.25rem;
   flex: 0.1 0 auto;
-  opacity: 1;
-  /* 
-  width: 60%;
   opacity: 0;
   width: 0;
-  display: none; */
+  display: none;
 }
 
 .search__form {
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  justify-content: center; */
   flex: 1 1 auto;
+  position: relative;
 }
 
 
 .search__input {
-  padding-right: 00.25em;
+  padding: 0 3em;
   max-width: 300px;
   border: none;
   outline: none;
   flex: 1 1 auto;
   font: inherit;
   text-decoration: none;
+  width: 100%;
+}
+
+.search__reset {
+  top: 0;
+  right: 0;
+}
+
+.search__reset {display: none;}
+.search__filled .search__reset {display: block;}
+
+.search__form .btn {
+  position: absolute;
+}
+
+.search__closed .search__btn {
+  position: static;
+}
+.search__btn {
+  outline: none;
+}
+
+.search__btn::before {
+  content: "<-";
+}
+.search__closed .search__btn::before {
+  content: "O";
 }
 
 /* TOGGLE SEARCH */
@@ -170,6 +204,7 @@ main > section {
   position: relative;
   padding: 0.85rem 0.75rem 0;
   height: 100%;
+  width: 100%;
   overflow: auto;
   background-color: rgb(245, 245, 245);
 }
@@ -178,13 +213,11 @@ main > section {
   color: #777;
   font-size: 1.25em;
   text-align: center;
-  position: relative;
-  top: 50%;
-  transform: translateY(-70%);
   padding: 0 0.25rem;
+  display: none;
 }
 
-.results__clear__btn {
+/* .results__clear__btn {
   position: fixed;
   top: 22rem;
   left: 15rem;
@@ -195,11 +228,13 @@ main > section {
   visibility: hidden;
 }
 
-.results__found .results__placeholder {display: none;}
-.results__found .results__clear__btn {visibility: visible;}
+.results__found .results__clear__btn {visibility: visible;} */
+.results__not__searched .results__placeholder {display: block;}
+.results__not__searched .results__loader {display: none;}
 
 .results__loader {
   text-align: center;
+  display: block;
 }
 
 .results__fig {
