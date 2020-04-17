@@ -3,6 +3,17 @@ export const $ = selector => {
   return elements.length > 1 ? elements : elements[0];
 }
 
+export const elements = {
+  header: $("header"),
+  searchForm: $(".search__form"),
+  searchBtn: $(".search__btn"),
+  searchInput: $(".search__input"),
+  resultsSection: $(".results"),
+  resultsList: $(".results__list"),
+  resultsLoader: $(".results__loader"),
+  foodSection: $(".food")
+};
+
 export const fixDecimals = (number, digits = 1) => number.toFixed(digits).replace(".", ",");
 
 export const removeHighlight = element => element.classList.remove("highlight");
@@ -12,16 +23,6 @@ export const toggleCentered = (element, force = false) => element.classList.togg
 export const hide = element => element.classList.add("hidden");
 
 export const show = element => element.classList.remove("hidden");
-
-export const elements = {
-  header: $("header"),
-  searchForm: $(".search__form"),
-  searchBtn: $(".search__btn"),
-  searchInput: $(".search__input"),
-  resultsSection: $(".results"),
-  resultsList: $(".results__list"),
-  resultsLoader: $(".results__loader")
-}
 
 export const debounce = (func, wait = 20, immediate = true) => {
   var timeout;

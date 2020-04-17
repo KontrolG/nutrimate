@@ -109,7 +109,6 @@ header {
   position: relative;
 }
 
-
 .search__input {
   padding: 0 3em;
   max-width: 300px;
@@ -190,12 +189,17 @@ nav {
 /* MAIN */
 main {
   flex: 1 0 auto;
-  height: 78vh;
+  height: 77vh;
+  width: 100vw;
   display: flex;
+  /* overflow-x: auto;
+  scroll-behavior: smooth; */
 }
 
 main > section {
-  max-width: 400px;
+  flex: 0 0 auto;
+  width: 100%;
+  transition: transform 0.5s;
 }
 
 /* RESULTS SECTION */
@@ -204,7 +208,7 @@ main > section {
   position: relative;
   padding: 0.85rem 0.75rem 0;
   height: 100%;
-  width: 100%;
+  max-width: 360px;
   overflow: auto;
   background-color: rgb(245, 245, 245);
 }
@@ -306,7 +310,8 @@ main > section {
 .food {
   height: 100%;
   overflow: hidden;
-  display: none;
+  max-width: 380px;
+  /* display: none; */
 }
 
 .food__fig img {
@@ -375,10 +380,10 @@ li.bar {
 
 /* DAILY ACTIVITY SECTION */
 .daily__activity {
-  display: none;
+  /* display: none; */
   background: #eee;
   padding: 0 0.75rem;
-  flex: 1;
+  max-width: 350px;
 }
 
 .daily__activity > * {margin: 1.25rem 0;}

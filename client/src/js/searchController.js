@@ -2,10 +2,6 @@ import * as searchView from "./views/searchView";
 import Search from "./models/Search";
 import { elements, toggleCentered, hide, show, debounce } from "./views/base";
 
-const state = {
-  lastScroll: 0
-};
-
 const renderResults = results => {
   results.forEach(searchView.renderResult);
   toggleCentered(elements.resultsLoader);
@@ -13,8 +9,8 @@ const renderResults = results => {
 }
 
 const searchResults = async query => {
-  if (!state.search) state.search = new Search(query);
-  return await state.search.fetchResults();
+  if (!globals.state.search) globals.state.search = new Search(query);
+  return await globals.state.search.fetchResults();
 };
 
 const getResults = async query => {
@@ -26,13 +22,13 @@ const getResults = async query => {
 }
 
 const clearResults = () => {
-  state.search = null;
+  globals.state.search = null;
   searchView.clearResultsList();
   searchView.addResultsNotSearchedClass();
   toggleCentered(elements.resultsLoader, true);
 };
 
-const searchFormSubmitController = async e => {
+const handleSubmit = async e => {
   e.preventDefault();
   const query = searchView.getInput();
   if (!query) {
@@ -40,7 +36,7 @@ const searchFormSubmitController = async e => {
     return;
   }
   searchView.blurSearchInput();
-  if (state.search) clearResults();
+  if (globals.state.search) clearResults();
   await getResults(query);
 }
 
@@ -60,35 +56,30 @@ const toggleSearch = e => {
   searchView.searchIsClosed() ? activeSearch() : deleteSearch();
 };
 
-const searchInputController = e => {
+const handleInput = e => {
   const isFilled = searchView.getInput() !== "";
   searchView.toggleSearchFilledClass(isFilled);  
 };
 
-const searchFormResetController = e => {
+const handleReset = e => {
   searchView.focusSearchInput();
   searchView.toggleSearchFilledClass(false);
 }
 
 const handleScroll = async e => {
   const { scrollTop, offsetHeight } = e.target;
-  const scrollingToBottom = scrollTop > state.lastScroll;
+  const scrollingToBottom = scrollTop > globals.state.lastScroll;
   const loaderBottomEdgePosition = (elements.resultsList.offsetHeight - offsetHeight) + elements.resultsLoader.offsetHeight;
   if (scrollingToBottom && scrollTop >= loaderBottomEdgePosition) {
     await getResults();
   }
-  state.lastScroll = scrollTop;
+  globals.state.lastScroll = scrollTop;
 };
 
-window.state = state;
+window.state = globals.state;
 
 elements.searchBtn.addEventListener("click", toggleSearch);
-elements.searchForm.addEventListener("submit", searchFormSubmitController);
-elements.searchForm.addEventListener("reset", searchFormResetController);
-elements.searchInput.addEventListener("input", searchInputController);
+elements.searchForm.addEventListener("submit", handleSubmit);
+elements.searchForm.addEventListener("reset", handleReset);
+elements.searchInput.addEventListener("input", handleInput);
 elements.resultsSection.addEventListener("scroll", debounce(handleScroll, 50, false));
-
-/* 
-786559,"survey_fndds_food","Orange, raw","","2020-04-01"
-
-*/

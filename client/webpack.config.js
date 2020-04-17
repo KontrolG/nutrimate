@@ -1,8 +1,13 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = {
-  entry: ["@babel/polyfill", "./src/js/searchController.js"],
+  entry: [
+    "@babel/polyfill",
+    "./src/js/searchController.js",
+    "./src/js/foodController.js"
+  ],
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "js/bundle.js"
@@ -24,6 +29,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: "./src/index.html"
+    }),
+    new webpack.ProvidePlugin({
+      globals: [path.resolve(path.join(__dirname, "src/js/globals"))]
     })
   ],
   module: {

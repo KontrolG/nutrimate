@@ -30,9 +30,8 @@ const server = http.createServer((request, response) => {
         });
         break;
       case "get":
-        const { foodCode: foodCodeQuery } = query;
         const result = foodData.find(
-          ({ foodCode }) => foodCode == foodCodeQuery
+          ({foodCode}) => foodCode == query.foodCode
         );
         response.end(JSON.stringify(result)
           /* `Buscando por id: ${foodCodeQuery}; ${JSON.stringify(result) ||
