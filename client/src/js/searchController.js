@@ -1,6 +1,7 @@
 import * as searchView from "./views/searchView";
 import Search from "./models/Search";
 import { elements, toggleCentered, hide, show, debounce } from "./views/base";
+import { changeSection } from "./views/navigationView";
 
 const renderResults = results => {
   results.forEach(searchView.renderResult);
@@ -30,6 +31,7 @@ const clearResults = () => {
 
 const handleSubmit = async e => {
   e.preventDefault();
+  changeSection("resultsSection");
   const query = searchView.getInput();
   if (!query) {
     alert("Maneja cuando la query esta vacia");
@@ -42,6 +44,7 @@ const handleSubmit = async e => {
 
 const deleteSearch = () => {
   clearResults();
+  changeSection("resultsSection");
   searchView.clearInput();
   searchView.toggleSearchFilledClass(false);
   searchView.closeSearch();
@@ -75,8 +78,6 @@ const handleScroll = async e => {
   }
   globals.state.lastScroll = scrollTop;
 };
-
-window.state = globals.state;
 
 elements.searchBtn.addEventListener("click", toggleSearch);
 elements.searchForm.addEventListener("submit", handleSubmit);

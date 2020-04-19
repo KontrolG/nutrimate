@@ -6,7 +6,9 @@ module.exports = {
   entry: [
     "@babel/polyfill",
     "./src/js/searchController.js",
-    "./src/js/foodController.js"
+    "./src/js/foodController.js",
+    "./src/js/dailyActivityController.js",
+    "./src/js/navigationController.js"
   ],
   output: {
     path: path.resolve(__dirname, "dist"),

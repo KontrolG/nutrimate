@@ -1,12 +1,12 @@
-import { elements } from "./base";
+import { elements, fixDecimals, $, elementsStrings } from "./base";
 
-export const renderFood = ({displayName}) => {
+export const renderFood = ({displayName, calories}) => {
   const markup = `
       <figure class="food__fig">
         <img src="img/test-food.jpg" alt="">
         <figcaption class="food__info rounded__box">
           <h3 class="food_name">
-            ${displayName} <span class="food_portion">200g</span>
+            ${displayName} <p class="food__calories calories"><strong>${fixDecimals(calories, 0)}</strong> kcal</p>
           </h3>
           <div class="food__balance">
             <h4 class="food__balance__title">Calories balance</h4>
@@ -46,3 +46,15 @@ export const renderFood = ({displayName}) => {
       </figure>`;
   elements.foodSection.insertAdjacentHTML("afterBegin", markup);
 }
+
+export const changeCaloriesBalanceValues = ({currentTotal, calories,remaining, caloriesGoal}) => {
+  const modulus = caloriesGoal / 100;
+  $(elementsStrings.balanceValuesNow).style.flexBasis = `${currentTotal /    modulus}%`;
+  $(elementsStrings.balanceValuesFood).style.flexBasis = `${calories /    modulus}%`;
+  $(elementsStrings.balanceValuesRemaining).style.flexBasis = `${remaining / modulus}%`;
+};
+
+export const clearFood = () => {
+  const element = $(elementsStrings.foodFigure);
+  if (element) element.parentNode.removeChild(element);
+};

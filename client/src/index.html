@@ -20,7 +20,7 @@
   <nav>
     <ul class="nav__list">
       <li>
-        <a href="#" data-translate-view="0">
+        <a href="#resultsSection" class="nav__active">
           <figure class="nav__item">
             <img src="img/eggs.JPG" alt="Search">
             <figcaption>
@@ -30,7 +30,7 @@
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="#foodSection">
           <figure class="nav__item">
             <img src="img/eggs.JPG" alt="Search">
             <figcaption>
@@ -40,7 +40,7 @@
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="#activitySection">
           <figure class="nav__item">
             <img src="img/eggs.JPG" alt="Search">
             <figcaption>
@@ -52,27 +52,8 @@
     </ul>
   </nav>
   <main>
-    <section class="results results__not__searched">
+    <section id="resultsSection" class="results results__not__searched">
       <ul class="results__list">
-        <!-- <li>
-          <a href="#">
-            <figure class="results__fig">
-              <img src="img/eggs.JPG" alt="XXX">
-              <figcaption class="results__info">
-                <h4 class="results__name">Latte Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur, sequi.</h4>
-                <p class="results__calories"><strong>174</strong> kcal</p>
-                <dl class="results__data__list">
-                  <dt>Carbs</dt>
-                  <dd><span>16</span> g</dd>
-                  <dt>Proteins</dt>
-                  <dd><span>2,5</span> g</dd>
-                  <dt>Fats</dt>
-                  <dd><span>3,1</span> g</dd>
-                </dl>
-              </figcaption>
-            </figure>
-          </a>
-        </li> -->
       </ul>
       <figure class="results__placeholder centered">
         <!-- <img src="img/eggs.jpg" alt="ASd"> -->
@@ -86,7 +67,19 @@
         <strong>&hearts;</strong> Loading...
       </p>
     </section>
-    <section class="food">
+    <section id="foodSection" class="food">
+      <div class="food__add__wrapper">
+        <div class="popup food__add__popup hidden">
+          <h4>Select a meal</h4>
+          <ol class="buttons-swapper food__add__swapper">
+            <li><button class="btn" data-meal-name="breakfast">Breakfast</button></li>
+            <li><button class="btn" data-meal-name="lunch">Lunch</button></li>
+            <li><button class="btn" data-meal-name="dinner">Dinner</button></li>
+            <li><button class="btn" data-meal-name="snack">Snack</button></li>
+          </ol>
+        </div>
+        <button class="btn btn-circle food__add__btn">+</button>
+      </div>
       <!-- <figure class="food__fig">
         <img src="img/test-food.jpg" alt="">
         <figcaption class="food__info rounded__box">
@@ -130,32 +123,57 @@
         </figcaption>
       </figure> -->
     </section>
-    <section class="daily__activity">
-      <form action="#" class="day__select__form">
-        <label for="day__input">Today</label>
-        <input type="date" class="day__input" name="day__input" id="day__input">
+    <section id="activitySection" class="daily__activity">
+      <form action="#" class="date__select__form">
+        <label for="date__input">Today</label>
+        <input type="date" class="date__input" name="date__input" id="date__input">
       </form>
       <div class="total__calories">
-        <p><strong>1234</strong></p>
-        <p>Total kcal</p>
+        <p><strong class="current__calories">0</strong>/<strong class="calories__goal">2000</strong></p>
+        <p class="meter__title">Calories</p>
       </div>
-      <ol class="meals__buttons">
-        <li><a href="">Breakfast</a></li>
-        <li><a href="">Lunch</a></li>
-        <li><a href="">Dinner</a></li>
-        <li><a href="">Snack</a></li>
+      <ol class="buttons-swapper meals__swapper">
+        <li><button class="btn meals__selected" data-meal-name="breakfast">Breakfast</button></li>
+        <li><button class="btn" data-meal-name="lunch">Lunch</button></li>
+        <li><button class="btn" data-meal-name="dinner">Dinner</button></li>
+        <li><button class="btn" data-meal-name="snack">Snack</button></li>
       </ol>
       <table class="foods__ate__list rounded__box">
-        <tbody>
+        <tbody class="tbody__breakfast tbody__active">
           <tr>
+            <td class="foods__ate__name" colspan="2">
+              <h4>Foods goes here</h4>
+            </td>
+          </tr>
+          <!-- <tr>
             <td class="foods__ate__name">
-              <h4>Coffe</h4>
+              <h4>Break</h4>
             </td>
             <td class="foods__ate__calories"><strong>140</strong> kcal</td>
-          </tr>
+          </tr> -->
+        </tbody>
+        <tbody class="tbody__lunch">
           <tr>
-            <td>Coffe</td>
-            <td>140kcal</td>
+            <td class="foods__ate__name">
+              <h4>No foods added</h4>
+            </td>
+            <td class="foods__ate__calories"></td>
+          </tr>
+        </tbody>
+        <tbody class="tbody__dinner">
+          <tr>
+            <td class="foods__ate__name">
+              <h4>No foods added</h4>
+            </td>
+            <td class="foods__ate__calories"></td>
+          </tr>
+        </tbody>
+        <tbody class="tbody__snack">
+          <tr>
+            <td class="foods__ate__name">
+              <h4>No foods added</h4>
+            </td>
+            <td class="foods__ate__calories"></td>
           </tr>
         </tbody>
       </table>

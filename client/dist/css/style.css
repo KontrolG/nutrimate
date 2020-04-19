@@ -34,6 +34,9 @@ a {
   text-decoration: none;
 }
 
+.calories {font-size: 0.75em;}
+.calories strong {font-size: 1.25em;}
+
 .btn {
   padding: 0.25rem 0.5rem;
   background: none;
@@ -49,6 +52,7 @@ a {
 
 .btn-circle {
   border-radius: 50%;
+  box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.4);
 }
 
 .rounded__box {
@@ -66,6 +70,7 @@ a {
 
 .hidden {
   opacity: 0;
+  visibility: hidden;
 }
 
 .highlight {
@@ -78,6 +83,59 @@ a {
     line-height: 0.5;
     font-size: 1.5em;
   }
+}
+
+.buttons-swapper {
+  background-color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  border-radius: 20px;
+  padding: 0.25rem;
+  align-items: center;
+  font-size: 0.75rem;
+  box-shadow: 0 5px 10px -1px rgba(221, 221, 221, 0.4);
+}
+
+.buttons-swapper > li {
+  flex: 1;
+  text-align: center;
+  margin: 0 -0.5rem;
+}
+
+.buttons-swapper > li:first-child {margin-left: 0;}
+.buttons-swapper > li:last-child {margin-right: 0;}
+
+.buttons-swapper > li button {
+  display: inline-block;
+  width: 100%;
+  padding: 0.20rem 0;
+  border-radius: 20px;
+}
+
+.buttons-swapper > li button:hover,
+.meals__selected {background-color: rgba(0, 0, 0, 0.2);}
+
+/* POPUP */
+.popup {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.popup > * {
+  position: relative;
+  z-index: 10;
+}
+
+.popup::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    display: block;
+    background: inherit;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    box-shadow: 4px 4px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
 .test,
@@ -165,6 +223,7 @@ nav {
   flex: 0 0 auto;
   position: relative;
   z-index: 9999;
+  color: #aaa;
 }
 
 .nav__list {
@@ -181,9 +240,10 @@ nav {
   width: 40px;
 }
 
-.nav__item__title {
-  margin-top: -0.5rem;
-  color: #aaa;
+.nav__item__title {margin-top: -0.5rem;}
+
+.nav__active {
+  color: green;
 }
 
 /* MAIN */
@@ -192,24 +252,23 @@ main {
   height: 77vh;
   width: 100vw;
   display: flex;
-  /* overflow-x: auto;
-  scroll-behavior: smooth; */
+  overflow-x: auto;
+  position: relative;
 }
 
 main > section {
   flex: 0 0 auto;
   width: 100%;
+  height: 100%;
+  overflow: auto;
   transition: transform 0.5s;
+  position: relative;
 }
 
 /* RESULTS SECTION */
 .results {
-  /* display: none; */
-  position: relative;
   padding: 0.85rem 0.75rem 0;
-  height: 100%;
   max-width: 360px;
-  overflow: auto;
   background-color: rgb(245, 245, 245);
 }
 
@@ -250,6 +309,8 @@ main > section {
   background-color: #fff;
 }
 
+.results__active {background: #fafaff;}
+
 .results__fig img {
   height: 50px;
   flex: 0 0 30%;
@@ -269,18 +330,11 @@ main > section {
   white-space: nowrap;
 }
 
-.results__calories,
-.foods__ate__calories {
-  font-size: 0.75em;
-}
-
 .results__calories {
   padding-bottom: 0.65em;
   border-bottom: 1px solid #ccc;
 }
 
-.results__calories strong,
-.foods__ate__calories strong {font-size: 1.25em;}
 
 .results__data__list {
   font-size: 0.75em;
@@ -308,10 +362,8 @@ main > section {
 
 /* FOOD DETAILS SECTION */
 .food {
-  height: 100%;
-  overflow: hidden;
   max-width: 380px;
-  /* display: none; */
+  position: static;
 }
 
 .food__fig img {
@@ -378,9 +430,39 @@ li.bar {
   background-color: #ddd;
 }
 
+.food__add__wrapper {
+  z-index: 9999;
+  position: absolute;
+  text-align: center;
+  /* background-image: linear-gradient(transparent, rgba(255, 255, 255, 0.6)); */
+  width: 100%;
+  max-width: 380px;
+  top: 100%;
+  transform: translateY(-100%);
+  left: 100%;
+  padding: 0 1rem;
+}
+
+.food__add__popup {padding: 0.5rem;}
+.food__add__popup::after {margin-top: 0.5rem;}
+
+.food__add__swapper {
+  box-shadow: 0 0 10px 0 rgba(221, 221, 221, 0.7);
+  background-color: #ddd;
+  margin: 0.5rem 0 0;
+}
+
+.food__add__btn {
+  background: rgb(235, 64, 64);
+  color: #fff;
+  font-size: 1.5em;
+  margin: 1.5rem 0 0.5rem;
+  width: 2.5em;
+  height: 2.5em;
+}
+
 /* DAILY ACTIVITY SECTION */
 .daily__activity {
-  /* display: none; */
   background: #eee;
   padding: 0 0.75rem;
   max-width: 350px;
@@ -388,14 +470,14 @@ li.bar {
 
 .daily__activity > * {margin: 1.25rem 0;}
 
-.day__select__form {
+.date__select__form {
   text-align: center;
 }
 
-.day__input {
+.date__input {
   border: none;
   background: none;
-  width: 1rem;
+  /* width: 1rem; */
 }
 
 .total__calories {
@@ -410,40 +492,19 @@ li.bar {
   align-items: center;
 }
 
-.meals__buttons {
-  background-color: rgba(255, 255, 255, 0.6);
-  display: flex;
-  border-radius: 20px;
-  padding: 0.25rem;
-  align-items: center;
-  font-size: 0.75rem;
-  box-shadow: 0 5px 10px -1px rgba(221, 221, 221, 0.4);
-}
-
-.meals__buttons > li {
-  flex: 1;
-  text-align: center;
-  margin: 0 -0.5rem;
-}
-
-.meals__buttons > li:first-child {margin-left: 0;}
-.meals__buttons > li:last-child {margin-right: 0;}
-
-.meals__buttons > li a {
-  display: inline-block;
-  width: 100%;
-  padding: 0.20rem 0;
-  border-radius: 20px;
-}
-
-.meals__buttons > li a:hover {background-color: #fff;}
-
 .foods__ate__list {
   padding: 0 1rem;
   width: 100%;
+  min-height: 50px;
   box-shadow: 0 5px 10px -1px rgba(221, 221, 221, 0.6);
   border-radius: 10px;
 }
+
+.foods__ate__list tbody {display: none;}
+.foods__ate__list tbody:empty {
+  display: block;
+}
+.foods__ate__list .tbody__active {display: unset;}
 
 .foods__ate__name {
   width: 60%;

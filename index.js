@@ -30,13 +30,12 @@ const server = http.createServer((request, response) => {
         });
         break;
       case "get":
-        const result = foodData.find(
-          ({foodCode}) => foodCode == query.foodCode
-        );
-        response.end(JSON.stringify(result)
-          /* `Buscando por id: ${foodCodeQuery}; ${JSON.stringify(result) ||
-            "ningun resultado"}` */
-        );
+        new Promise(resolve => setTimeout(() => {
+          const result = foodData.find(
+            ({ foodCode }) => foodCode == query.foodCode
+          );
+          resolve(result);
+        }, 1000)).then(result => response.end(JSON.stringify(result)));
         break;
       default:
         response.end(JSON.stringify(endpoint));
