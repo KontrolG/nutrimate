@@ -32,7 +32,7 @@ export const elementsStrings = {
          balanceValuesRemaining: ".values__remaining"
        };
 
-export const fixDecimals = (number, digits = 1) => number.toFixed(digits).replace(".", ",");
+export const fixDecimals = (number, digits = 1) => parseFloat(number).toFixed(digits).replace(".", ",");
 
 export const removeHighlight = element => element.classList.remove("highlight");
 

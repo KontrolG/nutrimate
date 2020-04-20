@@ -138,6 +138,36 @@ a {
     box-shadow: 4px 4px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
+
+.macros__data {
+  margin-top: 0.75em;
+  height: 3em;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.macros__data > * {
+  flex: 0 0 50%;
+}
+
+
+table {
+  padding: 0 1rem;
+  width: 100%;
+  min-height: 50px;
+}
+
+table tr td {
+  border-bottom: 1px solid #ddd;
+  padding: 0.75rem 0;
+}
+
+table tr:last-child td {border: none;}
+
+.nested__row td:first-child {
+  padding-left: 1.5em;
+}
+
 .test,
 .test > * {
   border: 1px solid #aaa;
@@ -335,30 +365,20 @@ main > section {
   border-bottom: 1px solid #ccc;
 }
 
-
-.results__data__list {
+.results__macros {
   font-size: 0.75em;
   margin-left: 0.15em;
-  margin-top: 0.75em;
-  display: flex;
-  flex-flow: column wrap;
-  height: 2.5rem;
   font-weight: bolder;
 }
 
-.results__data__list > * {
-  color: #888;
-  flex: 0 0 50%;
-}
+.results__macros > * {color: #888;}
 
-.results__data__list dt::after {
-  content: ":";
-}
-
-.results__data__list dd {
+.results__macros dd {
   color: unset;
   margin-top: -0.25em;
 }
+
+.results__macros dt::after {content: ":";}
 
 /* FOOD DETAILS SECTION */
 .food {
@@ -376,8 +396,94 @@ main > section {
 }
 
 .food__info > * {
-  padding: 1.25rem 0;
+  padding: 1rem 0;
   border-bottom: 1px solid #ddd;
+}
+
+.food__info > *:last-child {
+  border-bottom: none;
+  padding-bottom: 2.5rem;
+}
+
+.food__quantity {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.food__calories {
+  flex: 0 0 100%;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.food__quantity label {
+  font-size: 0.75em;
+}
+
+.field__wrapper {
+  flex: 0 0 auto;
+}
+
+.input__wrapper {
+  width: 30%;
+  margin-right: 1rem;
+}
+
+.select__wrapper {
+  margin-left: 1rem;
+  flex: 1 0 auto;
+}
+
+.form__control {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  background: none;
+  padding: 0.25em 0;
+  outline: none;
+}
+
+.form__control:focus,
+.form__control:hover {
+  border-bottom: 1px solid #555;
+}
+
+.multiply__sign {font-size: 1.5rem;}
+
+.food__macros {
+  flex: 1 0 100%;
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.85em;
+}
+
+.food__macros dd {
+  margin-top: -0.15em;
+  font-weight: bolder;
+}
+
+.food__macros > * {border-right: 1px solid #ddd}
+
+.food__macros > *:last-of-type {border-right: none}
+
+.food__nutrients {padding-top: 0}
+
+.food__nutrients caption {
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.food__nutrients tbody tr td {padding-top: 0}
+
+.food__nutrients__source {
+  text-align: center;
+  font-size: 0.75em;
+}
+
+.food__nutrients__source a {
+  color: #333;
+  text-decoration: underline;
 }
 
 .food__balance__values {
@@ -493,26 +599,17 @@ li.bar {
 }
 
 .foods__ate__list {
-  padding: 0 1rem;
-  width: 100%;
-  min-height: 50px;
   box-shadow: 0 5px 10px -1px rgba(221, 221, 221, 0.6);
+  background-color: #fff;
   border-radius: 10px;
 }
 
+.foods__ate__list tr td {padding: 0.75rem 0.15rem;}
+
+
 .foods__ate__list tbody {display: none;}
-.foods__ate__list tbody:empty {
-  display: block;
-}
 .foods__ate__list .tbody__active {display: unset;}
 
 .foods__ate__name {
   width: 60%;
 }
-
-.foods__ate__list tr td {
-  border-bottom: 1px solid #ddd;
-  padding: 0.75rem 0.15rem;
-}
-
-.foods__ate__list tr:last-child td {border: none;}

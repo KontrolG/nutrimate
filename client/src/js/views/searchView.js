@@ -8,25 +8,25 @@ export const getInput = () => elements.searchInput.value;
 
 export const clearInput = () => elements.searchInput.value = "";
 
-export const renderResult = ({foodCode, displayName, calories, alcohol, addedSugars, solidFats, saturatedFats}) => {
+export const renderResult = ({fdcId, description, nutrients}) => {
   const markup = `<li>
-          <a href="#${foodCode}" title="${displayName}">
+          <a href="#${fdcId}" title="${description}">
             <figure class="results__fig">
-              <img src="img/test-food.JPG" alt="${displayName}">
+              <img src="img/test-food.JPG" alt="${description}">
               <figcaption class="results__info">
-                <h4 class="results__name">${displayName}</h4>
+                <h4 class="results__name">${description}</h4>
                 <p class="results__calories calories"><strong>${fixDecimals(
-                  calories,
+                  nutrients["Energy"].amount,
                   0
                 )}</strong> kcal</p>
-                <dl class="results__data__list">
-                  <dt>Alcohol</dt>
-                  <dd><span>${fixDecimals(alcohol)}</span> g</dd>
-                  <dt>Sugars</dt>
-                  <dd><span>${fixDecimals(addedSugars)}</span> g</dd>
+                <dl class="results__macros macros__data">
+                  <dt>Carbs</dt>
+                  <dd><span>${fixDecimals(nutrients["Carbohydrate, by difference"].amount)}</span> g</dd>
+                  <dt>Protein</dt>
+                  <dd><span>${fixDecimals(nutrients["Protein"].amount)}</span> g</dd>
                   <dt>Fats</dt>
                   <dd><span>${fixDecimals(
-                    solidFats + saturatedFats
+                    nutrients["Total lipid (fat)"].amount
                   )}</span> g</dd>
                 </dl>
               </figcaption>

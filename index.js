@@ -2,8 +2,15 @@ const fs = require("fs");
 const http = require("http");
 const url = require("url");
 
-const dataJSON = fs.readFileSync(`${__dirname}/data/data.json`, "utf8");
-const foodData = JSON.parse(dataJSON);
+const getDataJSON = dataName => {
+  const dataJSON = fs.readFileSync(`${__dirname}/data/${dataName}Data.json`, "utf8");
+  return JSON.parse(dataJSON);
+}
+
+const foundationData = getDataJSON("foundation");
+const surveyData = getDataJSON("survey");
+const legacyData = getDataJSON("legacy");
+const foodData = foundationData.concat(surveyData, legacyData);
 
 const server = http.createServer((request, response) => {
   const endpoint = url.parse(request.url, true);
@@ -19,7 +26,7 @@ const server = http.createServer((request, response) => {
           const limit = parseInt(query.limit, 10) || 10;
           const regExp = new RegExp(searchQuery, "gi");
           const results = foodData
-            .filter(food => regExp.test(food.displayName))
+            .filter(food => regExp.test(food.description))
             .slice(start, start + limit);
             resolve(results);
         }).then(results => {
@@ -32,7 +39,7 @@ const server = http.createServer((request, response) => {
       case "get":
         new Promise(resolve => setTimeout(() => {
           const result = foodData.find(
-            ({ foodCode }) => foodCode == query.foodCode
+            ({ fdcId }) => fdcId == query.fdcId
           );
           resolve(result);
         }, 1000)).then(result => response.end(JSON.stringify(result)));
