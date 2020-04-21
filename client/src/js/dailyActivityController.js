@@ -35,6 +35,24 @@ const setupDailyActivity = date => {
 const loadDailyActivity = e => {
   const todayDate = new Date().toDateString();
   setupDailyActivity(todayDate);
+  activityView.updateActivitGraph({
+    data1: {
+      color: "rgb(106, 184, 255)",
+      percentage: 25
+    },
+    data2: {
+      color: "rgb(255, 181, 72)",
+      percentage: 25
+    },
+    data3: {
+      color: "rgb(255, 119, 226)",
+      percentage: 25
+    },
+    data4: {
+      color: "rgb(130, 106, 249)",
+      percentage: 25
+    }
+  });
 }
 
 const addFood = (food, mealName) => {

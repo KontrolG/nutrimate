@@ -68,18 +68,6 @@
       </p>
     </section>
     <section id="foodSection" class="food">
-      <div class="food__add__wrapper">
-        <div class="popup food__add__popup hidden">
-          <h4>Select a meal</h4>
-          <ol class="buttons-swapper food__add__swapper">
-            <li><button class="btn" data-meal-name="breakfast">Breakfast</button></li>
-            <li><button class="btn" data-meal-name="lunch">Lunch</button></li>
-            <li><button class="btn" data-meal-name="dinner">Dinner</button></li>
-            <li><button class="btn" data-meal-name="snack">Snack</button></li>
-          </ol>
-        </div>
-        <button class="btn btn-circle food__add__btn">+</button>
-      </div>
       <figure class="food__fig">
         <img src="img/test-food.jpg" alt="">
         <figcaption class="food__info rounded__box">
@@ -89,7 +77,8 @@
           <form class="food__quantity">
             <p class="food__calories calories"><strong>140</strong> kcal</p>
             <span class="field__wrapper input__wrapper">
-              <input type="number" class="quantity__input form__control" id="quantity__input" placeholder="Qty" min="0" value="1">
+              <input type="number" class="quantity__input form__control" id="quantity__input" placeholder="Qty" min="0"
+                value="1">
               <label for="quantity__input">Quantity</label>
             </span>
             <span class="multiply__sign">&Cross;</span>
@@ -137,7 +126,9 @@
             </ul>
           </div>
           <table class="food__nutrients">
-            <caption><h4>Nutrition Facts</h4></caption>
+            <caption>
+              <h4>Nutrition Facts</h4>
+            </caption>
             <!-- generate tbody with script -->
             <tbody>
               <tr data-nutrient="calories">
@@ -164,31 +155,57 @@
             <tfoot class="food__nutrients__source">
               <tr>
                 <td colspan="2">
-                  U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. <a href="fdc.nal.usda.gov">fdc.nal.usda.gov.</a>
+                  U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. <a
+                    href="fdc.nal.usda.gov">fdc.nal.usda.gov.</a>
                 </td>
               </tr>
             </tfoot>
           </table>
-          <!-- <dl>
-            <dt>Carbs</dt>
-            <dd><span>16</span> g</dd>
-            <dt>Proteins</dt>
-            <dd><span>2,5</span> g</dd>
-            <dt>Fats</dt>
-            <dd><span>3,1</span> g</dd>
-          </dl> -->
         </figcaption>
       </figure>
+      <div class="food__add__wrapper">
+        <div class="popup food__add__popup hidden">
+          <h4>Select a meal</h4>
+          <ol class="buttons-swapper food__add__swapper">
+            <li><button class="btn" data-meal-name="breakfast">Breakfast</button></li>
+            <li><button class="btn" data-meal-name="lunch">Lunch</button></li>
+            <li><button class="btn" data-meal-name="dinner">Dinner</button></li>
+            <li><button class="btn" data-meal-name="snack">Snack</button></li>
+          </ol>
+        </div>
+        <button class="btn btn-circle food__add__btn">+</button>
+      </div>
     </section>
     <section id="activitySection" class="daily__activity">
       <form action="#" class="date__select__form">
         <label for="date__input">Today</label>
         <input type="date" class="date__input" name="date__input" id="date__input">
       </form>
+      <canvas class="activity__graph"></canvas>
+      <ol class="graph__legend">
+        <li>
+          <span class="dot breakfast__dot"></span> Breakfast
+        </li>
+        <li>
+          <span class="dot lunch__dot"></span> Lunch
+        </li>
+        <li>
+          <span class="dot dinner__dot"></span> Dinner
+        </li>
+        <li>
+          <span class="dot snack__dot"></span> Snack
+        </li>
+      </ol>
       <div class="total__calories">
         <p><strong class="current__calories">0</strong>/<strong class="calories__goal">2000</strong></p>
         <p class="meter__title">Calories</p>
       </div>
+      <ul class="total__macros">
+        <li><span>Protein</span><strong>24g</strong></li>
+        <li><span>Carbs</span><strong>24g</strong></li>
+        <li><span>Fat</span><strong>24g</strong></li>
+        <li><span>Fiber</span><strong>24g</strong></li>
+      </ul>
       <ol class="buttons-swapper meals__swapper">
         <li><button class="btn meals__selected" data-meal-name="breakfast">Breakfast</button></li>
         <li><button class="btn" data-meal-name="lunch">Lunch</button></li>
@@ -199,9 +216,15 @@
         <tbody class="tbody__breakfast tbody__active">
           <tr>
             <td class="foods__ate__name" colspan="2">
+              <h4>Arepa pura</h4>
+            </td>
+            <td class="foods__ate__calories"><strong>0</strong> kcal</td>
+          </tr>
+          <!-- <tr>
+            <td class="foods__ate__name" colspan="2">
               <h4>Foods goes here</h4>
             </td>
-          </tr>
+          </tr> -->
           <!-- <tr>
             <td class="foods__ate__name">
               <h4>Break</h4>

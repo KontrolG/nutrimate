@@ -21,6 +21,7 @@ export const elements = {
          activityCaloriesGoal: $(".calories__goal"),
          activityMealsSwapperBtns: $(".meals__swapper li button"),
          dateInput: $(".date__input"),
+         activityGraph: $(".activity__graph"),
          activityFoodsList: $(".foods__ate__list tbody"),
          navigationList: $(".nav__list")
        };
@@ -33,6 +34,8 @@ export const elementsStrings = {
        };
 
 export const fixDecimals = (number, digits = 1) => parseFloat(number).toFixed(digits).replace(".", ",");
+
+export const degressToRadians = degrees => (Math.PI / 180) * degrees;
 
 export const removeHighlight = element => element.classList.remove("highlight");
 

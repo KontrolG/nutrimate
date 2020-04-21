@@ -71,6 +71,7 @@ a {
 .hidden {
   opacity: 0;
   visibility: hidden;
+  display: none;
 }
 
 .highlight {
@@ -112,9 +113,8 @@ a {
 }
 
 .buttons-swapper > li button:hover,
-.meals__selected {background-color: rgba(0, 0, 0, 0.2);}
+.meals__selected {background-color: rgba(0, 0, 0, 0.05);}
 
-/* POPUP */
 .popup {
   background-color: #fff;
   border-radius: 8px;
@@ -166,6 +166,16 @@ table tr:last-child td {border: none;}
 
 .nested__row td:first-child {
   padding-left: 1.5em;
+}
+
+.dot {
+  display: inline-block;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-top: -0.25em;
+  margin-right: 0.25em;
+  width: 0.75em;
+  height: 0.75em;
 }
 
 .test,
@@ -279,7 +289,7 @@ nav {
 /* MAIN */
 main {
   flex: 1 0 auto;
-  height: 77vh;
+  height: 77vh; /* 78.25vh */
   width: 100vw;
   display: flex;
   overflow-x: auto;
@@ -291,8 +301,7 @@ main > section {
   width: 100%;
   height: 100%;
   overflow: auto;
-  transition: transform 0.5s;
-  position: relative;
+  /* position: relative; */
 }
 
 /* RESULTS SECTION */
@@ -400,10 +409,7 @@ main > section {
   border-bottom: 1px solid #ddd;
 }
 
-.food__info > *:last-child {
-  border-bottom: none;
-  padding-bottom: 2.5rem;
-}
+.food__info > *:last-child {border-bottom: none;}
 
 .food__quantity {
   display: flex;
@@ -474,11 +480,12 @@ main > section {
   text-align: left;
 }
 
-.food__nutrients tbody tr td {padding-top: 0}
+.food__nutrients td:nth-of-type(2) {text-align: right;}
 
-.food__nutrients__source {
+.food__nutrients__source td {
   text-align: center;
   font-size: 0.75em;
+  padding-bottom: 2.5rem;
 }
 
 .food__nutrients__source a {
@@ -540,7 +547,7 @@ li.bar {
   z-index: 9999;
   position: absolute;
   text-align: center;
-  /* background-image: linear-gradient(transparent, rgba(255, 255, 255, 0.6)); */
+  display: none;
   width: 100%;
   max-width: 380px;
   top: 100%;
@@ -548,6 +555,8 @@ li.bar {
   left: 100%;
   padding: 0 1rem;
 }
+
+.food__fig + .food__add__wrapper {display: unset;}
 
 .food__add__popup {padding: 0.5rem;}
 .food__add__popup::after {margin-top: 0.5rem;}
@@ -567,14 +576,17 @@ li.bar {
   height: 2.5em;
 }
 
+.food__add__popup.hidden + .food__add__btn {margin-top: 0}
+
 /* DAILY ACTIVITY SECTION */
 .daily__activity {
   background: #eee;
   padding: 0 0.75rem;
   max-width: 350px;
+  position: relative;
 }
 
-.daily__activity > * {margin: 1.25rem 0;}
+.daily__activity > * {margin: 1rem 0;}
 
 .date__select__form {
   text-align: center;
@@ -583,19 +595,27 @@ li.bar {
 .date__input {
   border: none;
   background: none;
-  /* width: 1rem; */
+  width: 1rem;
+}
+
+.activity__graph {
+  width: 100%;
+  margin: 0;
 }
 
 .total__calories {
-  border: 0.5rem solid skyblue;
-  margin: 0 auto 3rem;
-  width: 7rem;
-  height: 7rem;
-  border-radius: 50%;
+  width: 100%;
+  height: 30vw;
+  max-height: 7rem;
+  margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%);
 }
 
 .foods__ate__list {
@@ -610,6 +630,40 @@ li.bar {
 .foods__ate__list tbody {display: none;}
 .foods__ate__list .tbody__active {display: unset;}
 
-.foods__ate__name {
-  width: 60%;
+.foods__ate__name {width: 70%;}
+
+.graph__legend {
+  display: flex;
+  font-size: 0.75em;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.breakfast__dot {background-color: rgb(106, 184, 255)}
+.lunch__dot {background-color: rgb(255, 181, 72)}
+.dinner__dot {background-color: rgb(255, 119, 226)}
+.snack__dot {background-color: rgb(130, 106, 249)}
+
+.total__macros {
+  display: flex;
+  font-size: 0.75rem;
+  margin: 1rem -0.5em;
+  flex-wrap: wrap;
+}
+
+.total__macros > li {
+  flex: 0 0 calc(50% - 1em);
+  background: #fff;
+  margin: 0.5em;
+  padding: 1em 1.5em;
+  border-radius: 4px;
+  box-shadow: 0 1px 6px -1px rgba(0, 0, 0, 0.2);
+}
+
+.total__macros > li span,
+.total__macros > li strong
+ {vertical-align: middle}
+.total__macros > li strong {
+  float: right;
+  font-size: 1.25em;
 }
