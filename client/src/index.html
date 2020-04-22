@@ -14,7 +14,7 @@
       <button type="button" class="btn search__btn" title="Back">
       </button>
       <input type="text" class="search__input" name="search__input" id="search__input" placeholder="Search food" required><!--  that you like... -->
-      <button type="reset" class="btn search__reset" title="Clear input">X</button>
+      <button type="reset" class="btn search__reset" title="Clear input">&Cross;</button>
     </form>
   </header>
   <nav>
@@ -68,101 +68,6 @@
       </p>
     </section>
     <section id="foodSection" class="food">
-      <figure class="food__fig">
-        <img src="img/test-food.jpg" alt="">
-        <figcaption class="food__info rounded__box">
-          <h3 class="food__name">
-            Pasta
-          </h3>
-          <form class="food__quantity">
-            <p class="food__calories calories"><strong>140</strong> kcal</p>
-            <span class="field__wrapper input__wrapper">
-              <input type="number" class="quantity__input form__control" id="quantity__input" placeholder="Qty" min="0"
-                value="1">
-              <label for="quantity__input">Quantity</label>
-            </span>
-            <span class="multiply__sign">&Cross;</span>
-            <span class="field__wrapper select__wrapper">
-              <select class="serving__select form__control">
-                <option>1 cup</option>
-              </select>
-              <label for="serving__select">Serving</label>
-            </span>
-            <dl class="food__macros macros__data">
-              <dt>Carbs</dt>
-              <dd><span>xx</span> g</dd>
-              <dt>Protein</dt>
-              <dd><span>xx</span> g</dd>
-              <dt>Fiber</dt>
-              <dd><span>xx</span> g</dd>
-              <dt>Fats</dt>
-              <dd><span>xx</span> g</dd>
-            </dl>
-          </form>
-          <div class="food__balance">
-            <h4 class="food__balance__title">Calories balance</h4>
-            <ul class="food__balance__values">
-              <li class="values__now">
-                <span class="progress"></span>
-              </li>
-              <li class="bar">
-                <p class="bar__title">
-                  now
-                </p>
-                <span class="bar__body"></span>
-              </li>
-              <li class="values__food">
-                <span class="progress"></span>
-              </li>
-              <li class="bar">
-                <p class="bar__title">
-                  remaining
-                </p>
-                <span class="bar__body"></span>
-              </li>
-              <li class="values__remaining">
-                <span class="progress"></span>
-              </li>
-            </ul>
-          </div>
-          <table class="food__nutrients">
-            <caption>
-              <h4>Nutrition Facts</h4>
-            </caption>
-            <!-- generate tbody with script -->
-            <tbody>
-              <tr data-nutrient="calories">
-                <td>Calories</td>
-                <td><span>136</span> kcal</td>
-              </tr>
-              <tr data-nutrient="totalFat">
-                <td>Total Fat</td>
-                <td>7 g</td>
-              </tr>
-              <tr class="nested__row">
-                <td>Saturated Fat</td>
-                <td>4 g</td>
-              </tr>
-              <tr class="nested__row">
-                <td>Trans Fat</td>
-                <td>3 g</td>
-              </tr>
-              <tr>
-                <td>Carbohydrates</td>
-                <td>3 g</td>
-              </tr>
-            </tbody>
-            <tfoot class="food__nutrients__source">
-              <tr>
-                <td colspan="2">
-                  U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. <a
-                    href="fdc.nal.usda.gov">fdc.nal.usda.gov.</a>
-                </td>
-              </tr>
-            </tfoot>
-          </table>
-        </figcaption>
-      </figure>
       <div class="food__add__wrapper">
         <div class="popup food__add__popup hidden">
           <h4>Select a meal</h4>

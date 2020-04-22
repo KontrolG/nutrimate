@@ -21,10 +21,10 @@ module.exports = function (plainCSV) {
   parsePropertiesNames(propertiesNames);
 
   return propertiesValues.map(row =>
-    row.reduce((food, propertyValue, columnIndex) => {
+    row.reduce((tuple, propertyValue, columnIndex) => {
       const propertyName = propertiesNames[columnIndex];
-      food[propertyName] = propertyValue;
-      return food;
+      tuple[propertyName] = propertyValue;
+      return tuple;
     }, {})
-  );
+  ).filter(tuple => Object.entries(tuple).length);
 }

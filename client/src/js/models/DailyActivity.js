@@ -67,6 +67,7 @@ export default class {
   }
 
   putActivity(activities) {
+    /* Usar segundo parametro del find */
     const itemIndex = activities.findIndex(activity => activity.date === this.date);
     if (itemIndex >= 0) activities[itemIndex] = this;
     else activities.push(this);

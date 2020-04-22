@@ -31,7 +31,7 @@ const server = http.createServer((request, response) => {
             resolve(results);
         }).then(results => {
           setTimeout(() => {
-            response.writeHead(200, { "Content-type": "application/json" });
+            response.writeHead(200, { "Content-Type": "application/json" });
             response.end(JSON.stringify(results));
           }, 1000);
         });
@@ -42,7 +42,12 @@ const server = http.createServer((request, response) => {
             ({ fdcId }) => fdcId == query.fdcId
           );
           resolve(result);
-        }, 1000)).then(result => response.end(JSON.stringify(result)));
+        }, 1000)).then(result => {
+          response.writeHead(200, {
+            "Content-Type": "application/json"
+          })
+          response.end(JSON.stringify(result));
+        });
         break;
       default:
         response.end(JSON.stringify(endpoint));

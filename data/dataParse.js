@@ -7,14 +7,21 @@ const parseCSV = path => {
   return csvParser(CSV);
 }
 // measure_unit.csv
-const measureUnits = parseCSV(`${__dirname}/supporting/measure_unit.csv`);
-const nutrients = parseCSV(`${__dirname}/supporting/nutrient.csv`);
+const measureUnits = parseCSV(`${__dirname}/USDA data/supporting/measure_unit.csv`);
+const nutrients = parseCSV(`${__dirname}/USDA data/supporting/nutrient.csv`)
+  .map(({ id, name, unitName, rank }) => ({
+    id,
+    name,
+    unitName,
+    rank: parseFloat(rank)
+  }));
 
 const parseDirectoryData = path => {
   const foods = parseCSV(`${path}/food.csv`);
+  foods.filter(food => !food);
   foods.forEach(food => {
     food.portions = [];
-    food.nutrients = {};
+    food.nutrients = [];
   });
 
   const foodsNutrient = parseCSV(`${path}/food_nutrient.csv`);
@@ -23,11 +30,11 @@ const parseDirectoryData = path => {
   foodsPortion.forEach(foodPortion => {
     const food = foods.find(food => food.fdcId === foodPortion.fdcId);
     if (food) {
-      const { portionDescription, amount, measureUnitId, gramWeight, modifier } = foodPortion;
+      const { portionDescription, amount, measureUnitId, gramWeight } = foodPortion;
       const { name } = measureUnits.find(
         measureUnit => measureUnit.id === measureUnitId
       );
-      food.portions.push({ name, portionDescription, amount, gramWeight });
+      food.portions.push({ name, portionDescription, amount: parseFloat(amount), gramWeight: parseFloat(gramWeight) });
     }
   });
 
@@ -38,7 +45,13 @@ const parseDirectoryData = path => {
       const { name, unitName, rank } = nutrients.find(
         nutrient => nutrient.id === nutrientId
       );
-      if (parseFloat(rank) < 5000) food.nutrients[name] = { amount, unitName };
+      if (rank < 9800 || name.includes("Fatty acids"))
+        food.nutrients.push({
+          name,
+          amount: parseFloat(amount),
+          unitName: unitName.toLowerCase(),
+          rank
+        });
     }
   });
 

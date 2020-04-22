@@ -2,13 +2,20 @@ import * as foodView from "./views/foodView";
 import Food from "./models/Food";
 import { changeSection } from "./views/navigationView";
 import { highlightSelected } from "./views/searchView";
-import { elements, toggleHideShow, hide } from "./views/base";
+import { elements, toggleHideShow, hide, elementsStrings } from "./views/base";
 
 const calculateBalanceValues = () => {
   const { currentTotal, caloriesGoal } = globals.state.dailyActivity.getFoodCaloriesBalance();
-  const { calories } = globals.state.food;
-  const remaining = caloriesGoal - (currentTotal + calories);
+  const { amount: calories } = globals.state.food.getNutrientByName("Energy");
+  let remaining = caloriesGoal - (currentTotal + calories);
+  if (remaining < 0) remaining = 0;
 
+  console.log({
+    currentTotal,
+    calories,
+    remaining,
+    caloriesGoal
+  });
   return {
     currentTotal, calories, remaining, caloriesGoal
   }
@@ -16,25 +23,25 @@ const calculateBalanceValues = () => {
 const changeBalanceValues = () => foodView.changeCaloriesBalanceValues(calculateBalanceValues());
 
 const fetchFoodController = async e => {
-  const foodCode = window.location.hash.replace("#", "");
-  if (foodCode) {
+  const foodDataCentralID = window.location.hash.replace("#", "");
+  if (foodDataCentralID) {
     // Prepare UI && Change view
     changeSection("foodSection");
-    highlightSelected(foodCode);
+    highlightSelected(foodDataCentralID);
     // Loader
     foodView.clearFood();
     
 
     // Get the data
-    globals.state.food = new Food(foodCode);
-    await globals.state.food.getDetails();
+    globals.state.food = new Food(foodDataCentralID);
+    await globals.state.food.fetchDetails();
 
     // Display the data
+    globals.state.food.updateNutrients();
     foodView.renderFood(globals.state.food);
 
     // Change balance
     changeBalanceValues();
-    console.log(calculateBalanceValues());
   }
 }
 
@@ -47,8 +54,33 @@ const handleFoodAddBtnBlur = e => {
   }
 }
 
+const updateFoodNutrients = () => {
+  globals.state.food.updateNutrients();
+  changeBalanceValues();
+  foodView.changeNutrientsAmounts(globals.state.food.nutrients);
+}
+
+const handleInput = e => {
+  const { target } = e;
+  if (target.matches(elementsStrings.quantityInput)) modifyQuantity();
+  else if (target.matches(elementsStrings.portionSelect)) modifyPortion();
+  else return;
+  updateFoodNutrients();
+}
+
+const modifyQuantity = () => {
+  const quantity = foodView.getQuantity();
+  globals.state.food.setQuantity(quantity);
+}
+
+const modifyPortion = () => {
+  const portionIndex = foodView.getPortionIndex();
+  globals.state.food.setSelectedPortionIndex(portionIndex);
+};
+
 window.state = globals.state;
 
 ["load", "hashchange"].forEach(type => window.addEventListener(type, fetchFoodController));
 elements.foodAddBtn.addEventListener("click", toggleAddPopup);
+elements.foodSection.addEventListener("input", handleInput);
 // window.addEventListener("click", handleFoodAddBtnBlur);

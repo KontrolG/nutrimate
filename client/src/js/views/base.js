@@ -30,8 +30,12 @@ export const elementsStrings = {
          foodFigure: ".food__fig",
          balanceValuesNow: ".values__now",
          balanceValuesFood: ".values__food",
-         balanceValuesRemaining: ".values__remaining"
+         balanceValuesRemaining: ".values__remaining",
+         quantityInput: ".quantity__input",
+         portionSelect: ".portion__select",
        };
+
+export const removeSelector = elementString => elementString.replace(/[\.|\#]/, "");
 
 export const fixDecimals = (number, digits = 1) => parseFloat(number).toFixed(digits).replace(".", ",");
 
