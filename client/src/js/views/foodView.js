@@ -21,7 +21,7 @@ const createNutritionFactRow = (nutrient) => `
 
 const createPortionOption = ({gramWeight, portionDescription, amount, name}, portionIndex) => `
   <option data-portion-index="${portionIndex}" value="${gramWeight}">
-    ${portionDescription} - ${gramWeight} g
+    ${portionDescription || (amount + " " + name)} - ${gramWeight} g
   </option>`; 
 
 const createFragmentOfElements = (elements, createFunction) =>

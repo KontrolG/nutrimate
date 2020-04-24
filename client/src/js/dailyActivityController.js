@@ -62,10 +62,10 @@ const addFood = (food, mealName) => {
 
 const handleAddFood = e => {
   const { mealName } = e.target.dataset;
-  const { displayName, calories } = globals.state.food;
+  const { food } = globals.state;
   const newFood = {
-    displayName,
-    calories
+    ...food,
+    ...food.getMacroNutrients()
   };
 
   addFood(newFood, mealName);

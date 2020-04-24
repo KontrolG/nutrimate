@@ -24,10 +24,10 @@ export const changeActivityFoodList = mealName => {
   changeActiveMealSelector(mealName);
 }
 
-export const addFood = ({displayName, calories}, mealName) => {
+export const addFood = ({description, calories}, mealName) => {
   const markup = `<tr>
                     <td class="foods__ate__name">
-                      <h4>${displayName}</h4>
+                      <h4>${description}</h4>
                     </td>
                     <td class="foods__ate__calories"><strong>${calories}</strong> kcal</td>
                   </tr>`;

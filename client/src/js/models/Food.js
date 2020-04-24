@@ -23,19 +23,23 @@ export default class {
     this.selectedPortionIndex = 0;
   }
 
-  getNutrientByName(nutrientName) {return this.nutrients.find(({name}) => name === nutrientName);}
+  getNutrientByName(nutrientName) {return this.nutrients.find(({name}) => name === nutrientName) || {amount: "n/a"};}
+
+  getNutrientByUnit(unitName) {return this.nutrients.find(nutrient => nutrient.unitName === unitName) || {amount: "n/a"};}
+
   getMacroNutrients() {
-    const calories = this.getNutrientByName("Energy");
-    const protein = this.getNutrientByName("Protein");
-    const fat = this.getNutrientByName("Total lipid (fat)");
-    const carbs = this.getNutrientByName("Carbohydrate, by difference");
-    const fiber = this.getNutrientByName("Fiber, total dietary");
-    return [calories, protein, fat, carbs, fiber];
+    const { amount: calories } = this.getNutrientByUnit("kcal");
+    const { amount: protein } = this.getNutrientByName("Protein");
+    const { amount: fat } = this.getNutrientByName("Total lipid (fat)");
+    const { amount: carbs } = this.getNutrientByName("Carbohydrate, by difference");
+    const { amount: fiber } = this.getNutrientByName("Fiber, total dietary");
+    return {calories, protein, fat, carbs, fiber};
   }
   
   getCurrentPortion() {return this.portions[this.selectedPortionIndex] || {gramWeight: 1};}
 
   setQuantity(quantity) {this.quantity = quantity}
+  
   setSelectedPortionIndex(selectedPortionIndex) {this.selectedPortionIndex = selectedPortionIndex}
 
   fixAmount(amount, decimals = 1) {return parseFloat(amount.toFixed(decimals));}

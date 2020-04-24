@@ -8,26 +8,21 @@ export const getInput = () => elements.searchInput.value;
 
 export const clearInput = () => elements.searchInput.value = "";
 
-export const renderResult = ({fdcId, description, nutrients}) => {
+export const renderResult = ({fdcId, description, portions, nutrients}) => {
   const markup = `<li>
           <a href="#${fdcId}" title="${description}">
             <figure class="results__fig">
               <img src="img/test-food.JPG" alt="${description}">
               <figcaption class="results__info">
                 <h4 class="results__name">${description}</h4>
-                <p class="results__calories calories"><strong>${fixDecimals(
-                  nutrients["Energy"].amount,
-                  0
-                )}</strong> kcal</p>
+                <p class="results__calories calories"><strong>${"calories"}</strong> kcal</p>
                 <dl class="results__macros macros__data">
                   <dt>Carbs</dt>
-                  <dd><span>${fixDecimals(nutrients["Carbohydrate, by difference"].amount)}</span> g</dd>
+                  <dd><span>${"carbs"}</span> g</dd>
                   <dt>Protein</dt>
-                  <dd><span>${fixDecimals(nutrients["Protein"].amount)}</span> g</dd>
+                  <dd><span>${"protein"}</span> g</dd>
                   <dt>Fats</dt>
-                  <dd><span>${fixDecimals(
-                    nutrients["Total lipid (fat)"].amount
-                  )}</span> g</dd>
+                  <dd><span>${"fats"}</span> g</dd>
                 </dl>
               </figcaption>
             </figure>
