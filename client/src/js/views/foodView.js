@@ -1,17 +1,5 @@
 import { elements, $, elementsStrings, removeSelector } from "./base";
 
-const newNutrientsNames = {
-  "Total lipid (fat)": "Fat",
-  "Carbohydrate, by difference": "Carbs",
-  "Fiber, total dietary": "Fiber"
-};
-
-const createNutrientAmount = ( {name, amount, unitName} ) => `<span class="nutrient__amount" data-nutrient-name="${name}">${amount}</span> ${unitName}`;
-
-const createMacroDefinition = (macro) => `
-  <dt>${newNutrientsNames[macro.name] || macro.name}</dt>
-  <dd>${createNutrientAmount(macro)}</dd>`;
-
 /* Nested row??? */
 const createNutritionFactRow = (nutrient) => `
   <tr>
@@ -23,9 +11,6 @@ const createPortionOption = ({gramWeight, portionDescription, amount, name}, por
   <option data-portion-index="${portionIndex}" value="${gramWeight}">
     ${portionDescription || (amount + " " + name)} - ${gramWeight} g
   </option>`; 
-
-const createFragmentOfElements = (elements, createFunction) =>
-  elements.map(createFunction).join("");
 
 const createFoodFigure = ({ description, portions, nutrients }) => {
   const [, calories, protein, fat, carbs, fiber] = nutrients;

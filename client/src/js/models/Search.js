@@ -5,11 +5,15 @@ export default class {
   }
 
   async fetchResults() {
-    console.log(this.results.length);
-    const response = await fetch(`/api/search?q=${this.query}&start=${this.results.length}`);
-    const results = await response.json();
-    this.results.push(...results);
-    console.log(results);
-    return results;
+    try {
+      const response = await fetch(
+        `/api/search?q=${this.query}&start=${this.results.length}`
+      );
+      const responseResults = await response.json();
+      this.results.push(...responseResults);
+      return responseResults;
+    } catch (error) {
+      alert("There is an connection error!");
+    }
   }
 }

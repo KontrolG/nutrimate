@@ -3,73 +3,30 @@ import Search from "./models/Search";
 import { elements, toggleCentered, hide, show, debounce } from "./views/base";
 import { changeSection } from "./views/navigationView";
 
-const renderResults = results => {
-  results.forEach(searchView.renderResult);
-  toggleCentered(elements.resultsLoader);
-  hide(elements.resultsLoader);  
-}
+/* Formulario */
 
-const searchResults = async query => {
-  if (!globals.state.search) globals.state.search = new Search(query);
-  return await globals.state.search.fetchResults();
-};
-
-const getResults = async query => {
-  searchView.removeResultsNotSearchedClass();
-  show(elements.resultsLoader);
-  const newResults = await searchResults(query);
-  if (newResults.length) renderResults(newResults);
-  else alert("No results found");
-}
-
-const clearResults = () => {
-  globals.state.search = null;
-  searchView.clearResultsList();
-  searchView.addResultsNotSearchedClass();
-  toggleCentered(elements.resultsLoader, true);
-};
-
-const handleSubmit = async e => {
-  e.preventDefault();
-  changeSection("resultsSection");
-  const query = searchView.getInput();
-  if (!query) {
-    alert("Maneja cuando la query esta vacia");
-    return;
-  }
-  searchView.blurSearchInput();
-  if (globals.state.search) clearResults();
-  await getResults(query);
-}
-
-const deleteSearch = () => {
-  clearResults();
-  changeSection("resultsSection");
-  searchView.clearInput();
-  searchView.toggleSearchFilledClass(false);
-  searchView.closeSearch();
-}
+/* DELEGAR CARGA A LA VISTA, ESTAS FUNCIONES TIENEN POCO QUE VER CON OTRAS PARTES (CONTROLADOR, MODEL) */
 
 const activeSearch = () => {
   searchView.openSearch();
   searchView.focusSearchInput();
 }
 
-const toggleSearch = e => {
+const toggleSearch = event => {
   searchView.searchIsClosed() ? activeSearch() : deleteSearch();
 };
 
-const handleInput = e => {
+const handleInput = event => {
   const isFilled = searchView.getInput() !== "";
   searchView.toggleSearchFilledClass(isFilled);  
 };
 
-const handleReset = e => {
+const handleReset = event => {
   searchView.focusSearchInput();
   searchView.toggleSearchFilledClass(false);
 }
 
-const handleScroll = async e => {
+const handleScroll = async event => {
   const { scrollTop, offsetHeight } = e.target;
   const scrollingToBottom = scrollTop > globals.state.lastScroll;
   const loaderBottomEdgePosition = (elements.resultsList.offsetHeight - offsetHeight) + elements.resultsLoader.offsetHeight;
@@ -80,7 +37,7 @@ const handleScroll = async e => {
 };
 
 elements.searchBtn.addEventListener("click", toggleSearch);
-elements.searchForm.addEventListener("submit", handleSubmit);
-elements.searchForm.addEventListener("reset", handleReset);
 elements.searchInput.addEventListener("input", handleInput);
+elements.searchForm.addEventListener("reset", handleReset);
+/* elements.searchForm.addEventListener("submit", handleSubmit); */
 elements.resultsSection.addEventListener("scroll", debounce(handleScroll, 50, false));

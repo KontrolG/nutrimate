@@ -16,7 +16,7 @@ export default class {
       .map(({ name, amount, unitName }) => ({
         name,
         amountPerGram: amount / 100,
-        amount: this.fixAmount(amount),
+        amount: amount,
         unitName
       }));
     this.quantity = 1;
@@ -36,13 +36,12 @@ export default class {
     return {calories, protein, fat, carbs, fiber};
   }
   
+  // En javascript los accesors son por dot o bracket notation. Esto es redundante.
   getCurrentPortion() {return this.portions[this.selectedPortionIndex] || {gramWeight: 1};}
 
   setQuantity(quantity) {this.quantity = quantity}
   
   setSelectedPortionIndex(selectedPortionIndex) {this.selectedPortionIndex = selectedPortionIndex}
-
-  fixAmount(amount, decimals = 1) {return parseFloat(amount.toFixed(decimals));}
 
   updateNutrients() {
     const { nutrients, quantity } = this;
@@ -50,7 +49,7 @@ export default class {
     const totalGrams = gramWeight * quantity;
     nutrients.forEach(
       nutrient =>
-        (nutrient.amount = this.fixAmount(nutrient.amountPerGram * totalGrams))
+        nutrient.amount = nutrient.amountPerGram * totalGrams
     );
   }
 }
