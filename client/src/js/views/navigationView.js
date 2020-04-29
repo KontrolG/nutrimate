@@ -1,16 +1,16 @@
 import { elements, $ } from "./base";
 
-export const changeSection = sectionName => {
-  scrollToLeft(sectionName);
+export const changeCurrentSectionTo = sectionName => {
+  scrollTo(sectionName);
   changeNavigationItem(sectionName);
 }
 
-const scrollToLeft = targetElementName => {
+const scrollTo = targetElementName => {
   const { offsetLeft } = elements[targetElementName];
-  smoothScrollLeft(offsetLeft);
+  smoothScroll(offsetLeft);
 };
 
-const smoothScrollLeft = end => {
+const smoothScroll = end => {
   const { main } = elements;
   let start = main.scrollLeft;
   const directionSign = Math.sign(end - start);

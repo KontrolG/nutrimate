@@ -20,7 +20,7 @@ module.exports = {
        - Numeros decimales. -> Done
        - Limit de 0. -> usa valor por default (10).
       */
-      const searchPattern = sanetizePattern(query.q || "");
+      const searchPattern = sanetizePattern(query.q) || "";
       const start = getPositiveInteger(query.start) || 0;
       const limit = getPositiveInteger(query.limit) || 10;
 
@@ -29,7 +29,7 @@ module.exports = {
         start,
         limit
       );
-
+        // enviar resolve por parametro para llamarlo.
       setTimeout(() => {
         sendDataInJSON(response, results);
         resolve();

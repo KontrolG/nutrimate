@@ -20,6 +20,7 @@ const server = http.createServer((request, response) => {
     try {
       apiRoutes[requestedEndpoint](request, response, query, foodData);
     } catch (error) {
+      console.log(error);
     // Error humano: Escribir mal el endpoint.
       pageNotFoundError(response);
     }

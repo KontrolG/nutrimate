@@ -1,7 +1,7 @@
 import { elements } from "./views/base";
 import DailyActivity from "./models/DailyActivity";
 import * as activityView from "./views/dailyActivityView";
-import { changeSection } from "./views/navigationView";
+import { changeCurrentSectionTo } from "./views/navigationView";
 
 const updateTotalCalories = () => {
   const {
@@ -71,7 +71,7 @@ const handleAddFood = e => {
   addFood(newFood, mealName);
   updateTotalCalories();
   activityView.changeActivityFoodList(mealName);
-  changeSection("activitySection");
+  changeCurrentSectionTo("activitySection");
 };
 
 const toggleMealsList = e => {

@@ -1,6 +1,6 @@
 import * as foodView from "./views/foodView";
 import Food from "./models/Food";
-import { changeSection } from "./views/navigationView";
+import { changeCurrentSectionTo } from "./views/navigationView";
 import { highlightSelected } from "./views/searchView";
 import { elements, toggleHideShow, hide, elementsStrings } from "./views/base";
 
@@ -26,7 +26,7 @@ const fetchFoodController = async e => {
   const foodDataCentralID = window.location.hash.replace("#", "");
   if (foodDataCentralID) {
     // Prepare UI && Change view
-    changeSection("foodSection");
+    changeCurrentSectionTo("foodSection");
     highlightSelected(foodDataCentralID);
     // Loader
     foodView.clearFood();

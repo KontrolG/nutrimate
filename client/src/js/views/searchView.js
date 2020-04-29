@@ -1,8 +1,33 @@
-import { elements } from "./base";
+import { elements, toggleCentered, hide, show } from "./base";
 import { createFragmentOfElements, createNutrientAmount, createMacroDefinition } from "./components";
 
-export const getInput = () => elements.searchInput.value;
-export const clearInput = () => elements.searchInput.value = "";
+export const clearResults = () => {
+  elements.resultsList.innerHTML = "";
+  showResultsPlaceholder();
+  toggleCentered(elements.resultsLoader, true);
+};
+
+export const prepareForSearch = () => {
+  hideResultsPlaceholder();
+  show(elements.resultsLoader);
+};
+
+const showResultsPlaceholder = () =>
+  elements.resultsSection.classList.add("results__not__searched");
+
+const hideResultsPlaceholder = () =>
+  elements.resultsSection.classList.remove("results__not__searched");
+
+export const displayResults = results => {
+  renderResults(results)
+  toggleCentered(elements.resultsLoader);
+  hide(elements.resultsLoader);
+};
+
+export const renderResults = results => {
+  const markup = createFragmentOfElements(results, createResultItem);
+  elements.resultsList.insertAdjacentHTML("beforeEnd", markup);
+};
 
 const createResultItem = result => {
   const { fdcId, description, calories, protein, carbohydrate, fat } = result;
@@ -25,37 +50,6 @@ const createResultItem = result => {
             </figure>
           </a>
         </li>`;
-}
-
-export const renderResult = result => {
-  const markup = createResultItem(result);  
-  elements.resultsList.insertAdjacentHTML("beforeEnd", markup);
-}
-
-export const addResultsNotSearchedClass = () =>
-  elements.resultsSection.classList.add("results__not__searched");
-
-export const removeResultsNotSearchedClass = () =>
-  elements.resultsSection.classList.remove("results__not__searched");
-
-export const clearResultsList = () => (elements.resultsList.innerHTML = "");
-
-export const resetSearchForm = () => elements.searchForm.reset();
-
-export const searchIsClosed = () =>
-  elements.header.classList.contains("search__closed");
-
-export const focusSearchInput = () => elements.searchInput.focus();
-
-export const blurSearchInput = () => elements.searchInput.blur();
-
-export const openSearch = () =>
-  elements.header.classList.remove("search__closed");
-
-export const closeSearch = () =>
-  elements.header.classList.add("search__closed");
-
-export const toggleSearchFilledClass = isFilled =>
-  elements.header.classList.toggle("search__filled", isFilled);
+};
 
 export const highlightSelected = () => {};

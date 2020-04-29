@@ -1,19 +1,30 @@
-export default class {
-  constructor(query) {
-    this.query = query;
+import DataApi from "./DataApi";
+
+export default class extends DataApi {
+  constructor(searchQuery) {
+    super("search");
+    this.searchQuery = searchQuery;
     this.results = [];
   }
 
   async fetchResults() {
     try {
-      const response = await fetch(
-        `/api/search?q=${this.query}&start=${this.results.length}`
-      );
-      const responseResults = await response.json();
-      this.results.push(...responseResults);
-      return responseResults;
+      return await this.getReponseResults();
     } catch (error) {
-      alert("There is an connection error!");
+      this.connectionError(error);
     }
+  }
+
+  async getReponseResults() {
+    const { searchQuery, results } = this;
+    const parameters = { q: searchQuery, start: results.length };
+    const responseResults = await this.fetchData(parameters);
+    results.push(...responseResults);
+    return responseResults;
+  }
+
+  connectionError(error) {
+    console.log(error);
+    alert("There is an connection error!");
   }
 }

@@ -12,7 +12,8 @@ A wildcard character is a special character that represents one or more other ch
 ## Problems && Solutions
 1. Parse the data from the U.S. Department of Agriculture MyPyramid Food Raw Data, which it is an MS Excel file.
 - First, the file was saved in CSV (Comma separated vector), then loaded as a plain text in a string and splitted into an array. The array was mapped into objects and saved in a JSON.
+- La data fue procesada para normalizarla lo mas posible.
 2. Configurar devServer para acceder desde la red wifi. 
 - host: "0.0.0.0";
 3. Configurar servidores (node y devServer) para poder hacer peticiones a la API.
-- Proxiando la url del servidor en Node.
+- Proxiando la url del servidor en Node. El proxy permite realizar peticiones a otro puerto del mismo dominio, apuntando al puerto desde donde se realiza la petición.

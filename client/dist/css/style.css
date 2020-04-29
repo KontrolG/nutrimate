@@ -181,6 +181,21 @@ table tr:last-child td {border: none;}
   height: 0.75em;
 }
 
+.form__control {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  background: none;
+  padding: 0.25em 0;
+  outline: none;
+  /* font: inherit; */
+}
+
+.form__control:focus,
+.form__control:hover {
+  border-bottom: 1px solid #555;
+}
+
 .test,
 .test > * {
   border: 1px solid #aaa;
@@ -213,12 +228,14 @@ header {
 .search__input {
   padding: 0 3em;
   max-width: 300px;
-  border: none;
-  outline: none;
   flex: 1 1 auto;
   font: inherit;
-  text-decoration: none;
   width: 100%;
+}
+
+.search__filled .search__input:invalid {
+  background-color: rgb(255, 198, 198);
+  border-bottom-color: rgb(255, 154, 154);
 }
 
 .search__reset {
@@ -444,20 +461,6 @@ main > section {
   width: 50%; /* Accesibility */
   width: min-content;
   flex: 1 0 auto;
-}
-
-.form__control {
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #ddd;
-  background: none;
-  padding: 0.25em 0;
-  outline: none;
-}
-
-.form__control:focus,
-.form__control:hover {
-  border-bottom: 1px solid #555;
 }
 
 .multiply__sign {font-size: 1.5rem;}
