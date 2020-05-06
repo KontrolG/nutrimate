@@ -2,24 +2,27 @@ import { protocol, hostname, port, pathname } from "../apiConfiguration";
 
 export default class {
   constructor(endpoint) {
-    this.url = new URL(
+    const url = new URL(
       `${protocol}://${hostname}:${port}/${pathname}/${endpoint}`
     );
+    
+    // Estudiar...
+    this.getUrlWithSearchParams = parameters => {
+      Object.entries(parameters).forEach(this.setSearchParam, url);
+      return url.href;
+    };
   }
 
   async fetchData(parameters) {
     const requestUrl = this.getUrlWithSearchParams(parameters);
     console.log(requestUrl);
     const response = await fetch(requestUrl);
-    return await response.json();
-  }
-
-  getUrlWithSearchParams(parameters) {
-    Object.entries(parameters).forEach(this.setSearchParam, this);
-    return this.url;
+    const data = await response.json();
+    return data;
   }
 
   setSearchParam([name, value]) {
-    this.url.searchParams.set(name, value);
+    const url = this; // this modified by Array.prototype.forEach method.
+    url.searchParams.set(name, value);
   }
 }

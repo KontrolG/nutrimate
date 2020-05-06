@@ -1,4 +1,4 @@
-import { elements, toggleCentered, hide, show } from "./base";
+import { elements, $, toggleCentered, hide, show } from "./base";
 import { createFragmentOfElements, createNutrientAmount, createMacroDefinition } from "./components";
 
 export const clearResults = () => {
@@ -52,4 +52,21 @@ const createResultItem = result => {
         </li>`;
 };
 
-export const highlightSelected = () => {};
+export const highlightSelected = foodDataCentralID => {
+  removeSelected();
+  activeSelected(foodDataCentralID);
+};
+
+const removeSelected = () => {
+  const selectedElement = $(".results__active");
+  if (selectedElement) {
+    selectedElement.classList.remove("results__active");
+  }
+};
+
+const activeSelected = foodDataCentralID => {
+  const resultElement = elements.resultsList.querySelector(
+    `a[href*="#${foodDataCentralID}"] .results__fig`
+  );
+  if (resultElement) resultElement.classList.add("results__active");
+};

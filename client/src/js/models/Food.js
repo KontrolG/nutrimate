@@ -1,55 +1,92 @@
-export default class {
+import DataApi from './DataApi';
+
+export default class extends DataApi {
   constructor(foodDataCentralID) {
+    super("get");
     this.fdcId = foodDataCentralID;
   }
 
   async fetchDetails() {
-    const response = await fetch(`/api/get?fdcId=${this.fdcId}`);
-    const data = await response.json();
-    /* for (const key in data) {
-      if (data.hasOwnProperty(key)) this[key] = data[key];
-    } */
+    const { fdcId } = this;
+    const data = await this.fetchData({fdcId});
+    this.setDetails(data);
+  }
+
+  setDetails(data) {
+    /* data.nutrients = data.nutrients
+      .sort(this.byRank)
+      .map(this.calculateAmountPerGram);
+    const macroNutrients = this.getMacroNutrients(); */
     this.description = data.description;
     this.portions = data.portions;
-    this.nutrients = data.nutrients
-      .sort((previous, next) => previous.rank - next.rank)
-      .map(({ name, amount, unitName }) => ({
-        name,
-        amountPerGram: amount / 100,
-        amount: amount,
-        unitName
-      }));
+    this.nutrients = data.nutrients.sort(this.byRank)
+      .map(this.calculateAmountPerGram);
+    this.setMacroNutrients();
     this.quantity = 1;
     this.selectedPortionIndex = 0;
   }
 
-  getNutrientByName(nutrientName) {return this.nutrients.find(({name}) => name === nutrientName) || {amount: "n/a"};}
+  byRank(previous, next) {
+    return (previous.rank - next.rank);
+  }
 
-  getNutrientByUnit(unitName) {return this.nutrients.find(nutrient => nutrient.unitName === unitName) || {amount: "n/a"};}
+  calculateAmountPerGram(nutrient) {
+    const { name, amount, unitName } = nutrient;
+    return {
+      name,
+      amountPerGram: amount / 100,
+      amount,
+      unitName
+    };
+  }
 
+  setMacroNutrients() {
+    const macroNutrients = this.getMacroNutrients();
+    Object.assign(this, macroNutrients);
+  }
+
+  /* Seria complicado al pasarlo al dailyActivity, comprobar luego.
+  Considerado mala practica por Google.
+  get calories() {this.findNutrientBy("unitName", "kcal");}
+  get protein() {this.findNutrientBy("name", "Protein");}
+  get carbohydrate() {this.findNutrientBy("name", "Carbohydrate");}
+  get fat() {this.findNutrientBy("name", "Total lipid");}
+  get fiber() {this.findNutrientBy("name", "Fiber");} */
+   
   getMacroNutrients() {
-    const { amount: calories } = this.getNutrientByUnit("kcal");
-    const { amount: protein } = this.getNutrientByName("Protein");
-    const { amount: fat } = this.getNutrientByName("Total lipid (fat)");
-    const { amount: carbs } = this.getNutrientByName("Carbohydrate, by difference");
-    const { amount: fiber } = this.getNutrientByName("Fiber, total dietary");
-    return {calories, protein, fat, carbs, fiber};
+    const calories = this.findNutrientBy("unitName", "kcal");
+    const protein = this.findNutrientBy("name", "Protein");
+    const carbohydrate = this.findNutrientBy("name", "Carbohydrate");
+    const fat = this.findNutrientBy("name", "Total lipid");
+    const fiber = this.findNutrientBy("name", "Fiber");
+    return {calories, protein, carbohydrate, fat, fiber};
+  }
+
+  findNutrientBy(key, value) {
+    const regularExpression = new RegExp(value, "gi");
+    return (
+      this.nutrients.find(nutrient =>
+        regularExpression.test(nutrient[key])
+      ) || {
+        amount: 0,
+        unitName: null
+      });
   }
   
-  // En javascript los accesors son por dot o bracket notation. Esto es redundante.
-  getCurrentPortion() {return this.portions[this.selectedPortionIndex] || {gramWeight: 1};}
+  /* get currentPortion() {
+    return this.portions[this.selectedPortionIndex] || { gramWeight: 1 };
+  } */
 
-  setQuantity(quantity) {this.quantity = quantity}
-  
-  setSelectedPortionIndex(selectedPortionIndex) {this.selectedPortionIndex = selectedPortionIndex}
+  getCurrentPortion() {
+    return this.portions[this.selectedPortionIndex] || { gramWeight: 1 };
+  }
 
   updateNutrients() {
     const { nutrients, quantity } = this;
     const { gramWeight } = this.getCurrentPortion();
     const totalGrams = gramWeight * quantity;
-    nutrients.forEach(
-      nutrient =>
-        nutrient.amount = nutrient.amountPerGram * totalGrams
+    nutrients.forEach(nutrient =>
+      nutrient.amount = nutrient.amountPerGram * totalGrams
     );
   }
 }

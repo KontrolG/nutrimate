@@ -368,7 +368,10 @@ main > section {
   background-color: #fff;
 }
 
-.results__active {background: #fafaff;}
+.results__active {
+  background: #fafaff;
+  transform: scale(1.01);
+}
 
 .results__fig img {
   height: 50px;

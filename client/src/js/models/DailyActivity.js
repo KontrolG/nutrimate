@@ -18,6 +18,31 @@ export default class {
     this.saveChanges();
   }
 
+  getFoodCaloriesBalance({calories}) {
+    const { currentTotal, caloriesGoal } = this.getCaloriesAmount();
+    const caloriesAmount = calories.amount;
+    // Values
+    const newTotal = currentTotal + caloriesAmount;
+    let remaining = caloriesGoal - newTotal;
+    if (remaining < 0) remaining = 0;
+    // Percentages 
+    const modulus = caloriesGoal / 100;
+    return {
+      now: (currentTotal / modulus),
+      food: (caloriesAmount / modulus),
+      remaining: (remaining / modulus)
+    };
+  }
+
+  getCaloriesAmount() {
+    const currentTotal = this.getCurrentCaloriesCount();
+    const { caloriesGoal } = this;
+    return {
+      currentTotal,
+      caloriesGoal
+    }
+  }
+
   getCurrentCaloriesCount() {
     let currentTotal = 0;
     for (const meal in this.meals) {
@@ -27,15 +52,6 @@ export default class {
       }
     }
     return currentTotal;
-  }
-
-  getFoodCaloriesBalance() {
-    const currentTotal = this.getCurrentCaloriesCount();
-    const { caloriesGoal } = this;
-    return {
-      currentTotal,
-      caloriesGoal
-    };
   }
 
   getFoodsAddedCount() {

@@ -1,19 +1,13 @@
-import { elements, $, elementsStrings, removeSelector } from "./base";
+import { elements, $, elementsStrings, removeSelector, fixDecimals } from "./base";
+import { createNutrientAmount, createFragmentOfElements, createMacroDefinition } from "./components";
 
-/* Nested row??? */
-const createNutritionFactRow = (nutrient) => `
-  <tr>
-    <td>${nutrient.name}</td>
-    <td>${createNutrientAmount(nutrient)}</td>
-  </tr>`;
+export const renderFood = food => {
+  const markup = createFoodFigure(food);
+  elements.foodSection.insertAdjacentHTML("afterBegin", markup);
+};
 
-const createPortionOption = ({gramWeight, portionDescription, amount, name}, portionIndex) => `
-  <option data-portion-index="${portionIndex}" value="${gramWeight}">
-    ${portionDescription || (amount + " " + name)} - ${gramWeight} g
-  </option>`; 
-
-const createFoodFigure = ({ description, portions, nutrients }) => {
-  const [, calories, protein, fat, carbs, fiber] = nutrients;
+const createFoodFigure = food => {
+  const { description, calories, protein, carbohydrate, fat, fiber, portions, nutrients } = food;
   return `
     <figure class="${removeSelector(elementsStrings.foodFigure)}">
       <img src="img/test-food.jpg" alt="${description}">
@@ -44,7 +38,7 @@ const createFoodFigure = ({ description, portions, nutrients }) => {
           </span>
           <dl class="food__macros macros__data">
               ${createFragmentOfElements(
-                [protein, carbs, fat, fiber],
+                [protein, carbohydrate, fat, fiber],
                 createMacroDefinition
               )}
           </dl>
@@ -52,7 +46,7 @@ const createFoodFigure = ({ description, portions, nutrients }) => {
           <div class="food__balance">
             <h4 class="food__balance__title">Calories balance</h4>
             <ul class="food__balance__values">
-              <li class="${removeSelector(elementsStrings.balanceValuesNow)}">
+              <li class="${removeSelector(elementsStrings.balanceValues.now)}">
                 <span class="progress"></span>
               </li>
               <li class="bar">
@@ -61,7 +55,7 @@ const createFoodFigure = ({ description, portions, nutrients }) => {
                 </p>
                 <span class="bar__body"></span>
               </li>
-              <li class="${removeSelector(elementsStrings.balanceValuesFood)}">
+              <li class="${removeSelector(elementsStrings.balanceValues.food)}">
                 <span class="progress"></span>
               </li>
               <li class="bar">
@@ -71,7 +65,7 @@ const createFoodFigure = ({ description, portions, nutrients }) => {
                 <span class="bar__body"></span>
               </li>
               <li class="${removeSelector(
-                elementsStrings.balanceValuesRemaining
+                elementsStrings.balanceValues.remaining
               )}">
                 <span class="progress"></span>
               </li>
@@ -82,16 +76,13 @@ const createFoodFigure = ({ description, portions, nutrients }) => {
               <h4>Nutrition Facts</h4>
             </caption>
             <tbody>
-              ${createFragmentOfElements(
-                nutrients,
-                createNutritionFactRow
-              )}
+              ${createFragmentOfElements(nutrients, createNutritionFactRow)}
             </tbody>
             <tfoot class="food__nutrients__source">
               <tr>
                 <td colspan="2">
-                  U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. <a
-                    href="http://fdc.nal.usda.gov" >fdc.nal.usda.gov.</a>
+                  U.S. Department of Agriculture, Agricultural Research Service. <a
+                    href="http://fdc.nal.usda.gov" title="FoodData Central Homepage">FoodData Central</a>, 2019.
                 </td>
               </tr>
             </tfoot>
@@ -99,16 +90,28 @@ const createFoodFigure = ({ description, portions, nutrients }) => {
         </figcaption>
       </figure>`;
 };
-export const renderFood = (food) => {
-         const markup = createFoodFigure(food);
-         elements.foodSection.insertAdjacentHTML("afterBegin", markup);
-       };
 
-export const changeCaloriesBalanceValues = ({currentTotal, calories,remaining, caloriesGoal}) => {
-  const modulus = caloriesGoal / 100;
-  $(elementsStrings.balanceValuesNow).style.flexBasis = `${currentTotal /    modulus}%`;
-  $(elementsStrings.balanceValuesFood).style.flexBasis = `${calories /    modulus}%`;
-  $(elementsStrings.balanceValuesRemaining).style.flexBasis = `${remaining / modulus}%`;
+/* Nested row??? */
+const createNutritionFactRow = nutrient => `
+  <tr>
+    <td>${nutrient.name}</td>
+    <td>${createNutrientAmount(nutrient)}</td>
+  </tr>`;
+
+const createPortionOption = ({gramWeight, portionDescription, amount, name}, portionIndex) => `
+  <option data-portion-index="${portionIndex}" value="${gramWeight}">
+    ${portionDescription || (amount + " " + name)} - ${gramWeight} g
+  </option>`;
+
+export const changeCaloriesBalanceValues = balanceValues => {
+  Object.entries(balanceValues)
+        .forEach(changePercentage);
+};
+
+const changePercentage = ([elementName, percentage]) => {
+  const elementSelector = elementsStrings.balanceValues[elementName];
+  const balanceValueElement = $(elementSelector);
+  balanceValueElement.style.flexBasis = `${percentage}%`;
 };
 
 export const clearFood = () => {
@@ -119,16 +122,21 @@ export const clearFood = () => {
 export const getQuantity = () => $(elementsStrings.quantityInput).value;
 
 export const getPortionIndex = () => {
-  const selectedOption = $(elementsStrings.portionSelect).selectedOptions[0];
+  const portionSelect = $(elementsStrings.portionSelect);
+  const { selectedIndex } = portionSelect;
+  const selectedOption = portionSelect.options[selectedIndex];
   return selectedOption.dataset.portionIndex;
 };
 
-export const changeNutrientsAmounts = nutrients => {
-  nutrients.forEach(({name, amount}) => {
-    let amountElements = $(`${elementsStrings.foodFigure} .nutrient__amount[data-nutrient-name="${name}"]`
-    );
-    if (!amountElements.length) amountElements = [amountElements];
+export const changeNutrients = nutrients => {
+  nutrients.forEach(changeAmount);
+};
 
-    [...amountElements].forEach(element => (element.textContent = amount));
-  })
+const changeAmount = ({ name, amount }) => {
+  const selector = `${elementsStrings.foodFigure} .nutrient__amount[data-nutrient-name="${name}"]`;
+  const amountElements = document.querySelectorAll(selector);
+  const fixedAmount = fixDecimals(amount);
+  Array.from(amountElements).forEach(
+    element => (element.textContent = fixedAmount)
+  );
 };

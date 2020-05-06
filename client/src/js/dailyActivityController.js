@@ -7,7 +7,9 @@ const updateTotalCalories = () => {
   const {
     currentTotal,
     caloriesGoal
-  } = globals.state.dailyActivity.getFoodCaloriesBalance();
+  } = globals.state.dailyActivity.getCaloriesAmount();
+  
+  // una sola funcion!
   activityView.updateCurrentCalories(currentTotal);
   activityView.updateCaloriesGoal(caloriesGoal);
 }

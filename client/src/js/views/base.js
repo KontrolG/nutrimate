@@ -28,13 +28,14 @@ export const elements = {
 
 export const elementsStrings = {
   foodFigure: ".food__fig",
-  balanceValuesNow: ".values__now",
-  balanceValuesFood: ".values__food",
-  balanceValuesRemaining: ".values__remaining",
+  balanceValues: {
+    now: ".values__now",
+    food: ".values__food",
+    remaining: ".values__remaining"
+  },
   quantityInput: ".quantity__input",
   portionSelect: ".portion__select",
 };
-
 // export const renderElementIn = (element, position, createFunction, ) =>
 
 export const removeSelector = elementString =>

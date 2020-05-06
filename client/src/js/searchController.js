@@ -50,7 +50,7 @@ const loadResults = async searchQuery => {
 };
 
 const getResults = async searchQuery => {
-  // ¿IF REDUNDANTE? QUE PASA SI YA HAY UNA BUSQUEDA?
+  // ¿IF REDUNDANTE? QUE PASA SI YA HAY UNA BUSQUEDA? <- para cargar mas resultados.
   if (!globals.state.search) 
     globals.state.search = new Search(searchQuery);
   return await globals.state.search.fetchResults();
