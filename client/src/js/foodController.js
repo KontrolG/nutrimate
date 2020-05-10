@@ -2,7 +2,7 @@ import * as foodView from "./views/foodView";
 import Food from "./models/Food";
 import { changeCurrentSectionTo } from "./views/navigationView";
 import { highlightSelected } from "./views/searchView";
-import { elements, toggleHideShow, hide, elementsStrings } from "./views/base";
+import { elements } from "./views/base";
 
 const handleFoodRequest = event => {
   const foodDataCentralID = window.location.hash.replace("#", "");
@@ -44,8 +44,8 @@ const changeBalanceValues = () => {
 // Renombrar
 const modifyFood = event => {
   const { target } = event;
-  if (target.matches(elementsStrings.quantityInput)) modifyQuantity();
-  else if (target.matches(elementsStrings.portionSelect)) modifyPortion();
+  if (foodView.isQuantityInput(target)) modifyQuantity();
+  else if (foodView.isPortionSelect(target)) modifyPortion();
   else return;
   updateFoodNutrients();
 };
@@ -67,8 +67,6 @@ const updateFoodNutrients = () => {
   foodView.changeNutrients(food.nutrients);
 };
 
-const toggleAddPopup = event => toggleHideShow(elements.foodAddPopup);
-
 /* Por implementar 
 const handleFoodAddBtnBlur = e => {
   console.log(e.target.matches());
@@ -83,6 +81,6 @@ window.state = globals.state;
   window.addEventListener(type, handleFoodRequest));
 
 elements.foodSection.addEventListener("input", modifyFood);
-elements.foodAddBtn.addEventListener("click", toggleAddPopup);
+elements.foodAddBtn.addEventListener("click", foodView.toggleAddPopup);
 
 // window.addEventListener("click", handleFoodAddBtnBlur);

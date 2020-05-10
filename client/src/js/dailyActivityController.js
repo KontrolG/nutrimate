@@ -3,99 +3,93 @@ import DailyActivity from "./models/DailyActivity";
 import * as activityView from "./views/dailyActivityView";
 import { changeCurrentSectionTo } from "./views/navigationView";
 
-const updateTotalCalories = () => {
-  const {
-    currentTotal,
-    caloriesGoal
-  } = globals.state.dailyActivity.getCaloriesAmount();
-  
-  // una sola funcion!
-  activityView.updateCurrentCalories(currentTotal);
-  activityView.updateCaloriesGoal(caloriesGoal);
-}
-
-const renderFoodsAteList = () => {
-  const { meals } = globals.state.dailyActivity;
-  activityView.clearLists();
-  for (const meal in meals) {
-    if (meals.hasOwnProperty(meal)) meals[meal].forEach(food => activityView.addFood(food, meal));
-  }
-}
-
-const retrieveActivity = () => {
-  const { dailyActivity } = globals.state;
-  dailyActivity.retrieveActivity();
-  if (!dailyActivity.isEmpty()) renderFoodsAteList();
-}
+const loadDailyActivity = event => {
+  const todayDate = new Date().toDateString();
+  setupDailyActivity(todayDate);
+};
 
 const setupDailyActivity = date => {
   globals.state.dailyActivity = new DailyActivity(date);
-  retrieveActivity();
+  displayActivityMeals();
+  updateCaloriesMeter();
+};
+
+const displayActivityMeals = () => {
+  const { dailyActivity } = globals.state;
+  dailyActivity.retrieveActivity();
+  if (!dailyActivity.isEmpty()) renderFoodsAte();
+};
+
+const renderFoodsAte = () => {
+  const { meals } = globals.state.dailyActivity;
+  activityView.clearMeals();
+  Object.entries(meals).forEach(renderMealFoods);
+};
+
+const renderMealFoods = ([meal, foods]) => {
+  foods.forEach(food => activityView.renderFood(food, meal));
+}
+
+const updateCaloriesMeter = () => {
   updateTotalCalories();
+  updateActivityGraph();
 }
 
-const loadDailyActivity = e => {
-  const todayDate = new Date().toDateString();
-  setupDailyActivity(todayDate);
-  activityView.updateActivitGraph({
-    data1: {
-      color: "rgb(106, 184, 255)",
-      percentage: 25
-    },
-    data2: {
-      color: "rgb(255, 181, 72)",
-      percentage: 25
-    },
-    data3: {
-      color: "rgb(255, 119, 226)",
-      percentage: 25
-    },
-    data4: {
-      color: "rgb(130, 106, 249)",
-      percentage: 25
-    }
-  });
+const updateTotalCalories = () => {
+  const caloriesAmount = globals.state.dailyActivity.getCaloriesAmount();
+  activityView.updateTotalCalories(caloriesAmount);
+};
+
+const updateActivityGraph = () => {
+  const mealsPercentages = globals.state.dailyActivity.getPercentagesPerMeals();
+  const graphValues = getGraphValuesFromMealsPercentages(mealsPercentages);
+  activityView.updateActivityGraph(graphValues);
 }
 
-const addFood = (food, mealName) => {
-  globals.state.dailyActivity.addFood(food, mealName);
-  activityView.addFood(food, mealName);
-}
+const getGraphValuesFromMealsPercentages = mealsPercentages => {
+  const pastelColors = {
+    blue: "rgb(106, 184, 255)", // blue
+    orange: "rgb(255, 181, 72)", // orange
+    pink: "rgb(255, 119, 226)", // pink
+    purple: "rgb(130, 106, 249)" // purple
+  };
 
+  const pastelColorsValues = Object.values(pastelColors);
+  const initialGraphValues = {};
+  const toGraphValues = (graphValues, [meal, percentage], index) => {
+    const color = pastelColorsValues[index];
+    graphValues[meal] = { color, percentage };
+    return graphValues;
+  };
+
+  return Object.entries(mealsPercentages).reduce(
+    toGraphValues,
+    initialGraphValues
+  );
+};
+
+/* ADD FOOD */
 const handleAddFood = e => {
   const { mealName } = e.target.dataset;
   const { food } = globals.state;
-  const newFood = {
-    ...food,
-    ...food.getMacroNutrients()
-  };
-
-  addFood(newFood, mealName);
-  updateTotalCalories();
+  addFood(food, mealName);
+  updateCaloriesMeter();
   activityView.changeActivityFoodList(mealName);
-  changeCurrentSectionTo("activitySection");
+  changeCurrentSectionTo("activitySection"); 
 };
 
-const toggleMealsList = e => {
-  const { mealName } = e.target.dataset;
-  activityView.changeActivityFoodList(mealName);
+const addFood = (food, mealName) => {
+  globals.state.dailyActivity.addFood(food, mealName);
+  activityView.renderFood(food, mealName);
 };
-
-const getActivityDate = inputDate => {
-  const date = new Date(inputDate);
-  date.setHours(24);
-  return date.toDateString();
-}
-
-const changeDailyActivity = e => {
-  const inputDate = e.target.value;
-  const activityDate = getActivityDate(inputDate);
-  setupDailyActivity(activityDate);
-}
 
 window.addEventListener("load", loadDailyActivity);
-elements.dateInput.addEventListener("change", changeDailyActivity);
+
 elements.foodAddSwapper.addEventListener("click", handleAddFood);
+
+/* elements.dateInput.addEventListener("change", changeDailyActivity);
+
+
 [...elements.activityMealsSwapperBtns].forEach(button =>
   button.addEventListener("click", toggleMealsList)
-);
+); */

@@ -637,17 +637,17 @@ li.bar {
   transform: translate(-50%);
 }
 
-.foods__ate__list {
+.foods__ate {
   box-shadow: 0 5px 10px -1px rgba(221, 221, 221, 0.6);
   background-color: #fff;
   border-radius: 10px;
 }
 
-.foods__ate__list tr td {padding: 0.75rem 0.15rem;}
+.foods__ate tr td {padding: 0.75rem 0.15rem;}
 
 
-.foods__ate__list tbody {display: none;}
-.foods__ate__list .tbody__active {display: unset;}
+.foods__ate tbody {display: none;}
+.foods__ate .meal__active {display: unset;}
 
 .foods__ate__name {width: 70%;}
 

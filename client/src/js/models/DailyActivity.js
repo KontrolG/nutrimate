@@ -1,7 +1,10 @@
-export default class {
+import Storage from "./Storage";
+
+export default class extends Storage {
   constructor(date, caloriesGoal = 2000) {
+    super("activities");
     this.date = date;
-    this.currentID = 0;
+    this.foodCurrentId = 0;
     this.caloriesGoal = caloriesGoal;
     this.meals = {
       "breakfast": [],
@@ -11,16 +14,10 @@ export default class {
     }
   }
 
-  addFood(food, mealName) {
-    food.id = this.currentID;
-    this.currentID++;
-    this.meals[mealName].push(food);
-    this.saveChanges();
-  }
-
-  getFoodCaloriesBalance({calories}) {
+  getFoodCaloriesBalance(food) {
+    const caloriesAmount = food.calories.amount;
+    // REDUNDANTE????????? ESTUDIAR
     const { currentTotal, caloriesGoal } = this.getCaloriesAmount();
-    const caloriesAmount = calories.amount;
     // Values
     const newTotal = currentTotal + caloriesAmount;
     let remaining = caloriesGoal - newTotal;
@@ -35,7 +32,7 @@ export default class {
   }
 
   getCaloriesAmount() {
-    const currentTotal = this.getCurrentCaloriesCount();
+    const currentTotal = this.getCurrentCaloriesTotal();
     const { caloriesGoal } = this;
     return {
       currentTotal,
@@ -43,55 +40,98 @@ export default class {
     }
   }
 
-  getCurrentCaloriesCount() {
-    let currentTotal = 0;
-    for (const meal in this.meals) {
-      if (this.meals.hasOwnProperty(meal)) {
-        const mealTotal = this.meals[meal].reduce((total, {calories}) => total + calories, 0);
-        currentTotal += mealTotal;
-      }
-    }
-    return currentTotal;
+  getCurrentCaloriesTotal() {
+    const caloriesPerMeal = this.getCaloriesPerMeal();
+    const initialTotal = 0;
+    const toCaloriesTotal = (caloriesTotal, mealCalories) =>
+      (caloriesTotal += mealCalories);
+    return Object.values(caloriesPerMeal).reduce(toCaloriesTotal, initialTotal)
+  }
+
+  getCaloriesPerMeal() {
+    const initialCaloriesPerMeal = {};
+    const initialMealCalories = 0;
+
+    const toMealCalories = (mealCalories, food) =>
+      (mealCalories += food.calories.amount);
+
+    const toCaloriesPerMeal = (caloriesPerMeal, [meal, foods]) => {
+      const mealCalories = foods.reduce(toMealCalories, initialMealCalories);
+      caloriesPerMeal[meal] = mealCalories;
+      return caloriesPerMeal;
+    };
+
+    return Object.entries(this.meals).reduce(
+      toCaloriesPerMeal,
+      initialCaloriesPerMeal
+    );
   }
 
   getFoodsAddedCount() {
-    let foodsCount = 0;
-    for (const meal in this.meals) {
-      if (this.meals.hasOwnProperty(meal)) foodsCount += this.meals[meal].length;
+    const initialCount = 0;
+    const toFoodsCount = (count, mealFoods) => (count += mealFoods.length);
+    return Object.values(this.meals).reduce(toFoodsCount, initialCount);
+  }
+
+  getPercentagesPerMeals() {
+    const caloriesPerMeal = this.getCaloriesPerMeal();
+    const { currentTotal, caloriesGoal } = this.getCaloriesAmount();
+    const initialPercentagesPerMeal = {};
+    const percentageDivider =
+      currentTotal > caloriesGoal ? currentTotal : caloriesGoal;
+
+    const toPercentagesPerMeal = (percentagesPerMeal, [mealName, mealCalories]) => {
+      const mealPercentage = (mealCalories / percentageDivider) * 100;
+      percentagesPerMeal[mealName] = mealPercentage;
+      return percentagesPerMeal;
     }
-    return foodsCount;
+    
+    return Object.entries(caloriesPerMeal).reduce(
+      toPercentagesPerMeal,
+      initialPercentagesPerMeal
+    );
+  }
+
+  retrieveActivity() {
+    const activities = this.retrieve();
+    if (!activities) return;
+    const storedActivity = activities.find(this.hasSameDate, this);
+    if (storedActivity) {
+      this.setDetails(storedActivity);
+    }
+  }
+
+  hasSameDate(activity) {
+    return activity.date === this.date;
+  }
+
+  setDetails(storedActivity) {
+    Object.entries(storedActivity)
+          .forEach(([key, value]) => this[key] = value);
   }
 
   isEmpty() {
     return this.getFoodsAddedCount() === 0;
   }
 
-  retrieveActivity() {
-    const activities = this.getActivities();
-    if (!activities.length) return;
-    const activityItem = activities.find(
-      activity => activity.date === this.date
-    );
-    if (!activityItem) return;
-    for (const key in activityItem)
-      if (activityItem.hasOwnProperty(key)) this[key] = activityItem[key];
-  }
-
-  getActivities() {
-    const storageActivities = localStorage.getItem("activities");
-    return storageActivities ? JSON.parse(storageActivities) : [];
-  }
-
-  putActivity(activities) {
-    /* Usar segundo parametro del find */
-    const itemIndex = activities.findIndex(activity => activity.date === this.date);
-    if (itemIndex >= 0) activities[itemIndex] = this;
-    else activities.push(this);
+  addFood(food, mealName) {
+    const newFood = {id: this.foodCurrentId++};
+    // Al cambiar los arrays desde este nuevo objeto se puede cambiar el original
+    Object.assign(newFood, food);
+    this.meals[mealName].push(newFood);
+    this.saveChanges();
   }
 
   saveChanges() {
-    const activities = this.getActivities();
+    const activities = this.retrieve() || [];
     this.putActivity(activities);
-    localStorage.setItem("activities", JSON.stringify(activities));
+    this.save(activities);
+  }
+
+  putActivity(activities) {
+    const activityIndex = activities.findIndex(this.hasSameDate, this);
+    const activityFound = activityIndex !== -1;
+    if (activityFound) activities[activityIndex] = this;
+    else activities.push(this);
   }
 }

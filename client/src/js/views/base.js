@@ -17,12 +17,15 @@ export const elements = {
   foodAddPopup: $(".food__add__popup"),
   foodAddSwapper: $(".food__add__swapper"),
   activitySection: $(".daily__activity"),
+  dateInput: $(".date__input"),
   activityCurrentCalories: $(".current__calories"),
+  activityGraph: $(".activity__graph"),
   activityCaloriesGoal: $(".calories__goal"),
   activityMealsSwapperBtns: $(".meals__swapper li button"),
-  dateInput: $(".date__input"),
-  activityGraph: $(".activity__graph"),
-  activityFoodsList: $(".foods__ate__list tbody"),
+  activityFoodsList: $(".foods__ate tbody"),
+  activityMeals: {
+    // $(`.tbody__${mealName}`)
+  },
   navigationList: $(".nav__list")
 };
 
@@ -36,7 +39,6 @@ export const elementsStrings = {
   quantityInput: ".quantity__input",
   portionSelect: ".portion__select",
 };
-// export const renderElementIn = (element, position, createFunction, ) =>
 
 export const removeSelector = elementString =>
   elementString.replace(/[\.|\#]/, "");
