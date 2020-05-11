@@ -17,7 +17,7 @@ export const elements = {
   foodAddPopup: $(".food__add__popup"),
   foodAddSwapper: $(".food__add__swapper"),
   activitySection: $(".daily__activity"),
-  dateInput: $(".date__input"),
+  activityDateInput: $(".date__input"),
   activityCurrentCalories: $(".current__calories"),
   activityGraph: $(".activity__graph"),
   activityCaloriesGoal: $(".calories__goal"),
@@ -31,6 +31,7 @@ export const elements = {
 
 export const elementsStrings = {
   foodFigure: ".food__fig",
+  foodAddWrapper: ".food__add__wrapper",
   balanceValues: {
     now: ".values__now",
     food: ".values__food",
@@ -51,7 +52,7 @@ export const removeHighlight = element => element.classList.remove("highlight");
 export const toggleCentered = (element, force = false) =>
   element.classList.toggle("centered", force);
 
-export const isHidden = element => element.classList.includes("hidden");
+export const isHidden = element => element.classList.contains("hidden");
 export const toggleHideShow = element => element.classList.toggle("hidden");
 export const hide = element => element.classList.add("hidden");
 export const show = element => element.classList.remove("hidden");

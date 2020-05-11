@@ -11,7 +11,7 @@ const loadDailyActivity = event => {
 const setupDailyActivity = date => {
   globals.state.dailyActivity = new DailyActivity(date);
   displayActivityMeals();
-  updateCaloriesMeter();
+  updateDailyActivity();
 };
 
 const displayActivityMeals = () => {
@@ -28,23 +28,28 @@ const renderFoodsAte = () => {
 
 const renderMealFoods = ([meal, foods]) => {
   foods.forEach(food => activityView.renderFood(food, meal));
-}
+};
+
+const updateDailyActivity = () => {
+  updateCaloriesMeter();
+  updateTotalMacros();
+};
 
 const updateCaloriesMeter = () => {
   updateTotalCalories();
   updateActivityGraph();
-}
+};
 
 const updateTotalCalories = () => {
   const caloriesAmount = globals.state.dailyActivity.getCaloriesAmount();
-  activityView.updateTotalCalories(caloriesAmount);
+  activityView.changeTotalCalories(caloriesAmount);
 };
 
 const updateActivityGraph = () => {
   const mealsPercentages = globals.state.dailyActivity.getPercentagesPerMeals();
   const graphValues = getGraphValuesFromMealsPercentages(mealsPercentages);
-  activityView.updateActivityGraph(graphValues);
-}
+  activityView.changeActivityGraph(graphValues);
+};
 
 const getGraphValuesFromMealsPercentages = mealsPercentages => {
   const pastelColors = {
@@ -68,14 +73,21 @@ const getGraphValuesFromMealsPercentages = mealsPercentages => {
   );
 };
 
+const updateTotalMacros = () => {
+  // obtener el total de cada macro
+  // modificar el valor de los macros.
+};
+
 /* ADD FOOD */
-const handleAddFood = e => {
-  const { mealName } = e.target.dataset;
+const handleAddFood = event => {
+  const { target } = event;
+  if (!activityView.isMealSelector(target)) return;
+  const { mealName } = target.dataset;
   const { food } = globals.state;
   addFood(food, mealName);
-  updateCaloriesMeter();
+  updateDailyActivity();
   activityView.changeActivityFoodList(mealName);
-  changeCurrentSectionTo("activitySection"); 
+  changeCurrentSectionTo("activitySection");
 };
 
 const addFood = (food, mealName) => {
@@ -84,7 +96,6 @@ const addFood = (food, mealName) => {
 };
 
 window.addEventListener("load", loadDailyActivity);
-
 elements.foodAddSwapper.addEventListener("click", handleAddFood);
 
 /* elements.dateInput.addEventListener("change", changeDailyActivity);
@@ -92,4 +103,4 @@ elements.foodAddSwapper.addEventListener("click", handleAddFood);
 
 [...elements.activityMealsSwapperBtns].forEach(button =>
   button.addEventListener("click", toggleMealsList)
-); */
+); */ // Cambiar mealTbody, Implementar con event delegation

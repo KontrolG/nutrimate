@@ -8,8 +8,14 @@ export default class {
     
     // Estudiar...
     this.getUrlWithSearchParams = parameters => {
-      Object.entries(parameters).forEach(this.setSearchParam, url);
-      return url.href;
+      const searchParamsIsAvailible = url.searchParams !== undefined;
+      if (searchParamsIsAvailible) {
+        Object.entries(parameters).forEach(this.setSearchParam, url);
+      } else {
+        this.addParametersToUrl(url, parameters);
+      }
+      /* return url.href; // Production */
+      return url.pathname + url.search; // Development
     };
   }
 
@@ -22,7 +28,14 @@ export default class {
   }
 
   setSearchParam([name, value]) {
-    const url = this; // this modified by Array.prototype.forEach method.
+    const url = this; // thisObject modified by Array.prototype.forEach method.
     url.searchParams.set(name, value);
+  }
+
+  addParametersToUrl(url, parameters) {
+    const toParameterStrings = entry => entry.join("=");
+    const searchString = "?" + 
+      Object.entries(parameters).map(toParameterStrings).join("&");
+    url.href += searchString;
   }
 }

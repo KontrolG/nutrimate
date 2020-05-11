@@ -26,5 +26,6 @@ export default class extends DataApi {
   connectionError(error) {
     console.log(error);
     alert("There is an connection error!");
+    alert(error);
   }
 }

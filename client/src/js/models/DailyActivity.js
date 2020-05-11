@@ -50,13 +50,9 @@ export default class extends Storage {
 
   getCaloriesPerMeal() {
     const initialCaloriesPerMeal = {};
-    const initialMealCalories = 0;
-
-    const toMealCalories = (mealCalories, food) =>
-      (mealCalories += food.calories.amount);
 
     const toCaloriesPerMeal = (caloriesPerMeal, [meal, foods]) => {
-      const mealCalories = foods.reduce(toMealCalories, initialMealCalories);
+      const mealCalories = this.getCaloriesFromFoods(foods);
       caloriesPerMeal[meal] = mealCalories;
       return caloriesPerMeal;
     };
@@ -65,6 +61,13 @@ export default class extends Storage {
       toCaloriesPerMeal,
       initialCaloriesPerMeal
     );
+  }
+
+  getCaloriesFromFoods(foods) {
+    const initialMealCalories = 0;
+    const toMealCalories = (mealCalories, food) =>
+      (mealCalories += food.calories.amount);
+    return foods.reduce(toMealCalories, initialMealCalories);
   }
 
   getFoodsAddedCount() {
@@ -82,6 +85,7 @@ export default class extends Storage {
 
     const toPercentagesPerMeal = (percentagesPerMeal, [mealName, mealCalories]) => {
       const mealPercentage = (mealCalories / percentageDivider) * 100;
+      console.log("Linea: 88: ¿como es mejor?", mealPercentage, mealCalories / (percentageDivider / 100));
       percentagesPerMeal[mealName] = mealPercentage;
       return percentagesPerMeal;
     }
@@ -117,6 +121,7 @@ export default class extends Storage {
   addFood(food, mealName) {
     const newFood = {id: this.foodCurrentId++};
     // Al cambiar los arrays desde este nuevo objeto se puede cambiar el original
+    // Implementar metodo statico para modificar sin alterar el original.
     Object.assign(newFood, food);
     this.meals[mealName].push(newFood);
     this.saveChanges();

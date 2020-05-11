@@ -1,4 +1,4 @@
-import { elements, $, elementsStrings, removeSelector, fixDecimals, toggleHideShow } from "./base";
+import { elements, $, elementsStrings, removeSelector, fixDecimals, toggleHideShow, isHidden } from "./base";
 import { createNutrientAmount, createFragmentOfElements, createMacroDefinition } from "./components";
 
 export const renderFood = food => {
@@ -148,3 +148,8 @@ export const isPortionSelect = target =>
   target.matches(elementsStrings.portionSelect);
 
 export const toggleAddPopup = () => toggleHideShow(elements.foodAddPopup);
+
+export const addPopupIsClose = () => isHidden(elements.foodAddPopup);
+
+export const addWrapperClicked = target => 
+  target.closest(elementsStrings.foodAddWrapper) !== null;

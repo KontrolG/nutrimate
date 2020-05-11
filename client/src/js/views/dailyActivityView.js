@@ -1,16 +1,16 @@
 import { elements, $, degressToRadians } from "./base";
 import { createNutrientAmount } from "./components";
 
-export const updateTotalCalories = caloriesAmount => {
+export const changeTotalCalories = caloriesAmount => {
   const { currentTotal, caloriesGoal } = caloriesAmount;
-  updateCurrentCalories(currentTotal);
-  updateCaloriesGoal(caloriesGoal);
+  changeCurrentCalories(currentTotal);
+  changeCaloriesGoal(caloriesGoal);
 };
 
-const updateCurrentCalories = currentCalories =>         
+const changeCurrentCalories = currentCalories =>         
   elements.activityCurrentCalories.textContent = parseInt(currentCalories, 10);
 
-const updateCaloriesGoal = caloriesGoal => 
+const changeCaloriesGoal = caloriesGoal => 
   elements.activityCaloriesGoal.textContent = parseInt(caloriesGoal, 10);
 
 const deactiveMeal = () => $(".meal__active").classList.remove("meal__active");
@@ -32,6 +32,9 @@ const changeActiveMealSelector = mealName => {
   deactiveMealSelector();
   activeMealSelector(mealName);
 }
+
+export const isMealSelector = target =>
+  target.matches(".food__add__swapper button");
 
 export const changeActivityFoodList = mealName => {
   changeActiveMeal(mealName);
@@ -67,7 +70,7 @@ export const clearMeals = () => {
   });
 }
 
-export const updateActivityGraph = data => {
+export const changeActivityGraph = data => {
   const canvasContext = elements.activityGraph.getContext("2d");
   const { width, height } = elements.activityGraph;
   const center = {
