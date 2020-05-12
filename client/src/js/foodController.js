@@ -19,12 +19,12 @@ const searchFood = foodDataCentralID => {
 };
 
 const loadFood = async foodDataCentralID => {
-  await getFood(foodDataCentralID); 
+  globals.state.food = new Food(foodDataCentralID);
+  await fetchAndUpdateFood(); 
   displayFood();
 };
 
-const getFood = async foodDataCentralID => {
-  globals.state.food = new Food(foodDataCentralID);
+const fetchAndUpdateFood = async () => {
   const { food } = globals.state;
   await food.fetchDetails();
   food.updateNutrients();

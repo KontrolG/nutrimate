@@ -52,25 +52,27 @@ const updateActivityGraph = () => {
 };
 
 const getGraphValuesFromMealsPercentages = mealsPercentages => {
-  const pastelColors = {
-    blue: "rgb(106, 184, 255)", // blue
-    orange: "rgb(255, 181, 72)", // orange
-    pink: "rgb(255, 119, 226)", // pink
-    purple: "rgb(130, 106, 249)" // purple
-  };
-
-  const pastelColorsValues = Object.values(pastelColors);
   const initialGraphValues = {};
-  const toGraphValues = (graphValues, [meal, percentage], index) => {
-    const color = pastelColorsValues[index];
-    graphValues[meal] = { color, percentage };
-    return graphValues;
-  };
-
   return Object.entries(mealsPercentages).reduce(
     toGraphValues,
     initialGraphValues
   );
+};
+
+const toGraphValues = (graphValues, [meal, percentage]) => {
+  const color = getMealColor(meal);
+  graphValues[meal] = { color, percentage };
+  return graphValues;
+};
+
+const getMealColor = meal => {
+  const colors = {
+    breakfast: "rgb(106, 184, 255)", // blue
+    lunch: "rgb(255, 181, 72)", // orange
+    dinner: "rgb(255, 119, 226)", // pink
+    snack: "rgb(130, 106, 249)" // purple
+  };
+  return colors[meal];
 };
 
 const updateTotalMacros = () => {
@@ -83,16 +85,19 @@ const handleAddFood = event => {
   const { target } = event;
   if (!activityView.isMealSelector(target)) return;
   const { mealName } = target.dataset;
-  const { food } = globals.state;
-  addFood(food, mealName);
-  updateDailyActivity();
-  activityView.changeActivityFoodList(mealName);
-  changeCurrentSectionTo("activitySection");
+  addFood(globals.state.food, mealName);
+  showMealChanges(mealName);
 };
 
 const addFood = (food, mealName) => {
   globals.state.dailyActivity.addFood(food, mealName);
   activityView.renderFood(food, mealName);
+};
+
+const showMealChanges = mealName => {
+  updateDailyActivity();
+  activityView.changeActivityFoodList(mealName);
+  changeCurrentSectionTo("activitySection");
 };
 
 window.addEventListener("load", loadDailyActivity);

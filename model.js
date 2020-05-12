@@ -60,8 +60,8 @@ module.exports = class {
   findNutrientBy(key, value, nutrients) {
     const regularExpression = new RegExp(value, "gi");
     return (
-      nutrients.find(nutrient => 
-        regularExpression.test(nutrient[key])) || this.fallbackNutrient
+      nutrients.find(nutrient => regularExpression.test(nutrient[key])) ||
+      this.fallbackNutrient
     );
   }
 
@@ -76,6 +76,17 @@ module.exports = class {
   }
 
   getFoodById(fdcId) {
-    return this.foods.find(food => food.fdcId === fdcId);
+    const food = this.foods.find(food => food.fdcId === fdcId);
+    this.removeKiloJoulesNutrient(food);
+    return food;
+  }
+
+  removeKiloJoulesNutrient(food) {
+    const { kiloJoulesNutrient } = this;
+    food.nutrients = food.nutrients.filter(kiloJoulesNutrient);
+  }
+
+  kiloJoulesNutrient(nutrient) {
+    return nutrient.unitName !== "kj";
   }
 };

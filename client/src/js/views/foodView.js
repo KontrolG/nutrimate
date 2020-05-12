@@ -8,6 +8,7 @@ export const renderFood = food => {
 
 const createFoodFigure = food => {
   const { description, calories, protein, carbohydrate, fat, fiber, portions, nutrients } = food;
+  console.log(calories);
   return `
     <figure class="${removeSelector(elementsStrings.foodFigure)}">
       <img src="img/test-food.jpg" alt="${description}">

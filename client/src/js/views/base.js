@@ -22,7 +22,7 @@ export const elements = {
   activityGraph: $(".activity__graph"),
   activityCaloriesGoal: $(".calories__goal"),
   activityMealsSwapperBtns: $(".meals__swapper li button"),
-  activityFoodsList: $(".foods__ate tbody"),
+  activityMealsTables: $(".foods__ate tbody"),
   activityMeals: {
     // $(`.tbody__${mealName}`)
   },
@@ -57,7 +57,13 @@ export const toggleHideShow = element => element.classList.toggle("hidden");
 export const hide = element => element.classList.add("hidden");
 export const show = element => element.classList.remove("hidden");
 
-export const degressToRadians = degrees => (Math.PI / 180) * degrees;
+export const degreesToRadians = degrees => (Math.PI / 180) * degrees;
+
+export const clearChilds = element => {
+  while (element.childElementCount) {
+    element.removeChild(element.lastElementChild);
+  }
+};
 
 export const debounce = (func, wait = 20, immediate = true) => {
   var timeout;

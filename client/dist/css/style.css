@@ -148,6 +148,7 @@ a {
   height: 3em;
   display: flex;
   flex-flow: column wrap;
+  text-align: center;
 }
 
 .macros__data > * {
@@ -471,7 +472,6 @@ main > section {
 
 .food__macros {
   flex: 1 0 100%;
-  text-align: center;
   margin-top: 2rem;
   font-size: 0.85em;
 }

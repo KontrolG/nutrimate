@@ -11,9 +11,12 @@ export const createNutrientAmount = ({ name, amount, unitName }) =>
     amount
   )}</span> ${unitName}`;
 
-export const createMacroDefinition = macro => `
-  <dt>${newNutrientsNames[macro.name] || macro.name}</dt>
-  <dd>${createNutrientAmount(macro)}</dd>`;
+export const createMacroDefinition = macro => {
+  if (macro.name) {
+    return `<dt>${newNutrientsNames[macro.name] || macro.name}</dt>
+            <dd>${createNutrientAmount(macro)}</dd>`; 
+  }
+};
 
 export const createFragmentOfElements = (elements, createFunction) =>
   elements.map(createFunction).join("");

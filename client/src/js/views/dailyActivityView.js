@@ -1,4 +1,4 @@
-import { elements, $, degressToRadians } from "./base";
+import { elements, $, degreesToRadians, clearChilds } from "./base";
 import { createNutrientAmount } from "./components";
 
 export const changeTotalCalories = caloriesAmount => {
@@ -65,40 +65,71 @@ const createFoodAteRow = food => {
 };
 
 export const clearMeals = () => {
-  [...elements.activityFoodsList].forEach(foodsList => {
-    while (foodsList.childElementCount) foodsList.removeChild(foodsList.lastElementChild);
-  });
+  Array.from(elements.activityMealsTables).forEach(clearChilds);
 }
 
-export const changeActivityGraph = data => {
-  const canvasContext = elements.activityGraph.getContext("2d");
-  const { width, height } = elements.activityGraph;
-  const center = {
-    x: width / 2,
-    y: height / 2
-  };
-  const radius = (width + height) * 0.14;
-
-  let startDegrees = -90;
-  canvasContext.lineWidth = 20;
-  // canvasContext.lineCap = "round";
-  for (const value in data) {
-    if (data.hasOwnProperty(value)) {
-      const { color, percentage } = data[value];
-      const degressPerPercentage = 3.6;
-      const degress = degressPerPercentage * percentage;
-      const endDegrees = startDegrees + degress;
-      canvasContext.strokeStyle = color;
-      canvasContext.beginPath();
-      canvasContext.arc(
-        center.x,
-        center.y,
-        radius,
-        degressToRadians(startDegrees),
-        degressToRadians(endDegrees)
-      );
-      canvasContext.stroke();
-      startDegrees = endDegrees;
-    }
+export const changeActivityGraph = graphValues => {
+  const { canvasContext, center, radius } = getGraphSettings(elements.activityGraph);  
+  setCanvasLineStyle(canvasContext);
+  const start = { degrees: -90 };
+  for (const { color, percentage } of Object.values(graphValues)) {
+    createGraphArc(canvasContext, color, percentage, center, radius, start);
   }
+};
+
+const getGraphSettings = canvasElement => {
+  const { width, height } = canvasElement;
+  const center = getCanvasElementCenter(width, height);
+  const radius = getRadiusFromCanvasSize(width, height);
+  const canvasContext = canvasElement.getContext("2d");
+  return { canvasContext, center, radius };
+};
+
+const getCanvasElementCenter = (width, height) => ({
+  x: width / 2,
+  y: height / 2
+});
+
+const getRadiusFromCanvasSize = (width, height) => {
+  const circleSize = 0.14;
+  return (width + height) * circleSize;
 }
+
+const setCanvasLineStyle = (canvasContext, width = 20) => {
+  canvasContext.lineWidth = width;
+  // canvasContext.lineCap = "round";
+};
+
+const createGraphArc = (canvasContext, color, percentage, center, radius, start) => {
+  const endDegrees = getEndDregrees(percentage, start);
+  drawArc(canvasContext, color, center, radius, start, endDegrees);
+  start.degrees = endDegrees;
+};
+
+const getEndDregrees = (percentage, start) => {
+  const degreesPerPercentage = 3.6;
+  const degrees = degreesPerPercentage * percentage;
+  return start.degrees + degrees;
+}
+
+const drawArc = (canvasContext, color, center, radius, start, endDegrees) => {
+  setColorAndBeginPath(canvasContext, color);
+  paintArc(
+    canvasContext,
+    center.x,
+    center.y,
+    radius,
+    degreesToRadians(start.degrees),
+    degreesToRadians(endDegrees)
+  );
+}
+
+const setColorAndBeginPath = (canvasContext, color) => {
+  canvasContext.strokeStyle = color;
+  canvasContext.beginPath();
+};
+
+const paintArc = (canvasContext, ...arcSettings) => {
+  canvasContext.arc(...arcSettings);
+  canvasContext.stroke();
+};

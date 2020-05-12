@@ -7,35 +7,34 @@ export default class {
     );
     
     // Estudiar...
-    this.getUrlWithSearchParams = parameters => {
-      const searchParamsIsAvailible = url.searchParams !== undefined;
-      if (searchParamsIsAvailible) {
-        Object.entries(parameters).forEach(this.setSearchParam, url);
-      } else {
-        this.addParametersToUrl(url, parameters);
-      }
-      /* return url.href; // Production */
+    this.getUrlWithSearchParameters = parameters => {
+      this.addParametersToUrl(url, parameters);
       return url.pathname + url.search; // Development
+      return url.href; // Production
     };
   }
 
+  addParametersToUrl(url, parameters) {
+    url.search = "";
+    url.href += this.getSearchString(parameters);
+  }
+
+  getSearchString(parameters) {
+    const { toParameterStrings } = this;
+    return "?" + Object.entries(parameters)
+      .map(toParameterStrings)
+      .join("&");
+  }
+
+  toParameterStrings(entry) {
+    return entry.join("=");
+  }
+
   async fetchData(parameters) {
-    const requestUrl = this.getUrlWithSearchParams(parameters);
+    const requestUrl = this.getUrlWithSearchParameters(parameters);
     console.log(requestUrl);
     const response = await fetch(requestUrl);
     const data = await response.json();
     return data;
-  }
-
-  setSearchParam([name, value]) {
-    const url = this; // thisObject modified by Array.prototype.forEach method.
-    url.searchParams.set(name, value);
-  }
-
-  addParametersToUrl(url, parameters) {
-    const toParameterStrings = entry => entry.join("=");
-    const searchString = "?" + 
-      Object.entries(parameters).map(toParameterStrings).join("&");
-    url.href += searchString;
   }
 }
