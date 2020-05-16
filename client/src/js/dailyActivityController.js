@@ -21,8 +21,8 @@ const displayActivityMeals = () => {
 };
 
 const renderFoodsAte = () => {
-  const { meals } = globals.state.dailyActivity;
   activityView.clearMeals();
+  const { meals } = globals.state.dailyActivity;
   Object.entries(meals).forEach(renderMealFoods);
 };
 
@@ -46,10 +46,14 @@ const updateTotalCalories = () => {
 };
 
 const updateActivityGraph = () => {
-  const mealsPercentages = globals.state.dailyActivity.getPercentagesPerMeals();
-  const graphValues = getGraphValuesFromMealsPercentages(mealsPercentages);
+  const graphValues = getGraphValues();
   activityView.changeActivityGraph(graphValues);
 };
+
+const getGraphValues = () => {
+  const mealsPercentages = globals.state.dailyActivity.getPercentagesPerMeal();
+  return getGraphValuesFromMealsPercentages(mealsPercentages);
+}
 
 const getGraphValuesFromMealsPercentages = mealsPercentages => {
   const initialGraphValues = {};

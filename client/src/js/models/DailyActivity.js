@@ -14,16 +14,11 @@ export default class extends Storage {
     };
   }
 
-  getFoodCaloriesBalance(food) {
-    const caloriesAmount = food.calories.amount;
-    const { currentTotal, caloriesGoal } = this.getCaloriesAmount();
-    const { remainingCalories } = this.getCaloriesWithFood(
-      currentTotal, caloriesAmount, caloriesGoal
-    );
+  getFoodCaloriesBalance({calories}) {
+    const foodCalories = calories.amount;
+    const { remainingCalories } = this.getCaloriesPlusFood(foodCalories);
     return this.getBalancePercentages(
-      caloriesGoal,
-      currentTotal,
-      caloriesAmount,
+      foodCalories,
       remainingCalories
     );
   }
@@ -54,14 +49,10 @@ export default class extends Storage {
 
   getCaloriesPerMeal() {
     const caloriesPerMeal = {};
-    for (const meal of Object.entries(this.meals)) {
-      this.setMealCalories(caloriesPerMeal, meal);
+    for (const [mealName, foods] of Object.entries(this.meals)) {
+      caloriesPerMeal[mealName] = this.getCaloriesFromFoods(foods);
     }
     return caloriesPerMeal;
-  }
-
-  setMealCalories(caloriesPerMeal, [mealName, foods]) {
-    caloriesPerMeal[mealName] = this.getCaloriesFromFoods(foods);
   }
 
   getCaloriesFromFoods(foods) {
@@ -74,17 +65,17 @@ export default class extends Storage {
     return mealCalories += food.calories.amount;
   }
 
-  getCaloriesWithFood(currentTotal, caloriesAmount, caloriesGoal) {
-    const newTotal = currentTotal + caloriesAmount;
-    let remainingCalories = caloriesGoal - newTotal;
+  getCaloriesPlusFood(foodCalories) {
+    const newTotal = this.getCurrentCaloriesTotal() + foodCalories;
+    let remainingCalories = this.caloriesGoal - newTotal;
     if (remainingCalories < 0) remainingCalories = 0;
     return { newTotal, remainingCalories };
   }
 
-  getBalancePercentages(caloriesGoal, currentTotal, caloriesAmount, remainingCalories) {
-    const modulus = caloriesGoal / 100;
-    const now = currentTotal / modulus;
-    const food = caloriesAmount / modulus;
+  getBalancePercentages(foodCalories, remainingCalories) {
+    const modulus = this.caloriesGoal / 100;
+    const now = this.getCurrentCaloriesTotal() / modulus;
+    const food = foodCalories / modulus;
     const remaining = remainingCalories / modulus;
     return { now, food, remaining };
   }
@@ -99,31 +90,22 @@ export default class extends Storage {
     return count += mealFoods.length;
   }
 
-  getPercentagesPerMeals() {
+  getPercentagesPerMeal() {
     const caloriesPerMeal = this.getCaloriesPerMeal();
-    const { currentTotal, caloriesGoal } = this.getCaloriesAmount();
-    const initialPercentagesPerMeal = {};
-    const percentageDivider =
-      currentTotal > caloriesGoal ? currentTotal : caloriesGoal;
+    const percentagesPerMeal = {};
+    const modulus = this.getPercentageDivider() / 100;
 
-    const toPercentagesPerMeal = (
-      percentagesPerMeal,
-      [mealName, mealCalories]
-    ) => {
-      const mealPercentage = (mealCalories / percentageDivider) * 100;
-      console.log(
-        "Linea: 88: ¿como es mejor? (Limpiar)",
-        mealPercentage,
-        mealCalories / (percentageDivider / 100)
-      );
+    for (const [mealName, mealCalories] of Object.entries(caloriesPerMeal)) {
+      const mealPercentage = (mealCalories / modulus);
       percentagesPerMeal[mealName] = mealPercentage;
-      return percentagesPerMeal;
     };
 
-    return Object.entries(caloriesPerMeal).reduce(
-      toPercentagesPerMeal,
-      initialPercentagesPerMeal
-    );
+    return percentagesPerMeal;
+  }
+
+  getPercentageDivider() {
+    const { currentTotal, caloriesGoal } = this.getCaloriesAmount();
+    return currentTotal > caloriesGoal ? currentTotal : caloriesGoal;
   }
 
   retrieveActivity() {
@@ -152,12 +134,16 @@ export default class extends Storage {
   }
 
   addFood(food, mealName) {
-    const newFood = { id: this.foodCurrentId++ };
     // Al cambiar los arrays desde este nuevo objeto se puede cambiar el original
     // Implementar metodo statico para modificar sin alterar el original.
-    Object.assign(newFood, food);
+    const newFood = this.getNewFoodItem(food);
     this.meals[mealName].push(newFood);
     this.saveChanges();
+  }
+
+  getNewFoodItem(food) {
+    const item = { id: this.foodCurrentId++ };
+    return Object.assign(item, food);
   }
 
   saveChanges() {
