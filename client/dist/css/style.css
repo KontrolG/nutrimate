@@ -176,8 +176,7 @@ table tr:last-child td {border: none;}
 .dot {
   display: inline-block;
   border-radius: 50%;
-  vertical-align: middle;
-  margin-top: -0.25em;
+  margin-top: -0.15em;
   margin-right: 0.25em;
   width: 0.75em;
   height: 0.75em;
@@ -690,10 +689,8 @@ li.bar {
   box-shadow: 0 1px 6px -1px rgba(0, 0, 0, 0.2);
 }
 
-.total__macros > li span,
-.total__macros > li strong
- {vertical-align: middle}
-.total__macros > li strong {
+.total__macros > li p {
+  font-weight: bolder;
   float: right;
   font-size: 1.25em;
 }

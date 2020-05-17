@@ -32,7 +32,7 @@ const renderMealFoods = ([meal, foods]) => {
 
 const updateDailyActivity = () => {
   updateCaloriesMeter();
-  updateTotalMacros();
+  updateMacronutrientsTotals();
 };
 
 const updateCaloriesMeter = () => {
@@ -79,9 +79,9 @@ const getMealColor = meal => {
   return colors[meal];
 };
 
-const updateTotalMacros = () => {
-  // obtener el total de cada macro
-  // modificar el valor de los macros.
+const updateMacronutrientsTotals = () => {
+  const macronutrientsTotals = globals.state.dailyActivity.getMacronutrientsTotals();
+  activityView.changeMacronutrientsTotals(macronutrientsTotals);
 };
 
 /* ADD FOOD */
@@ -104,10 +104,28 @@ const showMealChanges = mealName => {
   changeCurrentSectionTo("activitySection");
 };
 
+/* CHANGE ACTIVITY */
+const changeDailyActivity = event => {
+  const inputDate = e.target.value;
+  const activityDate = getActivityDate(inputDate);
+  setupDailyActivity(activityDate);
+};
+
+const getActivityDate = inputDate => {
+  const date = new Date(inputDate);
+  date.setHours(24);
+  return date.toDateString();
+};
+
+/* const toggleMealsList = event => {
+  const { mealName } = e.target.dataset;
+  activityView.changeActivityFoodList(mealName);
+}; */
+
 window.addEventListener("load", loadDailyActivity);
 elements.foodAddSwapper.addEventListener("click", handleAddFood);
-
-/* elements.dateInput.addEventListener("change", changeDailyActivity);
+elements.activityDateInput.addEventListener("change", changeDailyActivity);
+/* 
 
 
 [...elements.activityMealsSwapperBtns].forEach(button =>

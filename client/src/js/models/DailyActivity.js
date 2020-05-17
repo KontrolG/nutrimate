@@ -24,49 +24,47 @@ export default class extends Storage {
   }
 
   getCaloriesAmount() {
-    const currentTotal = this.getCurrentCaloriesTotal();
+    const currentTotal = this.getNutrientTotal("calories");
     const { caloriesGoal } = this;
     return { currentTotal, caloriesGoal };
   }
 
-  getCurrentCaloriesTotal() {
-    const caloriesPerMeal = this.getCaloriesPerMeal();
-    return this.getCaloriesTotalFromMeals(caloriesPerMeal);
+  getNutrientTotal(nutrientName) {
+    const nutrientPerMeal = this.getNutrientPerMeal(nutrientName);
+    return this.getNutrientTotalFromMeals(nutrientPerMeal);
   }
 
-  getCaloriesTotalFromMeals(caloriesPerMeal) {
+  getNutrientPerMeal(nutrientName) {
+    const nutrientPerMeal = {};
+    for (const [mealName, foods] of Object.entries(this.meals)) {
+      nutrientPerMeal[mealName] = this.getNutrientFromFoods(foods, nutrientName);
+    }
+    return nutrientPerMeal;
+  }
+
+  getNutrientFromFoods(foods, nutrientName) {
+    let mealNutrientAmount = 0;
+    for (const food of foods) {
+      mealNutrientAmount += food[nutrientName].amount;
+    }
+    return mealNutrientAmount;
+  }
+
+  getNutrientTotalFromMeals(nutrientPerMeal) {
     const initialTotal = 0;
-    const { toCaloriesTotal } = this;
-    return Object.values(caloriesPerMeal).reduce(
-      toCaloriesTotal,
+    const { toNutrientTotal } = this;
+    return Object.values(nutrientPerMeal).reduce(
+      toNutrientTotal,
       initialTotal
     );
   }
 
-  toCaloriesTotal(caloriesTotal, mealCalories) {
-    return (caloriesTotal += mealCalories);
-  }
-
-  getCaloriesPerMeal() {
-    const caloriesPerMeal = {};
-    for (const [mealName, foods] of Object.entries(this.meals)) {
-      caloriesPerMeal[mealName] = this.getCaloriesFromFoods(foods);
-    }
-    return caloriesPerMeal;
-  }
-
-  getCaloriesFromFoods(foods) {
-    const initialMealCalories = 0;
-    const { toMealCalories } = this;
-    return foods.reduce(toMealCalories, initialMealCalories);
-  }
-
-  toMealCalories(mealCalories, food) {
-    return mealCalories += food.calories.amount;
+  toNutrientTotal(nutrientTotal, mealNutrient) {
+    return (nutrientTotal += mealNutrient);
   }
 
   getCaloriesPlusFood(foodCalories) {
-    const newTotal = this.getCurrentCaloriesTotal() + foodCalories;
+    const newTotal = this.getNutrientTotal("calories") + foodCalories;
     let remainingCalories = this.caloriesGoal - newTotal;
     if (remainingCalories < 0) remainingCalories = 0;
     return { newTotal, remainingCalories };
@@ -74,7 +72,7 @@ export default class extends Storage {
 
   getBalancePercentages(foodCalories, remainingCalories) {
     const modulus = this.caloriesGoal / 100;
-    const now = this.getCurrentCaloriesTotal() / modulus;
+    const now = this.getNutrientTotal("calories") / modulus;
     const food = foodCalories / modulus;
     const remaining = remainingCalories / modulus;
     return { now, food, remaining };
@@ -91,7 +89,7 @@ export default class extends Storage {
   }
 
   getPercentagesPerMeal() {
-    const caloriesPerMeal = this.getCaloriesPerMeal();
+    const caloriesPerMeal = this.getNutrientPerMeal("calories");
     const percentagesPerMeal = {};
     const modulus = this.getPercentageDivider() / 100;
 
@@ -106,6 +104,15 @@ export default class extends Storage {
   getPercentageDivider() {
     const { currentTotal, caloriesGoal } = this.getCaloriesAmount();
     return currentTotal > caloriesGoal ? currentTotal : caloriesGoal;
+  }
+
+  getMacronutrientsTotals() {
+    const macronutrientsNames = ["protein", "carbohydrate", "fat", "fiber"];
+    const macronutrientTotals = {};
+    for (const nutrientName of macronutrientsNames) {
+      macronutrientTotals[nutrientName] = this.getNutrientTotal(nutrientName);      
+    }
+    return macronutrientTotals;
   }
 
   retrieveActivity() {

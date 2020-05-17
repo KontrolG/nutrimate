@@ -1,4 +1,4 @@
-import { elements, $, degreesToRadians, clearChilds } from "./base";
+import { elements, $, degreesToRadians, clearChilds, fixDecimals } from "./base";
 import { createNutrientAmount } from "./components";
 
 export const changeTotalCalories = caloriesAmount => {
@@ -69,67 +69,94 @@ export const clearMeals = () => {
 }
 
 export const changeActivityGraph = graphValues => {
-  const { canvasContext, center, radius } = getGraphSettings(elements.activityGraph);  
-  setCanvasLineStyle(canvasContext);
-  const start = { degrees: -90 };
-  for (const { color, percentage } of Object.values(graphValues)) {
-    createGraphArc(canvasContext, color, percentage, center, radius, start);
-  }
+  const canvas = getCanvasFromElement(elements.activityGraph);
+  setCanvasLineStyle(canvas);
+  drawGraphValues(canvas, graphValues);
+  drawRemainingArc(canvas);
 };
 
-const getGraphSettings = canvasElement => {
-  const { width, height } = canvasElement;
-  const center = getCanvasElementCenter(width, height);
-  const radius = getRadiusFromCanvasSize(width, height);
-  const canvasContext = canvasElement.getContext("2d");
-  return { canvasContext, center, radius };
-};
+const getCanvasFromElement = element => {
+  const context = element.getContext("2d");
+  const startDegrees = -90;
+  const center = getCanvasElementCenter(element);
+  const radius = getRadiusFromCanvasSize(element);
+  return { element, context, center, radius, startDegrees };
+}
 
-const getCanvasElementCenter = (width, height) => ({
+const getCanvasElementCenter = ({width, height}) => ({
   x: width / 2,
   y: height / 2
 });
 
-const getRadiusFromCanvasSize = (width, height) => {
+const getRadiusFromCanvasSize = ({width, height}) => {
   const circleSize = 0.14;
   return (width + height) * circleSize;
-}
+};
 
-const setCanvasLineStyle = (canvasContext, width = 20) => {
-  canvasContext.lineWidth = width;
+const setCanvasLineStyle = ({ context }, width = 20) => {
+  context.lineWidth = width;
   // canvasContext.lineCap = "round";
 };
 
-const createGraphArc = (canvasContext, color, percentage, center, radius, start) => {
-  const endDegrees = getEndDregrees(percentage, start);
-  drawArc(canvasContext, color, center, radius, start, endDegrees);
-  start.degrees = endDegrees;
-};
-
-const getEndDregrees = (percentage, start) => {
-  const degreesPerPercentage = 3.6;
-  const degrees = degreesPerPercentage * percentage;
-  return start.degrees + degrees;
+const drawGraphValues = (canvas, graphValues) => {
+  for (const value of Object.values(graphValues)) {
+    drawValueArc(canvas, value);
+  }
 }
 
-const drawArc = (canvasContext, color, center, radius, start, endDegrees) => {
-  setColorAndBeginPath(canvasContext, color);
+const drawValueArc = (canvas, { color, percentage }) => {
+  const endDegrees = getEndDregrees(percentage, canvas.startDegrees);
+  drawArc(canvas, color, endDegrees);
+  canvas.startDegrees = endDegrees;
+};
+
+const getEndDregrees = (percentage, startDegrees) => {
+  const degreesPerPercentage = 3.6;
+  const valueDegrees = degreesPerPercentage * percentage;
+  return startDegrees + valueDegrees;
+};
+
+const drawArc = (
+  { context, center, radius, startDegrees },
+  color,
+  endDegrees
+) => {
+  setColorAndBeginPath(context, color);
   paintArc(
-    canvasContext,
+    context,
     center.x,
     center.y,
     radius,
-    degreesToRadians(start.degrees),
+    degreesToRadians(startDegrees),
     degreesToRadians(endDegrees)
   );
+};
+
+const setColorAndBeginPath = (context, color) => {
+  context.strokeStyle = color;
+  context.beginPath();
+};
+
+const paintArc = (context, ...arcSettings) => {
+  context.arc(...arcSettings);
+  context.stroke();
+};
+
+const drawRemainingArc = canvas => {
+  const circleEndDegrees = 270;
+  const { startDegrees } = canvas;
+  const remainingDegrees = circleEndDegrees - startDegrees;
+  if (remainingDegrees > 0) {
+    const remainingArcColor = "rgb(230, 230, 230)"; // Grey
+    drawArc(canvas, remainingArcColor, circleEndDegrees);
+  }
 }
 
-const setColorAndBeginPath = (canvasContext, color) => {
-  canvasContext.strokeStyle = color;
-  canvasContext.beginPath();
-};
+export const changeMacronutrientsTotals = macronutrientsTotals => {
+  Object.entries(macronutrientsTotals).forEach(changeMacronutrient);
+}
 
-const paintArc = (canvasContext, ...arcSettings) => {
-  canvasContext.arc(...arcSettings);
-  canvasContext.stroke();
-};
+const changeMacronutrient = ([nutrientName, nutrientAmount]) => {
+  const nutrientAmountElement = $(`.total__macros span[data-nutrient-name="${nutrientName}"]`);
+  nutrientAmountElement.textContent = fixDecimals(nutrientAmount);
+}
