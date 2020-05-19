@@ -1,28 +1,14 @@
-import { elements, $ } from "./base";
+import { elements, $, getEndScrollPosition } from "./base";
+import { smoothScrollTo } from "./smoothScroll";
+
+export const getAnchorElement = ({ target }) => target.closest("a");
 
 export const changeCurrentSectionTo = sectionName => {
-  scrollTo(sectionName);
+  const element = elements.main;
+  const endScrollPosition = getEndScrollPosition("Left", sectionName);
+  smoothScrollTo(element, { left: endScrollPosition });
   changeNavigationItem(sectionName);
 }
-
-const scrollTo = targetElementName => {
-  const { offsetLeft } = elements[targetElementName];
-  smoothScroll(offsetLeft);
-};
-
-const smoothScroll = end => {
-  const { main } = elements;
-  let start = main.scrollLeft;
-  const directionSign = Math.sign(end - start);
-  const interval = setInterval(() => {
-    start += 5 * directionSign;
-    main.scrollLeft = start;
-    if (start * directionSign >= end * directionSign) {
-      clearInterval(interval);
-      main.scrollLeft = end;
-    };
-  }, 0);
-};
 
 const changeNavigationItem = sectionName => {
   const newActiveAnchor = $(`.nav__list a[href*="${sectionName}"]`);

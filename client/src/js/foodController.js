@@ -2,11 +2,13 @@ import * as foodView from "./views/foodView";
 import Food from "./models/Food";
 import { changeCurrentSectionTo } from "./views/navigationView";
 import { highlightSelected } from "./views/searchView";
-import { elements, hide } from "./views/base";
+import { elements, hide, getHashWithoutNumberSign } from "./views/base";
 
 const handleFoodRequest = event => {
-  const foodDataCentralID = window.location.hash.replace("#", "");
-  if (foodDataCentralID) searchFood(foodDataCentralID)
+  const foodDataCentralID = getHashWithoutNumberSign(window.location);
+  if (foodDataCentralID) {
+    searchFood(foodDataCentralID);
+  }
 };
 
 const searchFood = foodDataCentralID => {

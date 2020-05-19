@@ -1,13 +1,21 @@
-import { elements } from "./views/base";
-import { changeCurrentSectionTo } from "./views/navigationView";
+import { elements, getHashWithoutNumberSign } from "./views/base";
+import { getAnchorElement, changeCurrentSectionTo } from "./views/navigationView";
 
-const handleNavigationList = e => {
-  const anchorElement = e.target.closest("a");
+const handleChangeSection = event => {
+  event.preventDefault();
+  changeSectionIfAnchorWasClicked(event);
+}
+
+const changeSectionIfAnchorWasClicked = event => {
+  const anchorElement = getAnchorElement(event);
   if (anchorElement) {
-    e.preventDefault();
-    const sectionName = anchorElement.hash.replace("#", "");
-    changeCurrentSectionTo(sectionName);
+    changeToAnchorSection(anchorElement);
   }
 }
 
-elements.navigationList.addEventListener("click", handleNavigationList)
+const changeToAnchorSection = anchorElement => {
+  const sectionName = getHashWithoutNumberSign(anchorElement);
+  changeCurrentSectionTo(sectionName);
+};
+
+elements.navigationList.addEventListener("click", handleChangeSection)

@@ -65,6 +65,10 @@ export const clearChilds = element => {
   }
 };
 
+export const getHashWithoutNumberSign = ({ hash }) => hash.replace("#", "");
+
+export const getEndScrollPosition = (direction, elementName) => elements[elementName][`offset${direction}`];
+
 export const debounce = (func, wait = 20, immediate = true) => {
   var timeout;
   return function() {
