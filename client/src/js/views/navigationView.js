@@ -4,18 +4,25 @@ import { smoothScrollTo } from "./smoothScroll";
 export const getAnchorElement = ({ target }) => target.closest("a");
 
 export const changeCurrentSectionTo = sectionName => {
-  const element = elements.main;
-  const endScrollPosition = getEndScrollPosition("Left", sectionName);
-  smoothScrollTo(element, { left: endScrollPosition });
+  scrollToSection(sectionName);
   changeNavigationItem(sectionName);
 }
 
+const scrollToSection = sectionName => {
+  const elementThatWrapsTheSections = elements.main;
+  const endScrollPosition = getEndScrollPosition("Left", sectionName);
+  smoothScrollTo(elementThatWrapsTheSections, { left: endScrollPosition });
+}
+
 const changeNavigationItem = sectionName => {
-  const newActiveAnchor = $(`.nav__list a[href*="${sectionName}"]`);
   deactiveNavigationItem();
-  activeNavigationItem(newActiveAnchor);
+  activeNavigationItem(sectionName);
 }
 
 const deactiveNavigationItem = () =>
   $(".nav__active").classList.remove("nav__active");
-const activeNavigationItem = anchorElement => anchorElement.classList.add("nav__active");
+
+const activeNavigationItem = sectionName => {
+  const newActiveAnchor = $(`.nav__list a[href*="${sectionName}"]`);
+  newActiveAnchor.classList.add("nav__active");
+};
