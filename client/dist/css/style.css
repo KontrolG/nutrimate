@@ -34,6 +34,14 @@ a {
   text-decoration: none;
 }
 
+.sr__only {display: none;}
+
+.text__with__ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .calories {font-size: 0.75em;}
 .calories span {
   font-size: 1.25em;
@@ -388,9 +396,6 @@ main > section {
 
 .results__name {
   width: 11em;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
 }
 
 .results__calories {
@@ -624,7 +629,7 @@ li.bar {
 .date__input {
   border: none;
   background: none;
-  width: 1rem;
+  /* width: 1rem; */
 }
 
 .activity__graph {
@@ -651,15 +656,24 @@ li.bar {
   box-shadow: 0 5px 10px -1px rgba(221, 221, 221, 0.6);
   background-color: #fff;
   border-radius: 10px;
+  font-size: 0.80em;
 }
 
 .foods__ate tr td {padding: 0.75rem 0.15rem;}
 
-
 .foods__ate tbody {display: none;}
-.foods__ate .meal__active {display: unset;}
+.foods__ate tbody.meal__active {display: table-row-group;}
 
-.foods__ate__name {width: 70%;}
+.foods__ate__name h4 {width: 5em;}
+.foods__ate__quantity {width: 3em;}
+
+.no__foods__message {
+  font-style: italic;
+  color: #777;
+  text-align: center;
+}
+
+.meal__active ~ .no__foods__message {display: none}
 
 .graph__legend {
   display: flex;

@@ -1,2 +1,5 @@
-/client/node_modules
-/data/USDA data
+data
+kalco.txt
+client/node_modules
+client/dist/index.html
+client/dist/js/bundle.js

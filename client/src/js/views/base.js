@@ -21,11 +21,8 @@ export const elements = {
   activityCurrentCalories: $(".current__calories"),
   activityGraph: $(".activity__graph"),
   activityCaloriesGoal: $(".calories__goal"),
-  activityMealsSwapperBtns: $(".meals__swapper li button"),
+  activityMealsSwapper: $(".meals__swapper"),
   activityMealsTables: $(".foods__ate tbody"),
-  activityMeals: {
-    // $(`.tbody__${mealName}`)
-  },
   navigationList: $(".nav__list")
 };
 
@@ -37,8 +34,8 @@ export const elementsStrings = {
     food: ".values__food",
     remaining: ".values__remaining"
   },
-  quantityInput: ".quantity__input",
-  portionSelect: ".portion__select",
+  quantityInput: "#quantity__input",
+  portionSelect: "#portion__select",
 };
 
 export const removeSelector = elementString =>

@@ -1,5 +1,6 @@
 import { elements, $, toggleCentered, hide, show } from "./base";
-import { createFragmentOfElements, createNutrientAmount, createMacroDefinition } from "./components";
+import createResultItem from "./components/resultItem";
+import { createFragmentOfElements, createNutrientAmount, createMacroDefinition } from "./components/base";
 
 export const clearResults = () => {
   elements.resultsList.innerHTML = "";
@@ -29,7 +30,7 @@ export const renderResults = results => {
   elements.resultsList.insertAdjacentHTML("beforeEnd", markup);
 };
 
-const createResultItem = result => {
+/* const createResultItem = result => {
   const { fdcId, description, calories, protein, carbohydrate, fat } = result;
   return `<li>
           <a href="#${fdcId}" title="${description}">
@@ -50,7 +51,7 @@ const createResultItem = result => {
             </figure>
           </a>
         </li>`;
-};
+}; */
 
 export const highlightSelected = foodDataCentralID => {
   removeSelected();

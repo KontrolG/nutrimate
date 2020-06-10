@@ -17,11 +17,11 @@ const setupDailyActivity = date => {
 const displayActivityMeals = () => {
   const { dailyActivity } = globals.state;
   dailyActivity.retrieveActivity();
+  activityView.clearMeals();
   if (!dailyActivity.isEmpty()) renderFoodsAte();
 };
 
 const renderFoodsAte = () => {
-  activityView.clearMeals();
   const { meals } = globals.state.dailyActivity;
   Object.entries(meals).forEach(renderMealFoods);
 };
@@ -84,16 +84,15 @@ const updateMacronutrientsTotals = () => {
   activityView.changeMacronutrientsTotals(macronutrientsTotals);
 };
 
-/* ADD FOOD */
-const handleAddFood = event => {
+const addFood = event => {
   const { target } = event;
   if (!activityView.isMealSelector(target)) return;
-  const { mealName } = target.dataset;
-  addFood(globals.state.food, mealName);
+  const mealName = activityView.getMealName(target);
+  addFoodToActivityMeal(globals.state.food, mealName);
   showMealChanges(mealName);
 };
 
-const addFood = (food, mealName) => {
+const addFoodToActivityMeal = (food, mealName) => {
   globals.state.dailyActivity.addFood(food, mealName);
   activityView.renderFood(food, mealName);
 };
@@ -104,30 +103,30 @@ const showMealChanges = mealName => {
   changeCurrentSectionTo("activitySection");
 };
 
-/* CHANGE ACTIVITY */
 const changeDailyActivity = event => {
-  const inputDate = e.target.value;
-  const activityDate = getActivityDate(inputDate);
+  const activityDate = getActivityDate();
   setupDailyActivity(activityDate);
 };
 
-const getActivityDate = inputDate => {
+function getActivityDate() {
+  const inputDate = activityView.getInputDate();
+  return getFixedDate(inputDate);
+}
+
+const getFixedDate = inputDate => {
   const date = new Date(inputDate);
   date.setHours(24);
   return date.toDateString();
 };
 
-/* const toggleMealsList = event => {
-  const { mealName } = e.target.dataset;
+const toggleMealsList = event => {
+  const { target } = event;
+  if (!activityView.isMealSwapperButton(target)) return;
+  const mealName = activityView.getMealName(target);
   activityView.changeActivityFoodList(mealName);
-}; */
+};
 
 window.addEventListener("load", loadDailyActivity);
-elements.foodAddSwapper.addEventListener("click", handleAddFood);
+elements.foodAddSwapper.addEventListener("click", addFood);
 elements.activityDateInput.addEventListener("change", changeDailyActivity);
-/* 
-
-
-[...elements.activityMealsSwapperBtns].forEach(button =>
-  button.addEventListener("click", toggleMealsList)
-); */ // Cambiar mealTbody, Implementar con event delegation
+elements.activityMealsSwapper.addEventListener("click", toggleMealsList);

@@ -6,7 +6,7 @@ LOS OBJETOS, ¿HACER UNA SOLA FUNCION QUE TOME UN ENTRY DEL OBJETO Y APLIQUE LOS
 
 export const smoothScrollTo = (element, options) => {
   const hasSmoothScroll = element.scrollTo !== undefined;
-  if (false/* hasSmoothScroll */) {
+  if (true/* hasSmoothScroll */) {
     element.scrollTo({ ...options, behavior: "smooth" });
   } else {
     console.time(`Scrolleada`);
@@ -17,7 +17,7 @@ export const smoothScrollTo = (element, options) => {
 const scrollUntilEndIsReached = (element, end) => {
   const step = getStepOptions(element, end);
   const newEndPosition = getEndScrollPosition(element, end);
-  console.log(end, newEndPosition);
+  console.log({end}, {newEndPosition});
   const scrollate = { element, end: newEndPosition, step };
   moveScrollStepByStep(scrollate);
 };
@@ -124,6 +124,7 @@ const getPropertyName = entryName => {
 const hasReachedEnd = ({ element, end }) => {
   const currentPosition = getCurrentScrollPosition(element);
   for (const [name, value] of Object.entries(end)) {
+    console.log(currentPosition[name]);
     if (currentPosition[name] !== value) {
       return false;
     }

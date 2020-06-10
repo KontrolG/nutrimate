@@ -1,5 +1,5 @@
 import { elements, $, degreesToRadians, clearChilds, fixDecimals } from "./base";
-import { createNutrientAmount } from "./components";
+import createFoodAteRow from "./components/foodAteRow";
 
 export const changeTotalCalories = caloriesAmount => {
   const { currentTotal, caloriesGoal } = caloriesAmount;
@@ -46,27 +46,16 @@ export const renderFood = (food, mealName) => {
   $(`.tbody__${mealName}`).insertAdjacentHTML("beforeEnd", markup);
 };
 
-const createFoodAteRow = food => {
-  const { description, calories } = food;
-  return `<tr>
-            <td class="foods__ate__name">
-              <h4>${description}</h4>
-            </td>
-            <td class="foods__ate__quantity">
-              1
-            </td>
-            <td class="foods__ate__portion">
-              30g
-            </td>
-            <td class="foods__ate__calories">
-              ${createNutrientAmount(calories)}
-            </td>
-          </tr>`;
-};
-
 export const clearMeals = () => {
   Array.from(elements.activityMealsTables).forEach(clearChilds);
 }
+
+export const getInputDate = () => elements.activityDateInput.value;
+
+export const isMealSwapperButton = target =>
+  target.matches(".meals__swapper li button");
+
+export const getMealName = ({ dataset }) => dataset.mealName;
 
 export const changeActivityGraph = graphValues => {
   const canvas = getCanvasFromElement(elements.activityGraph);
