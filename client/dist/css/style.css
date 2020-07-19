@@ -420,19 +420,6 @@ main > section {
   margin-right: 0.375em;
 }
 
-
-/* .results__clear__btn {
-  position: fixed;
-  top: 22rem;
-  left: 15rem;
-  background: #fff;
-  box-shadow: 0 1px 6px 0px rgba(0, 0, 0, 0.4);
-  width: 3rem;
-  height: 3rem;
-  visibility: hidden;
-}
-
-.results__found .results__clear__btn {visibility: visible;} */
 .results__not__searched .results__placeholder {display: block;}
 .results__not__searched .results__loader {display: none;}
 
@@ -451,35 +438,69 @@ main > section {
 }
 
 .results__active {
-  background: #fafaff;
-  transform: scale(1.01);
+  background-image: linear-gradient(150deg, #fff, 72%, rgba(253, 176, 53, 0.5));
+  transform: scale(1.025);
 }
 
-.results__fig img {
+.results__summary {
   height: 50px;
-  flex: 0 0 30%;
+  flex: 0 0 33%;
   align-self: center;
   object-fit: contain;
 }
 
-.results__info {
-  padding: 0 1rem;
-  flex: 0 0 70%;
+/* NEW */
+.results__summary {
+  font-size: 1rem;
+  height: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.results__name {
-  width: 11em;
+.results__summary hr {
+  transform: rotate(-40deg);
+  margin-top: -0.75rem;
+  border: 0.1rem solid #906e84;
+}
+
+.results__summary i {
+  font-size: 1.5rem;
+  display: block;
 }
 
 .results__calories {
+  color: #fdd035;
+}
+
+.results__portion {
+  color: #46B1C9;
+  color: #61BDD1;
+  color: #71C3D6;
+  margin-top: -1rem;
+  text-align: right;
+}
+
+.results__portion span {
+  font-weight: bolder;
+}
+
+.results__info {
+  padding: 0 1rem;
+  flex: 0 0 67%;
+}
+
+.results__name {
+  width: 10em;
+  font-style: italic;
   padding-bottom: 0.65em;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid hsl(321, 13%, 80%);
 }
 
 .results__macros {
   font-size: 0.75em;
   margin-left: 0.15em;
-  font-weight: bolder;
+  /* font-weight: bolder; */
 }
 
 .results__macros > * {color: #888;}
