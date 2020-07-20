@@ -18,6 +18,18 @@ export const createMacroDefinition = macro => {
   }
 };
 
+export const createResultMacroDefinition = macro => {
+  if (macro.name) {
+    const macroName = newNutrientsNames[macro.name] || macro.name;
+    const macroAmount = createNutrientAmount(macro);
+    return `<dt>
+              <img class="icon" src="img/${macroName}.svg">
+              <p data-macro-name="${macroName}">${macroName}</p>
+            </dt>
+            <dd>${macroAmount}</dd>`; 
+  }
+};
+
 /* Nested row??? */
 export const createNutritionFactRow = nutrient => `
   <tr>

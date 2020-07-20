@@ -6,7 +6,7 @@ LOS OBJETOS, ¿HACER UNA SOLA FUNCION QUE TOME UN ENTRY DEL OBJETO Y APLIQUE LOS
 
 export const smoothScrollTo = (element, options) => {
   const hasSmoothScroll = element.scrollTo !== undefined;
-  if (true/* hasSmoothScroll */) {
+  if (hasSmoothScroll) {
     element.scrollTo({ ...options, behavior: "smooth" });
   } else {
     console.time(`Scrolleada`);

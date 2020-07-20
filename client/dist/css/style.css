@@ -54,6 +54,11 @@ a {
   font-weight: bolder;
 }
 
+img.icon {
+  height: 1em;
+  width: 1em;
+}
+
 .btn {
   padding: 0.375rem 0.75rem;
   background: none;
@@ -437,9 +442,13 @@ main > section {
   background-color: #fff;
 }
 
+.results__fig:hover {
+  background-color: #fcfcfc;
+}
+
 .results__active {
-  background-image: linear-gradient(150deg, #fff, 72%, rgba(253, 176, 53, 0.5));
-  transform: scale(1.025);
+  background-color: #fafafa;
+  transform: scale(1.035);
 }
 
 .results__summary {
@@ -493,24 +502,52 @@ main > section {
 .results__name {
   width: 10em;
   font-style: italic;
-  padding-bottom: 0.65em;
+  padding-bottom: 0.5em;
   border-bottom: 1px solid hsl(321, 13%, 80%);
 }
 
 .results__macros {
+  justify-content: space-between;
+  height: 4.2em;
   font-size: 0.75em;
   margin-left: 0.15em;
-  /* font-weight: bolder; */
+}
+
+.results__macros img {
+  font-size: 1.15rem;
 }
 
 .results__macros > * {color: #888;}
 
-.results__macros dd {
-  color: unset;
-  margin-top: -0.25em;
+.results__macros dt {
+  flex: 0 0 44.44%;
 }
 
-.results__macros dt::after {content: ":";}
+.results__macros dt p,
+.results__macros dd {
+  margin-top: -0.35em;
+}
+
+.results__macros dd {
+  color: unset;
+  flex: 0 0 33.33%;
+}
+
+.results__macros dd .nutrient__amount {
+  font-weight: bolder;
+}
+
+[data-macro-name="Protein"] {
+  color: #b25352;
+}
+
+[data-macro-name="Carbs"] {
+  color: #c48669;
+}
+
+[data-macro-name="Fat"] {
+  color: #d8aa4d;
+}
 
 /* FOOD DETAILS SECTION */
 .food {

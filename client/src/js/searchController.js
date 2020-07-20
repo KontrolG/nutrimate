@@ -8,15 +8,20 @@ const toggleSearch = event => {
   if (headerView.searchIsClosed()) {
     headerView.openSearch();
   } else {
-    if (globals.state.search) deleteSearch();
-    headerView.closeSearch();
+    restartSearch();
   }
+  
+};
+
+const restartSearch = () => {
+  if (globals.state.search) deleteSearch();
+  headerView.closeSearch();
 };
 
 const deleteSearch = () => {
   delete globals.state.search;
   searchView.clearResults();
-  changeCurrentSectionTo("resultsSection"); /*  ¿CORRECTO?  */
+  changeCurrentSectionTo("resultsSection"); /*  ¿CORRECTO? -> Solo compete a la vista  */
 };
 
 const handleSubmit = event => {
@@ -35,14 +40,15 @@ const searchResults = async searchQuery => {
     await loadResults(searchQuery);
   } catch (error) {
     alert("Error searching!", error);
+    console.log("Error searching!", error);
   }
 };
 
 const loadResults = async searchQuery => {
   const results = await getResults(searchQuery);
   // O areThereResults?????
-  const thereAreResults = results.length > 0;
-  if (thereAreResults) {
+  const resultsFound = results.length > 0;
+  if (resultsFound) {
     searchView.displayResults(results);
   } else {
     showNotResultsFoundMessage();
@@ -51,8 +57,9 @@ const loadResults = async searchQuery => {
 
 const getResults = async searchQuery => {
   // ¿IF REDUNDANTE? QUE PASA SI YA HAY UNA BUSQUEDA? <- para cargar mas resultados.
-  if (!globals.state.search) 
+  if (!globals.state.search) {
     globals.state.search = new Search(searchQuery);
+  }
   return await globals.state.search.fetchResults();
 };
 
