@@ -1,0 +1,30 @@
+nav {
+  box-shadow: 0px 0px 3.5px -2.5px #555;
+  order: 1;
+  height: min-content;
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 9999;
+  color: #906e84;
+}
+
+.nav__list {
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav__item {
+  text-align: center;
+  font-size: 0.9em;
+  padding: 0.95rem 1.5rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav__item i {
+  font-size: 1.5em;
+}
+
+.nav__active {
+  color: #fdb035;
+}

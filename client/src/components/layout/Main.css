@@ -1,0 +1,17 @@
+main {
+  flex: 1 0 auto;
+  height: 78vh; /* 78.25vh */
+  min-height: 350px;
+  width: 100vw;
+  display: flex;
+  overflow-x: auto;
+  position: relative;
+}
+
+main > section {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  /* position: relative; */
+}

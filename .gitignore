@@ -1,5 +1,4 @@
 data
 kalco.txt
 client/node_modules
-client/dist/index.html
-client/dist/js/bundle.js
+client/.vscode

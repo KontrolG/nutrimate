@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/nutrimate-icons.css">
+  <title>Nutrimate // Calorie Counter</title>
+</head>
+
+<body>
+  <header class="search__closed">
+    <img class="logo" src="img/logo.png" alt="Nutrimate Logo">
+    <form action="/" class="search__form">
+      <button type="button" class="btn search__btn">
+        <i class="icon-search"></i>
+        <i class="icon-arrow-back"></i>
+      </button>
+      <input type="text" class="search__input form__control" name="search__input" id="search__input"
+        placeholder="Search. Example: Coffe, Latte" required pattern="[\w\s%,.]+" title="Only alphanumeric and %,.">
+      <button type="reset" class="btn search__reset" title="Clear input"><i class="icon-clear"></i></button>
+    </form>
+  </header>
+  <nav>
+    <ul class="nav__list">
+      <li>
+        <a class="nav__item nav__active" href="#resultsSection">
+          <i class="icon-search"></i>
+          Search
+        </a>
+      </li>
+      <li>
+        <a class="nav__item" href="#foodSection">
+          <i class="icon-list"></i>
+          Details
+        </a>
+      </li>
+      <li>
+        <a class="nav__item" href="#activitySection">
+          <i class="icon-pie-chart"></i>
+          Activity
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <main>
+    <section id="resultsSection" class="results results__not__searched">
+      <ul class="results__list">
+      </ul>
+      <figure class="results__placeholder">
+        <img class="logo" src="img/logo.png" alt="Nutrimate Logo">
+        <figcaption>
+          <h1>
+            Nutrimate
+          </h1>
+          <p class="copy">Eat <strong><em>smart</em></strong>. Stay <strong><em>healty</em></strong>.</p>
+          <button class="btn search__shortcut" type="button">
+            <i class="icon-search"></i>
+            Search food
+          </button>
+        </figcaption>
+      </figure>
+      <!-- <figure class="results__placeholder">
+        <img class="logo" src="img/logo.png" alt="Nutrimate Logo">
+        <figcaption>
+          <h2>
+            Something went wrong
+          </h2>
+          <p class="copy">There is a connection error.</p>
+          <button class="btn search__shortcut" type="button">
+            <i class="icon-search"></i>
+            Try again
+          </button>
+        </figcaption>
+      </figure> -->
+      <p class="loader results__loader hidden centered">
+        <i class="icon-spinner"></i>
+      </p>
+    </section>
+    <section id="foodSection" class="food">
+      <div class="food__add__wrapper">
+        <div class="popup food__add__popup hidden">
+          <h4>Select a meal</h4>
+          <ol class="buttons-swapper food__add__swapper">
+            <li><button class="btn" data-meal-name="breakfast">Breakfast</button></li>
+            <li><button class="btn" data-meal-name="lunch">Lunch</button></li>
+            <li><button class="btn" data-meal-name="dinner">Dinner</button></li>
+            <li><button class="btn" data-meal-name="snack">Snack</button></li>
+          </ol>
+        </div>
+        <button class="btn btn__circle food__add__btn"><span>+</span></button>
+      </div>
+    </section>
+    <section id="activitySection" class="daily__activity">
+      <form action="#" class="date__select__form">
+        <label for="date__input">Today</label>
+        <input type="date" class="date__input" name="date__input" id="date__input">
+      </form>
+      <canvas class="activity__graph"></canvas>
+      <ol class="graph__legend">
+        <li>
+          <span class="dot breakfast__dot"></span> Breakfast
+        </li>
+        <li>
+          <span class="dot lunch__dot"></span> Lunch
+        </li>
+        <li>
+          <span class="dot dinner__dot"></span> Dinner
+        </li>
+        <li>
+          <span class="dot snack__dot"></span> Snack
+        </li>
+      </ol>
+      <div class="total__calories">
+        <p><strong class="current__calories">0</strong>/<strong class="calories__goal">2000</strong></p>
+        <p class="meter__title">Calories</p>
+      </div>
+      <ul class="total__macros">
+        <li>
+          <span class="dot breakfast__dot"></span> Protein
+          <p><span data-nutrient-name="protein">0</span>g</p>
+        </li>
+        <li>
+          Carbs
+          <p><span data-nutrient-name="carbohydrate">0</span>g</p>
+        </li>
+        <li>
+          Fat
+          <p><span data-nutrient-name="fat">0</span>g</p>
+        </li>
+        <li>
+          Fiber
+          <p><span data-nutrient-name="fiber">0</span>g</p>
+        </li>
+      </ul>
+      <ol class="buttons-swapper meals__swapper">
+        <li><button class="btn meals__selected" data-meal-name="breakfast">Breakfast</button></li>
+        <li><button class="btn" data-meal-name="lunch">Lunch</button></li>
+        <li><button class="btn" data-meal-name="dinner">Dinner</button></li>
+        <li><button class="btn" data-meal-name="snack">Snack</button></li>
+      </ol>
+      <table class="foods__ate">
+        <thead>
+          <tr>
+            <th><span class="sr__only">Delete</span></th>
+            <th>Description</th>
+            <th>Qty</th>
+            <th>Portion</th>
+            <th>E</th>
+            <th><span class="sr__only">View</span></th>
+          </tr>
+        </thead>
+        <tbody class="tbody__breakfast meal__active test">
+        </tbody>
+        <tbody class="tbody__lunch">
+        </tbody>
+        <tbody class="tbody__dinner">
+        </tbody>
+        <tbody class="tbody__snack">
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="no__foods__message" colspan="4">No foods added yet!</td>
+          </tr>
+          <tr>
+            <th colspan="3" scope="row">Total Calories</td>
+            <td>2000</td>
+          </tr>
+        </tfoot>
+      </table>
+    </section>
+  </main>
+</body>
+
+</html>

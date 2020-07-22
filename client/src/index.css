@@ -1,0 +1,16 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font: 400 16px /1.5 Roboto, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #232528;
+}
