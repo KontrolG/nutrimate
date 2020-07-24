@@ -10,13 +10,16 @@ nav {
 
 .nav__list {
   display: flex;
-  justify-content: space-around;
+}
+
+.nav__list li {
+  flex: 1;
 }
 
 .nav__item {
   text-align: center;
   font-size: 0.9em;
-  padding: 0.95rem 1.5rem 0.5rem;
+  padding: 0.95rem 0 0.5rem;
   display: flex;
   flex-direction: column;
 }
@@ -25,6 +28,6 @@ nav {
   font-size: 1.5em;
 }
 
-.nav__active {
+.nav__item.active {
   color: #fdb035;
 }

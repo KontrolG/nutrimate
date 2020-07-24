@@ -1,24 +1,11 @@
-import React, { StrictMode, useState } from "react";
-import Header from "./components/layout/Header";
-import Main from "./components/layout/Main";
-import Navigation from "./components/layout/Navigation";
-import Home from "./components/pages/Home";
+import React, { StrictMode } from "react";
+import Router from "./components/Router";
 import "./App.css";
 
 const App = () => {
-  const [isHidden, setIsHidden] = useState(false);
-
-  const toggleIsHidden = () => setIsHidden(negateBoolean);
-
-  const negateBoolean = boolean => !boolean;
-
   return (
     <StrictMode>
-      <Navigation />
-      <Header />
-      <Main>
-        <Home />
-      </Main>
+      <Router />
     </StrictMode>
   );
 };

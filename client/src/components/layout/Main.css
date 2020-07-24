@@ -1,4 +1,5 @@
 main {
+  background-color: rgb(250, 250, 250);
   flex: 1 0 auto;
   height: 78vh; /* 78.25vh */
   min-height: 350px;
@@ -13,5 +14,4 @@ main > section {
   width: 100%;
   height: 100%;
   overflow: auto;
-  /* position: relative; */
 }

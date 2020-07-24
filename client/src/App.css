@@ -12,6 +12,26 @@ ol {
   list-style: none;
 }
 
+.form__control {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  background: none;
+  padding: 0.25em 0;
+  outline: none;
+  /* font: inherit; */
+}
+
+.form__control:focus,
+.form__control:hover {
+  border-bottom: 1px solid #555;
+}
+
+.test,
+.test > * {
+  border: 1px solid #aaa;
+}
+
 #app {
   display: flex;
   flex-direction: column;

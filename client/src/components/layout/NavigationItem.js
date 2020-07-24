@@ -1,13 +1,14 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import Icon from "../Icon";
 
-const NavigationItem = ({ isActive, text, url, iconName }) => {
+const NavigationItem = ({ text, url, iconName }) => {
   return (
     <li>
-      <a className={`nav__item ${isActive && "nav__active"}`} href={url}>
+      <NavLink exact to={url} className="nav__item">
         <Icon name={iconName} />
         {text}
-      </a>
+      </NavLink>
     </li>
   );
 };

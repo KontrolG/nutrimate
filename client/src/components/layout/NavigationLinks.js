@@ -1,19 +1,23 @@
 const navigationLinks = [
   {
-    text: "Search",
-    url: "#resultsSection",
-    iconName: "search",
-    isActive: true
+    text: "Home",
+    url: "/",
+    iconName: "home"
   },
   {
-    text: "Details",
-    url: "#foodSection",
-    iconName: "list"
+    text: "Food",
+    url: "/food",
+    iconName: "fruit-apple"
   },
   {
     text: "Activity",
-    url: "#activitySection",
+    url: "/activity",
     iconName: "pie-chart"
+  },
+  {
+    text: "You",
+    url: "/profile",
+    iconName: "person"
   }
 ];
 

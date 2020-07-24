@@ -17,7 +17,7 @@ const Logo = ({ height }) => {
 };
 
 Logo.defaultProps = {
-  height: "1rem"
+  height: "1.5rem"
 };
 
 export default Logo;

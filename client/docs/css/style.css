@@ -280,19 +280,6 @@ header .logo {
 
 .search__filled .search__reset {display: block;}
 
-.search__form .btn {
-  position: absolute;
-}
-
-.search__closed .search__btn {
-  position: static;
-}
-
-.search__btn {
-  color: #FDB035;
-  outline: none;
-}
-
 .search__btn i:first-child {
   font-size: 1rem;
   display: none;
