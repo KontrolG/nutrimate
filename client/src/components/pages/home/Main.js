@@ -7,7 +7,7 @@ const HomeMain = () => {
   return (
     <Main>
       <section id="homeSection">
-        <Logo height={80} />
+        <Logo size={80} />
         <h1>Nutrimate</h1>
         <p className="copy">
           Eat{" "}

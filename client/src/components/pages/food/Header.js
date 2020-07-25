@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 import { Provider } from "../../../context";
 import Header from "../../layout/Header";
 import Logo from "../../Logo";
@@ -17,13 +18,13 @@ const useToggle = initialState => {
 const FoodHeader = props => {
   const [searchIsClosed, toggleSearchIsClosed] = useToggle(true);
 
-  const classNames = ["search"];
-
-  if (searchIsClosed) classNames.push("search__closed");
+  const headerClassNames = classNames("search", {
+    search__closed: searchIsClosed
+  });
 
   return (
-    <Header className={classNames.join(" ")}>
-      <Logo />
+    <Header className={headerClassNames}>
+      <Logo size="1.25rem" />
       <Provider value={{ searchIsClosed, toggleSearchIsClosed }}>
         <SearchForm />
       </Provider>

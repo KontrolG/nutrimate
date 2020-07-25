@@ -10,6 +10,7 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, "docs"),
+    historyApiFallback: true,
     host: "0.0.0.0",
     port: 8080,
     openPage: "http://localhost:8080",

@@ -26,7 +26,7 @@ const SearchForm = props => {
     <form action="/" className="search__form" onReset={resetSearchQuery}>
       <SearchButton />
       <SearchInput value={searchQuery} onChange={setSearchQuery} />
-      <SearchReset hidden={searchQueryIsEmpty || searchIsClosed} />
+      <SearchReset isHidden={searchQueryIsEmpty || searchIsClosed} />
     </form>
   );
 };

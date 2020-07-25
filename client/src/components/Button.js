@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 import Icon from "./Icon";
 import "./Button.css";
 
@@ -10,12 +11,17 @@ const Button = ({
   children,
   ...restProps
 }) => {
-  const classNames = [className, "button"];
-  if (isFilled) classNames.push("button-filled");
-  if (isPrimary) classNames.push("button-primary");
+  const buttonClassNames = classNames(
+    "button",
+    {
+      "button-primary": isPrimary,
+      "button-filled": isFilled
+    },
+    className
+  );
 
   return (
-    <button className={classNames.join(" ")} {...restProps}>
+    <button className={buttonClassNames} {...restProps}>
       {icon && <Icon {...icon} />}
       {children}
     </button>

@@ -1,23 +1,17 @@
 import React from "react";
+import Icon from "./Icon";
 
-const Logo = ({ height }) => {
-  const styleFromProps = {
-    height,
-    transform: "rotate(-45deg)"
-  };
-
-  return (
-    <img
-      className="logo"
-      style={styleFromProps}
-      src="img/logo.png"
-      alt="Nutrimate Logo"
-    />
-  );
-};
+const Logo = ({ size, ...restProps }) => (
+  <Icon
+    name="logo"
+    alt="Nutrimate Logo"
+    style={{ color: "#fdb035", fontSize: size }}
+    {...restProps}
+  />
+);
 
 Logo.defaultProps = {
-  height: "1.5rem"
+  size: "1rem"
 };
 
 export default Logo;

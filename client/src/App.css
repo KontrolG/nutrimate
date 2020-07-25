@@ -15,16 +15,21 @@ ol {
 .form__control {
   width: 100%;
   border: none;
-  border-bottom: 1px solid #ddd;
-  background: none;
-  padding: 0.25em 0;
+  border: 1px solid #f9f9f9;
+  background-color: #fbfbfb;
+  padding: 0.25em 0.5em;
+  border-radius: 4px;
   outline: none;
   /* font: inherit; */
 }
 
+.form__control::placeholder {
+  color: #906e84;
+}
+
 .form__control:focus,
 .form__control:hover {
-  border-bottom: 1px solid #555;
+  border: 1px solid #fdb035;
 }
 
 .test,
