@@ -4,16 +4,7 @@ import { Provider } from "../../../context";
 import Header from "../../layout/Header";
 import Logo from "../../Logo";
 import SearchForm from "./SearchForm";
-
-const useToggle = initialState => {
-  const [state, setState] = React.useState(initialState);
-
-  const toggleState = () => setState(negateState);
-
-  const negateState = currentState => !currentState;
-
-  return [state, toggleState];
-};
+import useToggle from "../../../hooks/useToggle";
 
 const FoodHeader = props => {
   const [searchIsClosed, toggleSearchIsClosed] = useToggle(true);

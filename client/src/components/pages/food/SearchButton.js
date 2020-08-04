@@ -3,7 +3,7 @@ import { getContextValue } from "../../../context";
 import Button from "../../Button";
 import Icon from "../../Icon";
 
-const SearchButton = () => {
+const SearchButton = props => {
   const { searchIsClosed, toggleSearchIsClosed } = getContextValue();
   const buttonIcon = searchIsClosed ? (
     <Icon name="search" />

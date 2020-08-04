@@ -12,6 +12,11 @@ ol {
   list-style: none;
 }
 
+img.icon {
+  height: 1em;
+  width: 1em;
+}
+
 .form__control {
   width: 100%;
   border: none;
@@ -30,6 +35,24 @@ ol {
 .form__control:focus,
 .form__control:hover {
   border: 1px solid #fdb035;
+}
+
+.macros__data {
+  margin-top: 0.75em;
+  height: 3em;
+  display: flex;
+  flex-flow: column wrap;
+  text-align: center;
+}
+
+.macros__data > * {
+  flex: 0 0 50%;
+}
+
+.text__with__ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .test,

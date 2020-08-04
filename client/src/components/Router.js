@@ -5,7 +5,7 @@ import Navigation from "./layout/Navigation";
 import Home from "./pages/home/Home";
 import Food from "./pages/food/Food";
 
-const ApplicationContent = props => {
+const ApplicationRouter = props => {
   return (
     <HashRouter>
       <Navigation />
@@ -17,4 +17,4 @@ const ApplicationContent = props => {
   );
 };
 
-export default ApplicationContent;
+export default ApplicationRouter;

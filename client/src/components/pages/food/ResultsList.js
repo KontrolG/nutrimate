@@ -1,10 +1,10 @@
 import React from "react";
-import simulatedStaticResults from "./simulatedStaticResults";
+import mockedResults from "./mockedResults";
 import ResultItem from "./ResultItem";
 
 const ResultsList = props => {
-  const toResultItem = (_, index) => <li>{index}</li>;
-  const resultsItems = simulatedStaticResults.map(toResultItem);
+  const toResultItem = (food, index) => <ResultItem key={index} {...food} />;
+  const resultsItems = mockedResults.map(toResultItem);
 
   return <ul className="results__list">{resultsItems}</ul>;
 };
