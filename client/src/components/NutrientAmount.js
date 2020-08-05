@@ -1,19 +1,22 @@
 import React, { Fragment } from "react";
 
-const NutrientAmount = ({ nutrient }) => {
+const NutrientAmount = ({ nutrient, amountDecimals }) => {
   const { name, amount, unitName } = nutrient;
 
-  const fixDecimals = (number, digits = 1) =>
-    parseFloat(number).toFixed(digits);
+  const fixedAmount = parseFloat(amount).toFixed(amountDecimals);
 
   return (
     <Fragment>
       <span className="nutrient__amount" data-nutrient-name={name}>
-        {fixDecimals(amount)}
+        {fixedAmount}
       </span>{" "}
       {unitName}
     </Fragment>
   );
+};
+
+NutrientAmount.defaultProps = {
+  amountDecimals: 1
 };
 
 export default NutrientAmount;

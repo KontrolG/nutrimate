@@ -12,6 +12,15 @@ ol {
   list-style: none;
 }
 
+.calories {
+  font-size: 0.75em;
+}
+
+.calories span {
+  font-size: 1.25em;
+  font-weight: bolder;
+}
+
 img.icon {
   height: 1em;
   width: 1em;

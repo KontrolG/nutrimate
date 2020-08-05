@@ -105,7 +105,7 @@ header.search.search__closed .icon-logo {
 
 .results__summary hr {
   transform: rotate(-40deg);
-  margin-top: -0.75rem;
+  margin-top: -0.25rem;
   border: 0.1rem solid #906e84;
 }
 
@@ -136,7 +136,7 @@ header.search.search__closed .icon-logo {
 }
 
 .results__name {
-  width: 11.5em;
+  width: 10em;
   font-style: italic;
   padding-bottom: 0.5em;
   border-bottom: 1px solid hsl(321, 13%, 80%);
@@ -174,7 +174,7 @@ dl.results__macros {
 .results__macros dd .nutrient__amount {
   font-weight: bolder;
 }
-
+/* 
 [data-macro-name="Protein"] {
   color: #b25352;
 }
@@ -185,4 +185,4 @@ dl.results__macros {
 
 [data-macro-name="Fat"] {
   color: #d8aa4d;
-}
+} */

@@ -48,7 +48,10 @@ a {
   white-space: nowrap;
 }
 
-.calories {font-size: 0.75em;}
+.calories {
+  font-size: 0.75em;
+}
+
 .calories span {
   font-size: 1.25em;
   font-weight: bolder;

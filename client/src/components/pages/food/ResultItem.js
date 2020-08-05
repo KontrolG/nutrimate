@@ -17,13 +17,13 @@ const ResultItem = ({
       <a className="results__fig" href={`#${fdcId}`} title={description}>
         <div className="results__summary">
           <p className="results__calories calories">
+            <NutrientAmount nutrient={calories} amountDecimals={0} />
             <Icon name="bolt" />
-            <NutrientAmount nutrient={calories} />
           </p>
           <hr />
           <p className="results__portion">
             <Icon name="plate" />
-            <span>{portion.gramWeight}</span> g
+            <span>{parseInt(portion.gramWeight, 10)}</span> g
           </p>
         </div>
         <div className="results__info">
