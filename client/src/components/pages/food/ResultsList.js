@@ -1,10 +1,9 @@
 import React from "react";
-import mockedResults from "./mockedResults";
 import ResultItem from "./ResultItem";
 
-const ResultsList = props => {
+const ResultsList = ({ results }) => {
   const toResultItem = (food, index) => <ResultItem key={index} {...food} />;
-  const resultsItems = mockedResults.map(toResultItem);
+  const resultsItems = results.map(toResultItem);
 
   return <ul className="results__list">{resultsItems}</ul>;
 };

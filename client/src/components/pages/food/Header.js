@@ -1,6 +1,5 @@
 import React from "react";
 import classNames from "classnames";
-import { Provider } from "../../../context";
 import Header from "../../layout/Header";
 import Logo from "../../Logo";
 import SearchForm from "./SearchForm";
@@ -16,9 +15,7 @@ const FoodHeader = props => {
   return (
     <Header className={headerClassNames}>
       <Logo size="1.25rem" />
-      <Provider value={{ searchIsClosed, toggleSearchIsClosed }}>
-        <SearchForm />
-      </Provider>
+      <SearchForm {...{ searchIsClosed, toggleSearchIsClosed }} />
     </Header>
   );
 };

@@ -1,18 +1,6 @@
-import React, { createRef } from "react";
-import { getContextValue } from "../../../context";
+import React, { forwardRef } from "react";
 
-const SearchInput = props => {
-  const { searchIsClosed } = getContextValue();
-  const inputRef = createRef();
-
-  const focusInputElement = () => {
-    if (!searchIsClosed) {
-      inputRef.current.focus();
-    }
-  };
-
-  React.useEffect(focusInputElement, [searchIsClosed]);
-
+const SearchInput = forwardRef((props, forwardedRef) => {
   return (
     <input
       type="text"
@@ -20,10 +8,13 @@ const SearchInput = props => {
       name="search__input"
       id="search__input"
       placeholder="Example: Coffe, Latte"
-      ref={inputRef}
+      required
+      pattern="[\w\s%,.]+"
+      title="Only alphanumeric and %,."
+      ref={forwardedRef}
       {...props}
     />
   );
-};
+});
 
 export default SearchInput;

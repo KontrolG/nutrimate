@@ -1,19 +1,13 @@
 import React from "react";
-import { getContextValue } from "../../../context";
 import Button from "../../Button";
 import Icon from "../../Icon";
 
-const SearchButton = props => {
-  const { searchIsClosed, toggleSearchIsClosed } = getContextValue();
-  const buttonIcon = searchIsClosed ? (
-    <Icon name="search" />
-  ) : (
-    <Icon name="arrow-back" />
-  );
+const SearchButton = ({ searchIsClosed, ...props }) => {
+  const iconName = searchIsClosed ? "search" : "arrow-back";
 
   return (
-    <Button className="toggle__search__button" onClick={toggleSearchIsClosed}>
-      {buttonIcon}
+    <Button className="toggle__search__button" {...props}>
+      <Icon name={iconName} />
     </Button>
   );
 };
