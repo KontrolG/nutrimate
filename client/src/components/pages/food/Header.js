@@ -1,23 +1,42 @@
 import React from "react";
+import { connect } from "react-redux";
 import classNames from "classnames";
 import Header from "../../layout/Header";
 import Logo from "../../Logo";
 import SearchForm from "./SearchForm";
-import useToggle from "../../../hooks/useToggle";
+import { setQuery, toggleIsClosed } from "../../../actions/search";
 
-const FoodHeader = props => {
-  const [searchIsClosed, toggleSearchIsClosed] = useToggle(true);
-
+const FoodHeader = ({ query, setQuery, isClosed, toggleIsClosed }) => {
   const headerClassNames = classNames("search", {
-    search__closed: searchIsClosed
+    search__closed: isClosed
   });
 
   return (
     <Header className={headerClassNames}>
       <Logo size="1.25rem" />
-      <SearchForm {...{ searchIsClosed, toggleSearchIsClosed }} />
+      <SearchForm
+        {...{
+          query,
+          setQuery,
+          isClosed,
+          toggleIsClosed
+        }}
+      />
     </Header>
   );
 };
 
-export default FoodHeader;
+const mapStateToProps = ({ search }) => {
+  const { isClosed, query } = search;
+  return {
+    isClosed,
+    query
+  };
+};
+
+const mapDispatchToProps = {
+  setQuery,
+  toggleIsClosed
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FoodHeader);

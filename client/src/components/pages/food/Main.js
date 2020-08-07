@@ -1,11 +1,13 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import Main from "../../layout/Main";
-import ResultsSection from "./ResultsSection";
 
+const ResultsSection = lazy(() => import("./ResultsSection"));
 const FoodMain = () => {
   return (
     <Main>
-      <ResultsSection />
+      <Suspense fallback="loading">
+        <ResultsSection />
+      </Suspense>
     </Main>
   );
 };

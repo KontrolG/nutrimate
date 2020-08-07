@@ -12,6 +12,17 @@ header.search {
   align-items: center;
 }
 
+header.search:not(.search__closed):focus-within {
+  animation: overlayElement 0.5s forwards;
+  box-shadow: 0 0 0px 100vh transparent;
+}
+
+@keyframes overlayElement {
+  to {
+    box-shadow: 0 0 0px 100vh rgba(0, 0, 0, 0.1);
+  }
+}
+
 .search__form {
   display: flex;
   justify-content: center;

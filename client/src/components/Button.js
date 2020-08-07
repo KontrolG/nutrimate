@@ -1,35 +1,42 @@
 import React from "react";
 import classNames from "classnames";
 import Icon from "./Icon";
+import { getDisplayName } from "../utils";
 import "./Button.css";
 
-const Button = ({
-  className,
-  isFilled,
-  isPrimary,
-  icon,
-  children,
-  ...restProps
-}) => {
-  const buttonClassNames = classNames(
-    "button",
-    {
-      "button-primary": isPrimary,
-      "button-filled": isFilled
-    },
-    className
-  );
+const withButton = ElementWrapper => {
+  const withButton = ({
+    className,
+    isFilled,
+    isPrimary,
+    icon,
+    children,
+    ...restProps
+  }) => {
+    const buttonClassNames = classNames(
+      "button",
+      {
+        "button-primary": isPrimary,
+        "button-filled": isFilled
+      },
+      className
+    );
 
-  return (
-    <button className={buttonClassNames} {...restProps}>
-      {icon && <Icon {...icon} />}
-      {children}
-    </button>
-  );
+    return (
+      <ElementWrapper className={buttonClassNames} {...restProps}>
+        {icon && <Icon {...icon} />}
+        {children}
+      </ElementWrapper>
+    );
+  };
+
+  withButton.displayName = `withButton(${getDisplayName(ElementWrapper)})`;
+  withButton.defaultProps = {
+    type: "button"
+  };
+
+  return withButton;
 };
 
-Button.defaultProps = {
-  type: "button"
-};
-
-export default Button;
+export { withButton };
+export default withButton("button");

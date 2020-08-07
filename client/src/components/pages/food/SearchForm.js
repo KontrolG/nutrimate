@@ -1,58 +1,59 @@
 import React, { createRef } from "react";
-import { connect } from "react-redux";
 import SearchButton from "./SearchButton";
 import SearchInput from "./SearchInput";
 import SearchReset from "./SearchReset";
 import useInputValue from "../../../hooks/useInputValue";
-import { setSearchQuery } from "../../../actions/search";
 
-const SearchForm = ({ test, onTest, searchIsClosed, toggleSearchIsClosed }) => {
-  const [searchQuery, setSearchQuery, resetSearchQuery] = useInputValue(test);
+const SearchForm = ({ query, setQuery, isClosed, toggleIsClosed }) => {
+  const [
+    searchInputValue,
+    setSearchInputValue,
+    resetSearchInputValue
+  ] = useInputValue(query);
   const searchInputRef = createRef();
-  const searchQueryIsEmpty = searchQuery === "";
+  const searchInputIsEmpty = searchInputValue === "";
+
+  const resetSearchQuery = () => {
+    resetSearchInputValue();
+    setQuery("");
+  };
+
+  const focusSearchInput = () => searchInputRef.current.focus();
 
   const changeSearchInputOnToggle = () => {
-    if (searchIsClosed) {
+    if (isClosed) {
       resetSearchQuery();
     } else {
-      searchInputRef.current.focus();
+      focusSearchInput();
     }
   };
 
-  React.useEffect(changeSearchInputOnToggle, [searchIsClosed]);
+  React.useEffect(changeSearchInputOnToggle, [isClosed]);
 
   const getResultsFromSearchQuery = event => {
     event.preventDefault();
-    onTest();
+    setQuery(searchInputValue);
   };
 
   return (
     <form
       action="/"
       className="search__form"
-      onReset={resetSearchQuery}
+      onReset={resetSearchInputValue}
       onSubmit={getResultsFromSearchQuery}
     >
-      <SearchButton
-        onClick={toggleSearchIsClosed}
-        searchIsClosed={searchIsClosed}
-      />
+      <SearchButton onClick={toggleIsClosed} searchIsClosed={isClosed} />
       <SearchInput
-        value={searchQuery}
-        onChange={setSearchQuery}
+        value={searchInputValue}
+        onChange={setSearchInputValue}
         ref={searchInputRef}
       />
-      <SearchReset isHidden={searchQueryIsEmpty || searchIsClosed} />
+      <SearchReset
+        isHidden={searchInputIsEmpty || isClosed}
+        onClick={focusSearchInput}
+      />
     </form>
   );
 };
 
-const mapStateToProps = state => ({
-  test: state.searchQuery
-});
-
-const mapDispatchToProps = dispatch => ({
-  onTest: () => dispatch(setSearchQuery("Any"))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchForm);
+export default SearchForm;

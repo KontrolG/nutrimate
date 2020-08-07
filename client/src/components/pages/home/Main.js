@@ -1,9 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
+import { setIsClosed } from "../../../actions/search";
 import Main from "../../layout/Main";
 import Logo from "../../Logo";
+import SearchShortcut from "./SearchShortcut";
 import Button from "../../Button";
 
-const HomeMain = () => {
+const HomeMain = ({ openSearch }) => {
   return (
     <Main>
       <section id="homeSection">
@@ -20,9 +23,7 @@ const HomeMain = () => {
           </strong>
           .
         </p>
-        <Button className="search__shortcut" icon={{ name: "search" }} isFilled>
-          Search Food
-        </Button>
+        <SearchShortcut onClick={openSearch} />
         <Button
           className="profile__shortcut"
           isFilled
@@ -35,4 +36,11 @@ const HomeMain = () => {
     </Main>
   );
 };
-export default HomeMain;
+
+const mapDispatchToProps = dispatch => ({
+  openSearch() {
+    return dispatch(setIsClosed(false));
+  }
+});
+
+export default connect(null, mapDispatchToProps)(HomeMain);

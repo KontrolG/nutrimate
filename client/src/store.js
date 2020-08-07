@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from "redux";
 import rootReducer from "./reducers";
-import { setSearchQuery } from "./actions/search";
+import { setSearchQuery, toggleSearchIsClosed } from "./actions/search";
 
 const store = createStore(rootReducer, {} /* applyMiddleware */);
 
@@ -8,7 +8,6 @@ const store = createStore(rootReducer, {} /* applyMiddleware */);
 const logState = () => console.log(store.getState());
 logState();
 const unsubscribe = store.subscribe(logState);
-// store.dispatch(setSearchQuery("TEst"));
 // store.dispatch(setSearchQuery("TEst 2"));
 // unsubscribe();
 // store.dispatch(setSearchQuery("TEst 3"));
