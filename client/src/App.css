@@ -64,6 +64,12 @@ img.icon {
   white-space: nowrap;
 }
 
+.vertically-centered {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .test,
 .test > * {
   border: 1px solid #aaa;

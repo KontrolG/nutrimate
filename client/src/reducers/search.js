@@ -2,7 +2,9 @@ import { combineReducers } from "redux";
 import {
   SET_SEARCH_QUERY,
   TOGGLE_SEARCH_IS_CLOSED,
-  SET_SEARCH_IS_CLOSED
+  SET_SEARCH_IS_CLOSED,
+  SET_IS_SEARCHING,
+  ADD_RESULTS
 } from "../actions/types";
 
 const query = (previousState = "", action) => {
@@ -22,9 +24,25 @@ const isClosed = (previousState = true, action) => {
   return previousState;
 };
 
+const isSearching = (previousState = false, action) => {
+  if (action.type === SET_IS_SEARCHING) {
+    return action.isSearching;
+  }
+  return previousState;
+};
+
+const results = (previousState = [], action) => {
+  if (action.type === ADD_RESULTS) {
+    return [...previousState, ...action.results];
+  }
+  return previousState;
+};
+
 const searchReducer = combineReducers({
   isClosed,
-  query
+  query,
+  isSearching,
+  results
 });
 
 export default searchReducer;

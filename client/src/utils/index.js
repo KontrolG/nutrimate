@@ -4,3 +4,5 @@ export const getDisplayName = element => {
   }
   return element.displayName || element.name || "Component";
 };
+
+export { default as fetchData } from "./fetchData";

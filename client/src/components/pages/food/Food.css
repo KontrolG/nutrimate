@@ -79,6 +79,10 @@ header.search.search__closed .icon-logo {
 }
 
 /* RESULT ITEM */
+.results__loader {
+  align-items: center;
+  height: 100%;
+}
 
 .results__fig {
   display: flex;

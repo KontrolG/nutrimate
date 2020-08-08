@@ -1,9 +1,11 @@
 import React from "react";
+import Icon from "./Icon";
+import "./LoadingSpinner.css";
 
-const LoadingSpinner = props => {
+const LoadingSpinner = ({ className, ...props }) => {
   return (
-    <p class="loader results__loader hidden centered">
-      <i class="icon-spinner"></i>
+    <p className={`loader ${className}`}>
+      <Icon name="spinner" />
     </p>
   );
 };
