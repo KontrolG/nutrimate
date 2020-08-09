@@ -1,7 +1,8 @@
 import React from "react";
-import Icon from "../../Icon";
-import NutrientAmount from "../../NutrientAmount";
-import MacrosList from "../../MacrosList";
+import { NavLink } from "react-router-dom";
+import Icon from "../../../Icon";
+import NutrientAmount from "../../../NutrientAmount";
+import MacrosList from "../../../MacrosList";
 
 const ResultItem = ({
   fdcId,
@@ -14,7 +15,11 @@ const ResultItem = ({
 }) => {
   return (
     <li>
-      <a className="results__fig" href={`#${fdcId}`} title={description}>
+      <NavLink
+        className="results__fig"
+        to={`/food/${fdcId}`}
+        title={description}
+      >
         <div className="results__summary">
           <p className="results__calories calories">
             <NutrientAmount nutrient={calories} amountDecimals={0} />
@@ -33,7 +38,7 @@ const ResultItem = ({
             className="results__macros"
           />
         </div>
-      </a>
+      </NavLink>
     </li>
   );
 };

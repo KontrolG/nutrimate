@@ -12,16 +12,10 @@ const HomeMain = ({ openSearch }) => {
       <section id="homeSection">
         <Logo size={80} />
         <h1>Nutrimate</h1>
+        <h2>Calorie Counter</h2>
         <p className="copy">
-          Eat{" "}
-          <strong>
-            <em>smart</em>
-          </strong>
-          . Stay{" "}
-          <strong>
-            <em>healty</em>
-          </strong>
-          .
+          Find <strong>healthiest foods</strong> for you while{" "}
+          <em>Nutrimate</em> tracks your <strong>calories</strong>.
         </p>
         <SearchShortcut onClick={openSearch} />
         <Button

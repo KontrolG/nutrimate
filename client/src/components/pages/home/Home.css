@@ -5,16 +5,29 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0 1rem;
 }
 
-h1 {
-  font-size: 2.5rem;
+h1,
+h2 {
   line-height: 1.15;
   color: #fdb035;
 }
 
+h1 {
+  font-size: 2.5rem;
+}
+
+#homeSection h2 {
+  font-weight: normal;
+  font-size: 1.24rem;
+  margin-bottom: 1em;
+}
+
 .copy {
   color: #906e84;
+  width: 80%;
+  text-align: center;
 }
 
 #homeSection .button {

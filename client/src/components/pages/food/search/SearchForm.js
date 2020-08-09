@@ -2,7 +2,7 @@ import React, { createRef } from "react";
 import SearchButton from "./SearchButton";
 import SearchInput from "./SearchInput";
 import SearchReset from "./SearchReset";
-import useInputValue from "../../../hooks/useInputValue";
+import useInputValue from "../../../../hooks/useInputValue";
 
 const SearchForm = ({ query, setQuery, isClosed, toggleIsClosed }) => {
   const [
@@ -19,6 +19,7 @@ const SearchForm = ({ query, setQuery, isClosed, toggleIsClosed }) => {
   };
 
   const focusSearchInput = () => searchInputRef.current.focus();
+  const blurSearchInput = () => searchInputRef.current.blur();
 
   const changeSearchInputOnToggle = () => {
     if (isClosed) {
@@ -33,6 +34,7 @@ const SearchForm = ({ query, setQuery, isClosed, toggleIsClosed }) => {
   const getResultsFromSearchQuery = event => {
     event.preventDefault();
     setQuery(searchInputValue);
+    blurSearchInput();
   };
 
   return (

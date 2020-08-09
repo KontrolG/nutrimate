@@ -10,4 +10,6 @@ const LoadingSpinner = ({ className, ...props }) => {
   );
 };
 
+LoadingSpinner.defaultProps = { className: "" };
+
 export default LoadingSpinner;

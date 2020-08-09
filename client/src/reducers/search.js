@@ -4,7 +4,9 @@ import {
   TOGGLE_SEARCH_IS_CLOSED,
   SET_SEARCH_IS_CLOSED,
   SET_IS_SEARCHING,
-  ADD_RESULTS
+  SET_RESULTS,
+  ADD_RESULTS,
+  SET_LAST_UPDATE
 } from "../actions/types";
 
 const query = (previousState = "", action) => {
@@ -32,8 +34,18 @@ const isSearching = (previousState = false, action) => {
 };
 
 const results = (previousState = [], action) => {
+  if (action.type === SET_RESULTS) {
+    return [...action.results];
+  }
   if (action.type === ADD_RESULTS) {
     return [...previousState, ...action.results];
+  }
+  return previousState;
+};
+
+const lastUpdate = (previousState = null, action) => {
+  if (action.type === SET_LAST_UPDATE) {
+    return action.lastUpdate;
   }
   return previousState;
 };
@@ -42,7 +54,8 @@ const searchReducer = combineReducers({
   isClosed,
   query,
   isSearching,
-  results
+  results,
+  lastUpdate
 });
 
 export default searchReducer;

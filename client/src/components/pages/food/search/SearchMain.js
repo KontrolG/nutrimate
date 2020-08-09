@@ -1,5 +1,5 @@
 import React from "react";
-import Main from "../../layout/Main";
+import Main from "../../../layout/Main";
 import ResultsSection from "./ResultsSection";
 
 const FoodMain = () => {
