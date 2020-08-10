@@ -13,12 +13,21 @@ ol {
 }
 
 .calories {
+  color: #fdd035;
   font-size: 0.75em;
 }
 
 .calories span {
   font-size: 1.25em;
+}
+
+.calories span,
+.portion span {
   font-weight: bolder;
+}
+
+.portion {
+  color: #71c3d6;
 }
 
 img.icon {
@@ -56,6 +65,19 @@ img.icon {
 
 .macros__data > * {
   flex: 0 0 50%;
+  color: #888;
+}
+
+.macros__data img {
+  font-size: 1.15rem;
+}
+
+.macros__data dd {
+  color: unset;
+}
+
+.macros__data dd .nutrient__amount {
+  font-weight: bolder;
 }
 
 .text__with__ellipsis {

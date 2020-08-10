@@ -1,0 +1,177 @@
+#foodDetails {
+  padding: 0 1rem;
+}
+
+#foodDetails > * {
+  height: auto;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+#foodDetails > *:last-child {
+  border-bottom: none;
+}
+
+/* QUantity */
+.food__summary,
+.food__quantity {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.food__calories,
+.food__weight-in-grams {
+  flex: 0 0 50%;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.food__weight-in-grams {
+  text-align: right;
+}
+
+.food__quantity {
+  align-items: center;
+}
+
+.food__quantity label {
+  font-size: 0.75em;
+  font-weight: bold;
+}
+
+.field__wrapper {
+  flex: 0 0 auto;
+}
+
+.input__wrapper {
+  width: 25%;
+  margin-right: 1rem;
+}
+
+.select__wrapper {
+  margin-left: 1rem;
+  width: 50%; /* Accesibility */
+  width: min-content;
+  flex: 1 0 auto;
+}
+
+.multiply__sign {
+  font-weight: bold;
+}
+
+.food__macros {
+  flex: 1 0 100%;
+  margin-top: 2rem;
+  font-size: 0.85em;
+  height: 5.5em;
+}
+
+.food__macros dt {
+  padding-top: 0.5em;
+}
+
+.food__macros dd {
+  flex: 0 0 35%;
+  margin-top: -0.15em;
+}
+.food__macros dd span {
+  font-weight: bolder;
+}
+
+.food__macros > * {
+  border-right: 1px solid #ddd;
+}
+
+.food__macros > *:last-of-type {
+  border-right: none;
+}
+
+.food__nutrients {
+  padding-top: 0;
+}
+
+.food__nutrients caption {
+  font-size: 1.25em;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.food__nutrients td:nth-of-type(1) {
+  font-weight: bolder;
+}
+.food__nutrients td:nth-of-type(2) {
+  text-align: right;
+}
+
+.food__nutrients__source:first-of-type td {
+  text-align: center;
+  font-size: 0.75em;
+  padding-bottom: 2.5rem;
+  font-weight: unset;
+}
+
+.food__nutrients__source a {
+  color: #333;
+  text-decoration: underline;
+}
+/* Balance Section */
+.food__balance__values {
+  display: flex;
+  padding: 2rem 0 0;
+}
+
+.food__balance__values > li {
+  flex: 0;
+  padding: 0 0.1rem;
+}
+
+li.values__now {
+  flex-basis: 50%;
+}
+li.values__food {
+  flex-basis: 20%;
+}
+li.values__remaining {
+  flex-basis: 30%;
+}
+
+.progress {
+  display: inline-block;
+  height: 0.5rem;
+  width: 100%;
+}
+
+.values__now .progress {
+  background: pink;
+  border-radius: 20px 0 0 20px;
+}
+
+.values__food .progress {
+  background: rgb(19, 41, 66);
+}
+
+.values__remaining .progress {
+  background: gray;
+  border-radius: 0 20px 20px 0;
+}
+
+li.bar {
+  transform: translate(-25%, 20%);
+}
+
+.bar__title {
+  position: absolute;
+  transform: translate(-50%, -1.75rem);
+}
+
+.bar__remaining {
+  background-color: #fff;
+  box-shadow: -1em 0px 4px 0 rgba(255, 255, 255, 0.6);
+}
+
+.bar__body {
+  display: block;
+  height: 1rem;
+  width: 0.1rem;
+  background-color: #ddd;
+}

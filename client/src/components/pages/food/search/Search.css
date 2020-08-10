@@ -14,10 +14,12 @@ header.search {
 
 header.search:not(.search__closed):focus-within {
   animation: overlayElement 0.5s forwards;
-  box-shadow: 0 0 0px 100vh transparent;
 }
 
 @keyframes overlayElement {
+  from {
+    box-shadow: 0 0 0px 100vh transparent;
+  }
   to {
     box-shadow: 0 0 0px 100vh rgba(0, 0, 0, 0.1);
   }
@@ -133,9 +135,6 @@ header.search.search__closed .icon-logo {
 }
 
 .results__portion {
-  color: #46b1c9;
-  color: #61bdd1;
-  color: #71c3d6;
   margin-top: -1rem;
   text-align: right;
 }
@@ -163,12 +162,8 @@ dl.results__macros {
   margin-left: 0.15em;
 }
 
-.results__macros img {
-  font-size: 1.15rem;
-}
-
-.results__macros > * {
-  color: #888;
+.results__macros dd {
+  flex: 0 0 33.33%;
 }
 
 .results__macros dt {
@@ -178,13 +173,4 @@ dl.results__macros {
 .results__macros dt p,
 .results__macros dd {
   margin-top: -0.35em;
-}
-
-.results__macros dd {
-  color: unset;
-  flex: 0 0 33.33%;
-}
-
-.results__macros dd .nutrient__amount {
-  font-weight: bolder;
 }

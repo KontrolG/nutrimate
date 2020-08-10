@@ -26,7 +26,7 @@ const ResultItem = ({
             <Icon name="bolt" />
           </p>
           <hr />
-          <p className="results__portion">
+          <p className="results__portion portion">
             <Icon name="plate" />
             <span>{parseInt(portion.gramWeight, 10)}</span> g
           </p>

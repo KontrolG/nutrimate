@@ -561,6 +561,7 @@ main > section {
 
 .food__info > *:last-child {border-bottom: none;}
 
+/* Quantity */
 .food__quantity {
   display: flex;
   flex-wrap: wrap;
@@ -631,6 +632,8 @@ main > section {
   text-decoration: underline;
 }
 
+/* BALANCE */
+
 .food__balance__values {
   display: flex;
   padding: 2rem 0 0;
@@ -685,6 +688,8 @@ li.bar {
   width: 0.1rem;
   background-color: #ddd;
 }
+
+/* ADD BTN */
 
 .food__add__wrapper {
   z-index: 9999;
