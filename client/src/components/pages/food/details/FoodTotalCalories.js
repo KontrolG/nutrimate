@@ -2,12 +2,12 @@ import React, { Fragment } from "react";
 import NutrientAmount from "../../../NutrientAmount";
 import Icon from "../../../Icon";
 
-const FoodTotalCalories = props => {
+const FoodTotalCalories = ({ calories }) => {
   return (
     <Fragment>
       <div className="food__calories calories">
-        <NutrientAmount nutrient={{ name: "calories", amount: 2 }} />
         <Icon name="bolt" />
+        <NutrientAmount nutrient={calories} />
       </div>
       <div className="food__weight-in-grams portion">
         <Icon name="plate" />

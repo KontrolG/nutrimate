@@ -2,17 +2,17 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import ResultsList from "./ResultsList";
 import LoadingSpinner from "../../../LoadingSpinner";
-import { fetchFoods, fetchMoreFoods } from "../../../../actions/search";
+import { fetchResults, fetchMoreResults } from "../../../../actions/search";
 
 const ResultsSection = ({
   query,
   isSearching,
-  fetchFoods,
-  fetchMoreFoods,
+  fetchResults,
+  fetchMoreResults,
   results
 }) => {
   useEffect(() => {
-    fetchFoods(query);
+    fetchResults(query);
     return () => {
       console.log("cleanup");
     };
@@ -20,7 +20,7 @@ const ResultsSection = ({
 
   const loadMoreFoods = () => {
     const start = results.length;
-    fetchMoreFoods(query, start);
+    fetchMoreResults(query, start);
   };
 
   const resultsElement = isSearching ? (
@@ -42,6 +42,6 @@ const mapStateToProps = ({ search }) => {
   return { query, isSearching, results };
 };
 
-const mapDispatchToProps = { fetchFoods, fetchMoreFoods };
+const mapDispatchToProps = { fetchResults, fetchMoreResults };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResultsSection);

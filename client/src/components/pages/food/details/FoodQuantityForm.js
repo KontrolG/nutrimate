@@ -1,7 +1,7 @@
 import React from "react";
 import FoodPortionSelect from "./FoodPortionSelect";
 
-const FoodQuantityForm = props => {
+const FoodQuantityForm = ({ portions }) => {
   return (
     <form className="food__quantity">
       <span className="field__wrapper input__wrapper">
@@ -18,7 +18,7 @@ const FoodQuantityForm = props => {
       <span className="multiply__sign">✕</span>
       {/* 2715 */}
       <span className="field__wrapper select__wrapper">
-        <FoodPortionSelect />
+        <FoodPortionSelect {...{ portions }} />
         <label htmlFor="portion__select">Portion</label>
       </span>
     </form>

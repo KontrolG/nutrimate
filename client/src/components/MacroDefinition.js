@@ -12,7 +12,7 @@ const MacroDefinition = macro => {
   const macroName = newNutrientsNames[macro.name] || macro.name;
   return (
     <Fragment>
-      <dt>
+      <dt title={macroName}>
         <img className="icon" src={`img/${macroName}.svg`} />
         <p data-macro-name={macroName}>{macroName}</p>
       </dt>

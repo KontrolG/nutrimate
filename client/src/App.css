@@ -35,6 +35,24 @@ img.icon {
   width: 1em;
 }
 
+table {
+  width: 100%;
+  min-height: 50px;
+}
+
+table tr td {
+  border-bottom: 1px solid #ddd;
+  padding: 0.75rem 0;
+}
+
+table tr:last-child td {
+  border: none;
+}
+
+.nested__row td:first-child {
+  padding-left: 1.5em;
+}
+
 .form__control {
   width: 100%;
   border: none;

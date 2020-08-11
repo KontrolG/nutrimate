@@ -1,4 +1,5 @@
 import React from "react";
+import { v4 as getRandomKey } from "uuid";
 
 const toPortionOption = (
   { gramWeight, portionDescription, amount, name },
@@ -6,14 +7,19 @@ const toPortionOption = (
 ) => {
   const portionName = portionDescription || `${amount} ${name}`;
   return (
-    <option data-portion-index={portionIndex} value={gramWeight}>
+    <option
+      data-portion-index={portionIndex}
+      value={gramWeight}
+      key={getRandomKey()}
+    >
       {portionName} - {gramWeight} g
     </option>
   );
 };
 
-const FoodPortionSelect = props => {
-  const portionOptions = "";
+const FoodPortionSelect = ({ portions }) => {
+  const portionOptions = portions.map(toPortionOption);
+
   return (
     <select id="portion__select" className="form__control">
       {portionOptions}

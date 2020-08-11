@@ -1,9 +1,10 @@
 import React from "react";
 
-const HeadingSection = props => {
+const HeadingSection = ({ foodName }) => {
+  console.log(foodName);
   return (
     <header>
-      <h3 className="food__name">description</h3>
+      <h3 className="food__name">{foodName}</h3>
     </header>
   );
 };

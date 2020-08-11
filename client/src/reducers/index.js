@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import search from "./search";
+import details from "./details";
 
 // export const searchQuery = createReducer("", {
 //   [SET_SEARCH_QUERY](previousState, action) {
@@ -19,7 +20,8 @@ import search from "./search";
 // };
 
 const rootReducer = combineReducers({
-  search // La función debe tener el mismo nombre de la propiedad que manejara en el estado.
+  search, // La función debe tener el mismo nombre de la propiedad que manejara en el estado.
+  details
 });
 
 export default rootReducer;

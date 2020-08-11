@@ -38,19 +38,19 @@ export const setLastUpdate = () => {
   return { type: SET_LAST_UPDATE, lastUpdate };
 };
 
-export const fetchFoods = query => async dispatch => {
+export const fetchResults = query => async dispatch => {
   dispatch(setIsSearching(true));
-  const foodsResults = await fetchData("api/search", {
+  const results = await fetchData("api/search", {
     q: query
   });
   dispatch(setIsSearching(false));
-  dispatch(setResults(foodsResults));
+  dispatch(setResults(results));
 };
 
-export const fetchMoreFoods = (query, start) => async dispatch => {
-  const foodsResults = await fetchData("api/search", {
+export const fetchMoreResults = (query, start) => async dispatch => {
+  const results = await fetchData("api/search", {
     q: query,
     start
   });
-  dispatch(addResults(foodsResults));
+  dispatch(addResults(results));
 };

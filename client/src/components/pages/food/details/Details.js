@@ -8,7 +8,7 @@ const Details = props => {
   return (
     <Fragment>
       <Header />
-      <Main/>
+      <Main foodId={id} />
     </Fragment>
   );
 };

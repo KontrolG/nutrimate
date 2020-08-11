@@ -1,21 +1,28 @@
-import React from "react";
-import Main from "../../../layout/Main";
-import HeadingSection from "./HeadingSection";
-import SummarySection from "./SummarySection";
-import BalanceSectionCopy from "./BalanceSection copy";
-import BalanceSection from "./BalanceSection";
-import NutrientsFactsSection from "./NutrientsFactsSection";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { setFood, fetchFoodById } from "../../../../actions/details";
 
-const DetailsMain = props => {
-  return (
-    <Main id="foodDetails">
-      <HeadingSection />
-      <SummarySection />
-      {/* <BalanceSectionCopy /> */}
-      <BalanceSection />
-      <NutrientsFactsSection />
-    </Main>
-  );
+import LoadingSpinner from "../../../LoadingSpinner";
+import DetailsBody from "./DetailsBody";
+import Main from "../../../layout/Main";
+
+const DetailsMain = ({ fetchFoodById, foodId, isLoading, food }) => {
+  useEffect(() => {
+    fetchFoodById(foodId);
+    return setFood;
+  }, []);
+
+  const foodIsAvailable = !isLoading && food;
+  const details = foodIsAvailable ? <DetailsBody {...food}/> : <LoadingSpinner />;
+
+  return <Main id="foodDetails">{details}</Main>;
 };
 
-export default DetailsMain;
+const mapStateToProps = ({ details }) => {
+  const { food, isLoading } = details;
+  return { food, isLoading };
+};
+
+const mapDispatchToProps = { setFood, fetchFoodById };
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailsMain);

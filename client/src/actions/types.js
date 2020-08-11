@@ -5,3 +5,7 @@ export const SET_IS_SEARCHING = "SET_IS_SEARCHING";
 export const SET_RESULTS = "SET_RESULTS";
 export const ADD_RESULTS = "ADD_RESULTS";
 export const SET_LAST_UPDATE = "SET_LAST_UPDATE";
+export const SET_IS_LOADING = "SET_IS_LOADING";
+export const SET_FOOD = "SET_FOOD";
+export const SET_QUANTITY = "SET_QUANTITY";
+export const SET_PORTION_INDEX = "SET_PORTION_INDEX";

@@ -3,7 +3,7 @@ import React from "react";
 const BalanceSection = props => {
   return (
     <section className="food__balance">
-      <h4 className="food__balance__title">Calories balance</h4>
+      <h4 className="food__balance__title">Calories balance (add titles!)</h4>
       <ul className="food__balance__values">
         <li className="values__now">
           <span className="progress"></span>
