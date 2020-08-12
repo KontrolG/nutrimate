@@ -1,8 +1,8 @@
-export const getDisplayName = element => {
+const getDisplayName = element => {
   if (typeof element === "string") {
     return element;
   }
   return element.displayName || element.name || "Component";
 };
 
-export { default as fetchData } from "./fetchData";
+export default getDisplayName;

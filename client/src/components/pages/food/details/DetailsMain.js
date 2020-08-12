@@ -1,19 +1,29 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { setFood, fetchFoodById } from "../../../../actions/details";
+import { fetchFoodById, cleanFood } from "../../../../actions/details";
 
 import LoadingSpinner from "../../../LoadingSpinner";
 import DetailsBody from "./DetailsBody";
 import Main from "../../../layout/Main";
 
-const DetailsMain = ({ fetchFoodById, foodId, isLoading, food }) => {
+const DetailsMain = ({
+  fetchFoodById,
+  cleanFoodOnUnmount,
+  foodId,
+  isLoading,
+  food
+}) => {
   useEffect(() => {
     fetchFoodById(foodId);
-    return setFood;
+    return cleanFoodOnUnmount;
   }, []);
 
   const foodIsAvailable = !isLoading && food;
-  const details = foodIsAvailable ? <DetailsBody {...food}/> : <LoadingSpinner />;
+  const details = foodIsAvailable ? (
+    <DetailsBody {...food} />
+  ) : (
+    <LoadingSpinner />
+  );
 
   return <Main id="foodDetails">{details}</Main>;
 };
@@ -23,6 +33,15 @@ const mapStateToProps = ({ details }) => {
   return { food, isLoading };
 };
 
-const mapDispatchToProps = { setFood, fetchFoodById };
+const mapDispatchToProps = dispatch => {
+  return {
+    cleanFoodOnUnmount() {
+      cleanFood(dispatch);
+    },
+    fetchFoodById(id) {
+      dispatch(fetchFoodById(id));
+    }
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailsMain);

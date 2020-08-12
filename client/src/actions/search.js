@@ -7,7 +7,8 @@ import {
   ADD_RESULTS,
   SET_LAST_UPDATE
 } from "./types";
-import { fetchData } from "../utils";
+import fetchData from "../utils/fetchData";
+import loadData from "../utils/loadData";
 
 export const setQuery = query => {
   return { type: SET_SEARCH_QUERY, query };
@@ -39,11 +40,11 @@ export const setLastUpdate = () => {
 };
 
 export const fetchResults = query => async dispatch => {
-  dispatch(setIsSearching(true));
-  const results = await fetchData("api/search", {
-    q: query
-  });
-  dispatch(setIsSearching(false));
+  const fetchSearchResults = () =>
+    fetchData("api/search", {
+      q: query
+    });
+  const results = await loadData(dispatch, setIsSearching, fetchSearchResults);
   dispatch(setResults(results));
 };
 

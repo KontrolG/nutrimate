@@ -1,4 +1,9 @@
-import { SET_IS_LOADING, SET_FOOD } from "../actions/types";
+import {
+  SET_IS_LOADING,
+  SET_FOOD,
+  SET_QUANTITY,
+  SET_PORTION_WEIGHT_IN_GRAMS
+} from "../actions/types";
 import { combineReducers } from "redux";
 
 const isLoading = (previousState = false, action) => {
@@ -15,6 +20,25 @@ const food = (previousState = null, action) => {
   return previousState;
 };
 
-const detailsReducer = combineReducers({ isLoading, food });
+const quantity = (previousState = 1, action) => {
+  if (action.type === SET_QUANTITY) {
+    return action.quantity;
+  }
+  return previousState;
+};
+
+const portionWeightInGrams = (previousState = 1, action) => {
+  if (action.type === SET_PORTION_WEIGHT_IN_GRAMS) {
+    return action.portionWeightInGrams;
+  }
+  return previousState;
+};
+
+const detailsReducer = combineReducers({
+  isLoading,
+  food,
+  quantity,
+  portionWeightInGrams
+});
 
 export default detailsReducer;

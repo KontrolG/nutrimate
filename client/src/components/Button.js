@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import Icon from "./Icon";
-import { getDisplayName } from "../utils";
+import getDisplayName from "../utils/getDisplayName";
 import "./Button.css";
 
 const withButton = ElementWrapper => {
