@@ -1,17 +1,10 @@
 import React, { Fragment } from "react";
-
-const getFixedAmount = (amount, amountDecimals) => {
-  const parsedAmount = parseFloat(amount);
-  const amountHasDecimals = parsedAmount % 1 !== 0;
-  return amountHasDecimals
-    ? parsedAmount.toFixed(amountDecimals)
-    : parsedAmount;
-};
+import getNumberWithFixedDecimals from "../utils/getNumberWithFixedDecimals";
 
 const NutrientAmount = ({ nutrient, amountDecimals }) => {
   const { name, amount, unitName } = nutrient;
 
-  const fixedAmount = getFixedAmount(amount, amountDecimals);
+  const fixedAmount = getNumberWithFixedDecimals(amount, amountDecimals);
 
   return (
     <Fragment>
