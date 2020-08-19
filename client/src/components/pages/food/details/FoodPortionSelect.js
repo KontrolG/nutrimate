@@ -1,27 +1,13 @@
 import React from "react";
-import { v4 as getRandomKey } from "uuid";
-
-const toPortionOption = (
-  { gramWeight, portionDescription, amount, name },
-  portionIndex
-) => {
-  const portionName = portionDescription || `${amount} ${name}`;
-  return (
-    <option
-      data-portion-index={portionIndex}
-      value={gramWeight}
-      key={getRandomKey()}
-    >
-      {portionName} - {gramWeight} g
-    </option>
-  );
-};
+import toElementsWithMappedProps from "../../../../utils/toElementsWithMappedProps";
+import PortionOption from "./PortionOption";
 
 const FoodPortionSelect = ({
   portions,
   portionWeightInGrams,
   setPortionWeightInGrams
 }) => {
+  const toPortionOption = toElementsWithMappedProps(PortionOption);
   const portionOptions = portions.map(toPortionOption);
 
   return (
