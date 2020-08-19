@@ -11,7 +11,8 @@ const ApplicationRouter = props => {
       <Navigation />
       <Switch>
         <Route path="/food" component={Food} />
-        <Route path="/" component={Home} />
+        <Route exact path="/" component={Home} />
+        <Route path="/" component={Home /* Error 404 */} />
       </Switch>
     </HashRouter>
   );
