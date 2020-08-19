@@ -1,5 +1,5 @@
 import React from "react";
-import FoodTotalCalories from "./FoodTotalCalories";
+import FoodTotals from "./FoodTotals";
 import FoodQuantityForm from "./FoodQuantityForm";
 import MacrosList from "../../../MacrosList";
 
@@ -9,11 +9,12 @@ const SummarySection = ({
   macros,
   quantity,
   portionWeightInGrams,
+  totalWeightInGrams,
   setPortionWeightInGrams
 }) => {
   return (
     <section className="food__summary">
-      <FoodTotalCalories {...{ calories }} />
+      <FoodTotals {...{ calories, totalWeightInGrams }} />
       <FoodQuantityForm
         {...{
           portions,

@@ -26,6 +26,7 @@ const DetailsBody = ({
   portionWeightInGrams,
   setPortionWeightInGrams
 }) => {
+  const totalWeightInGrams = quantity * portionWeightInGrams;
   const macros = nutrients.filter(isMacroNutrient);
   const calories = nutrients.find(isCalories);
 
@@ -39,6 +40,7 @@ const DetailsBody = ({
           macros,
           quantity,
           portionWeightInGrams,
+          totalWeightInGrams,
           setPortionWeightInGrams
         }}
       />
