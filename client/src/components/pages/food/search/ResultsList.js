@@ -1,16 +1,12 @@
-import React, { Fragment } from "react";
+import React from "react";
 import ResultItem from "./ResultItem";
-import LoadingSpinner from "../../../LoadingSpinner";
+import toElementsWithMappedProps from "../../../../utils/toElementsWithMappedProps";
 
 const ResultsList = ({ results }) => {
-  const toResultItem = (food, index) => <ResultItem key={index} {...food} />;
+  const toResultItem = toElementsWithMappedProps(ResultItem);
   const resultsItems = results.map(toResultItem);
-  /* <ul className="results__list">{resultsItems}</ul> */
-  return (
-    <Fragment>
-      <ul className="results__list">{resultsItems}</ul>
-    </Fragment>
-  );
+
+  return <ul className="results__list">{resultsItems}</ul>;
 };
 
 export default ResultsList;

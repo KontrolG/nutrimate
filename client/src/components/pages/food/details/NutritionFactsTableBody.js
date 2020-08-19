@@ -1,11 +1,14 @@
 import React from "react";
 import NutritionFactRow from "./NutritionFactRow";
+import toElementsWithMappedProps from "../../../../utils/toElementsWithMappedProps";
 
 const NutritionFactsTableBody = ({ nutrients }) => {
-  const toNutritionFactRow = nutrient => (
-    <NutritionFactRow {...{ nutrient }} key={nutrient.name} />
+  const toNutritionFactRow = toElementsWithMappedProps(
+    NutritionFactRow,
+    "nutrient"
   );
   const tableRows = nutrients.map(toNutritionFactRow);
+
   return <tbody>{tableRows}</tbody>;
 };
 
