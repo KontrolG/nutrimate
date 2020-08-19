@@ -30,6 +30,10 @@
   text-align: right;
 }
 
+.food__weight-in-grams i {
+  margin-right: 0.25em;
+}
+
 .food__quantity {
   align-items: center;
 }

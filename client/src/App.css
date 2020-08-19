@@ -12,22 +12,23 @@ ol {
   list-style: none;
 }
 
-.calories {
-  color: #fdd035;
+.calories,
+.portion {
   font-size: 0.75em;
 }
 
-.calories span {
-  font-size: 1.25em;
-}
-
-.calories span,
-.portion span {
-  font-weight: bolder;
+.calories {
+  color: #fdd035;
 }
 
 .portion {
   color: #71c3d6;
+}
+
+.calories span,
+.portion span {
+  font-size: 1.25em;
+  font-weight: bolder;
 }
 
 img.icon {
