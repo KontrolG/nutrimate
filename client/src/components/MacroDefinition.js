@@ -7,9 +7,9 @@ const newNutrientsNames = {
   "Fiber, total dietary": "Fiber"
 };
 
-const MacroDefinition = macro => {
-  if (!macro.name) return null;
-  const macroName = newNutrientsNames[macro.name] || macro.name;
+const MacroDefinition = props => {
+  if (!props.name) return null;
+  const macroName = newNutrientsNames[props.name] || props.name;
   return (
     <Fragment>
       <dt title={macroName}>
@@ -17,7 +17,7 @@ const MacroDefinition = macro => {
         <p data-macro-name={macroName}>{macroName}</p>
       </dt>
       <dd>
-        <NutrientAmount nutrient={macro} />
+        <NutrientAmount nutrient={props} />
       </dd>
     </Fragment>
   );

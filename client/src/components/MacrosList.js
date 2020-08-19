@@ -1,12 +1,11 @@
 import React from "react";
-import { v4 as getRandomKey } from "uuid";
 import classNames from "classnames";
 import MacroDefinition from "./MacroDefinition";
+import toElementsWithMappedProps from "./toElementsWithMappedProps";
 
 const MacrosList = ({ macros, className }) => {
-  const toMacroDefinition = macro => (
-    <MacroDefinition key={getRandomKey()} {...macro} />
-  );
+  const toMacroDefinition = toElementsWithMappedProps(MacroDefinition);
+
   const macrosDefinitions = macros.map(toMacroDefinition);
 
   return (
