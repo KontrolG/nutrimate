@@ -1,5 +1,6 @@
 import React from "react";
 import { v4 as getRandomKey } from "uuid";
+import getObjectFromEntries from "./getObjectFromEntries";
 
 const toElementsWithMappedProps = (
   Component,
@@ -8,13 +9,12 @@ const toElementsWithMappedProps = (
   const componentProps = propsToItemValues
     ? getComponentPropsFromItem(propsToItemValues, currentItem)
     : currentItem;
-  console.log(componentProps);
 
   return <Component {...componentProps} key={getRandomKey()} />;
 };
 
 const getComponentPropsFromItem = (propsToItemValues, currentItem) => {
-  if (typeof propsToItemValues === "string") {
+  if (isString(propsToItemValues)) {
     return getPropsFromString(propsToItemValues, currentItem);
   }
   if (isArrayOfStrings(propsToItemValues)) {
@@ -56,12 +56,5 @@ const mapComponentPropsFrom = currentItem => ([propKey, itemKey]) => [
   propKey,
   currentItem[itemKey]
 ];
-
-const getObjectFromEntries = entries => entries.reduce(toObjectFromEntries, {});
-
-const toObjectFromEntries = (object, [key, value]) => ({
-  ...object,
-  [key]: value
-});
 
 export default toElementsWithMappedProps;
