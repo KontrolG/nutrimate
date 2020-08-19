@@ -18,17 +18,38 @@ const isMacroNutrient = ({ name }) => {
 const isCalories = ({ name, unitName }) =>
   name === "Energy" && unitName === "kcal";
 
+const toNutrientPerGram = nutrient => {
+  const amountPerGram = nutrient.amount / 100;
+  return {
+    ...nutrient,
+    amount: amountPerGram
+  };
+};
+
+const toMultipliedByTotalWeightInGrams = totalWeightInGrams => nutrient => {
+  const totalAmount = nutrient.amount * totalWeightInGrams;
+  return {
+    ...nutrient,
+    amount: totalAmount
+  };
+};
+
 const DetailsBody = ({
   description,
   nutrients,
   portions,
   quantity,
   portionWeightInGrams,
+  setQuantity,
   setPortionWeightInGrams
 }) => {
   const totalWeightInGrams = quantity * portionWeightInGrams;
-  const macros = nutrients.filter(isMacroNutrient);
-  const calories = nutrients.find(isCalories);
+  const calculatedNutrients = nutrients
+    .map(toNutrientPerGram)
+    .map(toMultipliedByTotalWeightInGrams(totalWeightInGrams));
+
+  const macros = calculatedNutrients.filter(isMacroNutrient);
+  const calories = calculatedNutrients.find(isCalories);
 
   return (
     <Fragment>
@@ -41,12 +62,13 @@ const DetailsBody = ({
           quantity,
           portionWeightInGrams,
           totalWeightInGrams,
+          setQuantity,
           setPortionWeightInGrams
         }}
       />
       {/* <BalanceSectionCopy /> */}
       <BalanceSection />
-      <NutrientsFactsSection foodNutrients={nutrients} />
+      <NutrientsFactsSection foodNutrients={calculatedNutrients} />
     </Fragment>
   );
 };

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import {
   fetchFoodById,
   cleanFood,
+  setQuantity,
   setPortionWeightInGrams
 } from "../../../../actions/details";
 
@@ -13,6 +14,7 @@ import Main from "../../../layout/Main";
 const DetailsMain = ({
   fetchFoodById,
   cleanFoodOnUnmount,
+  setQuantity,
   setPortionWeightInGrams,
   foodId,
   isLoading,
@@ -29,7 +31,12 @@ const DetailsMain = ({
   const details = foodIsAvailable ? (
     <DetailsBody
       {...food}
-      {...{ quantity, portionWeightInGrams, setPortionWeightInGrams }}
+      {...{
+        quantity,
+        portionWeightInGrams,
+        setQuantity,
+        setPortionWeightInGrams
+      }}
     />
   ) : (
     <LoadingSpinner />
@@ -52,6 +59,9 @@ const mapDispatchToProps = dispatch => {
     },
     setPortionWeightInGrams({ target }) {
       dispatch(setPortionWeightInGrams(Number(target.value)));
+    },
+    setQuantity({ target }) {
+      dispatch(setQuantity(Number(target.value)));
     }
   };
 };

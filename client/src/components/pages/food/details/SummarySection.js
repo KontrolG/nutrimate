@@ -10,6 +10,7 @@ const SummarySection = ({
   quantity,
   portionWeightInGrams,
   totalWeightInGrams,
+  setQuantity,
   setPortionWeightInGrams
 }) => {
   return (
@@ -19,6 +20,7 @@ const SummarySection = ({
         {...{
           portions,
           quantity,
+          setQuantity,
           portionWeightInGrams,
           setPortionWeightInGrams
         }}

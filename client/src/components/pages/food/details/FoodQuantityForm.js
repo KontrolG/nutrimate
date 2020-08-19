@@ -5,6 +5,7 @@ const FoodQuantityForm = ({
   portions,
   quantity,
   portionWeightInGrams,
+  setQuantity,
   setPortionWeightInGrams
 }) => {
   return (
@@ -16,6 +17,7 @@ const FoodQuantityForm = ({
           className="form__control"
           placeholder="Qty"
           min="1"
+          onChange={setQuantity}
           defaultValue={quantity}
         />
         <label htmlFor="quantity__input">Quantity</label>
