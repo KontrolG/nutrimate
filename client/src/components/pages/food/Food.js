@@ -4,11 +4,12 @@ import Search from "./search/Search";
 import Details from "./details/Details";
 import "./Food.css";
 
-const Food = props => {
+const Food = ({ match }) => {
+  const { url } = match;
   return (
     <Switch>
-      <Route exac path="/food/:id" component={Details} />
-      <Route exac path="/food" component={Search} />
+      <Route exac path={`${url}/:id`} component={Details} />
+      <Route exac path={url} component={Search} />
     </Switch>
   );
 };
