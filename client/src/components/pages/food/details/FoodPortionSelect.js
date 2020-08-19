@@ -17,11 +17,20 @@ const toPortionOption = (
   );
 };
 
-const FoodPortionSelect = ({ portions }) => {
+const FoodPortionSelect = ({
+  portions,
+  portionWeightInGrams,
+  setPortionWeightInGrams
+}) => {
   const portionOptions = portions.map(toPortionOption);
 
   return (
-    <select id="portion__select" className="form__control">
+    <select
+      id="portion__select"
+      className="form__control"
+      value={portionWeightInGrams}
+      onChange={setPortionWeightInGrams}
+    >
       {portionOptions}
       <option value="1">1 g</option>
     </select>

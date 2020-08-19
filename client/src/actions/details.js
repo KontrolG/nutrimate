@@ -10,7 +10,13 @@ import loadData from "../utils/loadData";
 export const fetchFoodById = foodId => async dispatch => {
   const fetchFoodDetails = () => fetchData("api/get", { fdcId: foodId });
   const food = await loadData(dispatch, setIsLoading, fetchFoodDetails);
+  setDetails(food, dispatch);
+};
+
+const setDetails = (food, dispatch) => {
   dispatch(setFood(food));
+  const [foodPortion] = food.portions;
+  dispatch(setPortionWeightInGrams(foodPortion ? foodPortion.gramWeight : 1));
 };
 
 export const cleanFood = dispatch => {

@@ -5,25 +5,43 @@ import BalanceSectionCopy from "./BalanceSection copy";
 import BalanceSection from "./BalanceSection";
 import NutrientsFactsSection from "./NutrientsFactsSection";
 
-const DetailsBody = ({ description, nutrients, portions }) => {
-  const isMacroNutrient = ({ name }) => {
-    const macrosNames = [
-      "Fiber, total dietary",
-      "Protein",
-      "Total lipid (fat)",
-      "Carbohydrate, by difference"
-    ];
-    return macrosNames.includes(name);
-  };
+const isMacroNutrient = ({ name }) => {
+  const macrosNames = [
+    "Fiber, total dietary",
+    "Protein",
+    "Total lipid (fat)",
+    "Carbohydrate, by difference"
+  ];
+  return macrosNames.includes(name);
+};
+
+const isCalories = ({ name, unitName }) =>
+  name === "Energy" && unitName === "kcal";
+
+const DetailsBody = ({
+  description,
+  nutrients,
+  portions,
+  quantity,
+  portionWeightInGrams,
+  setPortionWeightInGrams
+}) => {
   const macros = nutrients.filter(isMacroNutrient);
-  const isCalories = ({ name, unitName }) =>
-    name === "Energy" && unitName === "kcal";
   const calories = nutrients.find(isCalories);
 
   return (
     <Fragment>
       <HeadingSection foodName={description} />
-      <SummarySection {...{ calories, portions, macros }} />
+      <SummarySection
+        {...{
+          calories,
+          portions,
+          macros,
+          quantity,
+          portionWeightInGrams,
+          setPortionWeightInGrams
+        }}
+      />
       {/* <BalanceSectionCopy /> */}
       <BalanceSection />
       <NutrientsFactsSection foodNutrients={nutrients} />

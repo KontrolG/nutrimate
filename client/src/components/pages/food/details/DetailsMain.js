@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchFoodById, cleanFood } from "../../../../actions/details";
+import {
+  fetchFoodById,
+  cleanFood,
+  setPortionWeightInGrams
+} from "../../../../actions/details";
 
 import LoadingSpinner from "../../../LoadingSpinner";
 import DetailsBody from "./DetailsBody";
@@ -9,9 +13,12 @@ import Main from "../../../layout/Main";
 const DetailsMain = ({
   fetchFoodById,
   cleanFoodOnUnmount,
+  setPortionWeightInGrams,
   foodId,
   isLoading,
-  food
+  food,
+  quantity,
+  portionWeightInGrams
 }) => {
   useEffect(() => {
     fetchFoodById(foodId);
@@ -20,7 +27,10 @@ const DetailsMain = ({
 
   const foodIsAvailable = !isLoading && food;
   const details = foodIsAvailable ? (
-    <DetailsBody {...food} />
+    <DetailsBody
+      {...food}
+      {...{ quantity, portionWeightInGrams, setPortionWeightInGrams }}
+    />
   ) : (
     <LoadingSpinner />
   );
@@ -29,8 +39,7 @@ const DetailsMain = ({
 };
 
 const mapStateToProps = ({ details }) => {
-  const { food, isLoading } = details;
-  return { food, isLoading };
+  return details;
 };
 
 const mapDispatchToProps = dispatch => {
@@ -40,6 +49,9 @@ const mapDispatchToProps = dispatch => {
     },
     fetchFoodById(id) {
       dispatch(fetchFoodById(id));
+    },
+    setPortionWeightInGrams({ target }) {
+      dispatch(setPortionWeightInGrams(Number(target.value)));
     }
   };
 };
