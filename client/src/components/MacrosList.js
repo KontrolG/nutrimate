@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import MacroDefinition from "./MacroDefinition";
-import toElementsWithMappedProps from "./toElementsWithMappedProps";
+import toElementsWithMappedProps from "../utils/toElementsWithMappedProps";
 
 const MacrosList = ({ macros, className }) => {
   const toMacroDefinition = toElementsWithMappedProps(MacroDefinition);
