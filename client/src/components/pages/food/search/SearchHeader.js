@@ -1,13 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import classNames from "classnames";
+import getClassNameFrom from "classnames";
 import Header from "../../../layout/Header";
 import Logo from "../../../Logo";
 import SearchForm from "./SearchForm";
 import { setQuery, toggleIsClosed } from "../../../../actions/search";
 
 const FoodHeader = ({ query, setQuery, isClosed, toggleIsClosed }) => {
-  const headerClassNames = classNames("search", {
+  const headerClassNames = getClassNameFrom("search", {
     search__closed: isClosed
   });
 

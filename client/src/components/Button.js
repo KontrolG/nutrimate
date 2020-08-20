@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from "classnames";
+import getClassNameFrom from "classnames";
 import Icon from "./Icon";
 import getDisplayName from "../utils/getDisplayName";
 import "./Button.css";
@@ -13,7 +13,7 @@ const withButton = ElementWrapper => {
     children,
     ...restProps
   }) => {
-    const buttonClassNames = classNames(
+    const buttonClassNames = getClassNameFrom(
       "button",
       {
         "button-primary": isPrimary,

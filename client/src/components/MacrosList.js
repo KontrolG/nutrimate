@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from "classnames";
+import getClassNameFrom from "classnames";
 import MacroDefinition from "./MacroDefinition";
 import toElementsWithMappedProps from "../utils/toElementsWithMappedProps";
 
@@ -9,7 +9,7 @@ const MacrosList = ({ macros, className }) => {
   const macrosDefinitions = macros.map(toMacroDefinition);
 
   return (
-    <dl className={classNames("macros__data", className)}>
+    <dl className={getClassNameFrom("macros__data", className)}>
       {macrosDefinitions}
     </dl>
   );
