@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import search from "./search";
 import details from "./details";
+import activity from "./activity";
 
 // export const searchQuery = createReducer("", {
 //   [SET_SEARCH_QUERY](previousState, action) {
@@ -21,7 +22,8 @@ import details from "./details";
 
 const rootReducer = combineReducers({
   search, // La función debe tener el mismo nombre de la propiedad que manejara en el estado.
-  details
+  details,
+  activity
 });
 
 export default rootReducer;
