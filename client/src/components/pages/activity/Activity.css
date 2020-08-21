@@ -1,0 +1,12 @@
+.date__select__form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.date__input {
+  border: none;
+  background: none;
+  /* display: none; */
+}

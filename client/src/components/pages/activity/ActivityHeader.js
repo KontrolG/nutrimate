@@ -1,10 +1,11 @@
 import React from "react";
 import Header from "../../layout/Header";
+import DateSelectionForm from "./DateSelectionForm";
 
 const DetailsHeader = props => {
   return (
     <Header className={""}>
-      <h2>Activity</h2>
+      <DateSelectionForm />
     </Header>
   );
 };
