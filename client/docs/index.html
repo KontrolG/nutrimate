@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Nutrimate // Calorie Counter</title>
+</head>
+
+<body>
+  <header class="search__closed">
+    <h2 class="header__title">Nutrimate
+      <!-- Los divs no estan del mismo width -->
+    </h2>
+    <form action="/" class="search__form">
+      <button type="button" class="btn search__btn" title="Back">
+      </button>
+      <input type="text" class="search__input form__control" name="search__input" id="search__input"
+        placeholder="Search food" required pattern="[\w\s%,.]+" title="Only alphanumeric and %,.">
+      <!--  that you like... -->
+      <button type="reset" class="btn search__reset" title="Clear input">&Cross;</button>
+    </form>
+  </header>
+  <nav>
+    <ul class="nav__list">
+      <li>
+        <a href="#resultsSection" class="nav__active">
+          <figure class="nav__item">
+            <img src="img/eggs.JPG" alt="Search">
+            <figcaption>
+              <h3 class="nav__item__title">Foods</h3>
+            </figcaption>
+          </figure>
+        </a>
+      </li>
+      <li>
+        <a href="#foodSection">
+          <figure class="nav__item">
+            <img src="img/eggs.JPG" alt="Search">
+            <figcaption>
+              <h3 class="nav__item__title">Details</h3>
+            </figcaption>
+          </figure>
+        </a>
+      </li>
+      <li>
+        <a href="#activitySection">
+          <figure class="nav__item">
+            <img src="img/eggs.JPG" alt="Search">
+            <figcaption>
+              <h3 class="nav__item__title">Activity</h3>
+            </figcaption>
+          </figure>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <main>
+    <section id="resultsSection" class="results results__not__searched">
+      <ul class="results__list">
+      </ul>
+      <figure class="results__placeholder centered">
+        <!-- <img src="img/eggs.jpg" alt="ASd"> -->
+        &kappa;
+        <figcaption>
+          Search foods for your meal plan.
+        </figcaption>
+      </figure>
+      <!-- <button type="button" class="btn btn-rounded results__clear__btn">C</button> -->
+      <p class="loader results__loader hidden centered">
+        <strong>&hearts;</strong> Loading...
+      </p>
+    </section>
+    <section id="foodSection" class="food">
+      <div class="food__add__wrapper">
+        <div class="popup food__add__popup hidden">
+          <h4>Select a meal</h4>
+          <ol class="buttons-swapper food__add__swapper">
+            <li><button class="btn" data-meal-name="breakfast">Breakfast</button></li>
+            <li><button class="btn" data-meal-name="lunch">Lunch</button></li>
+            <li><button class="btn" data-meal-name="dinner">Dinner</button></li>
+            <li><button class="btn" data-meal-name="snack">Snack</button></li>
+          </ol>
+        </div>
+        <button class="btn btn__circle food__add__btn"><span>+</span></button>
+      </div>
+    </section>
+    <section id="activitySection" class="daily__activity">
+      <form action="#" class="date__select__form">
+        <label for="date__input">Today</label>
+        <input type="date" class="date__input" name="date__input" id="date__input">
+      </form>
+      <canvas class="activity__graph"></canvas>
+      <ol class="graph__legend">
+        <li>
+          <span class="dot breakfast__dot"></span> Breakfast
+        </li>
+        <li>
+          <span class="dot lunch__dot"></span> Lunch
+        </li>
+        <li>
+          <span class="dot dinner__dot"></span> Dinner
+        </li>
+        <li>
+          <span class="dot snack__dot"></span> Snack
+        </li>
+      </ol>
+      <div class="total__calories">
+        <p><strong class="current__calories">0</strong>/<strong class="calories__goal">2000</strong></p>
+        <p class="meter__title">Calories</p>
+      </div>
+      <ul class="total__macros">
+        <li>
+          <span class="dot breakfast__dot"></span> Protein
+          <p><span data-nutrient-name="protein">0</span>g</p>
+        </li>
+        <li>
+          Carbs
+          <p><span data-nutrient-name="carbohydrate">0</span>g</p>
+        </li>
+        <li>
+          Fat
+          <p><span data-nutrient-name="fat">0</span>g</p>
+        </li>
+        <li>
+          Fiber
+          <p><span data-nutrient-name="fiber">0</span>g</p>
+        </li>
+      </ul>
+      <ol class="buttons-swapper meals__swapper">
+        <li><button class="btn meals__selected" data-meal-name="breakfast">Breakfast</button></li>
+        <li><button class="btn" data-meal-name="lunch">Lunch</button></li>
+        <li><button class="btn" data-meal-name="dinner">Dinner</button></li>
+        <li><button class="btn" data-meal-name="snack">Snack</button></li>
+      </ol>
+      <table class="foods__ate">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Qty</th>
+            <th>Port.</th>
+            <th>Cal.</th>
+          </tr>
+        </thead>
+        <tbody class="tbody__breakfast meal__active">
+          <tr>
+            <td class="no__foods__message">No foods added yet!</td>
+          </tr>
+        </tbody>
+        <tbody class="tbody__lunch">
+          <tr>
+            <td class="no__foods__message">No foods added yet!</td>
+          </tr>
+        </tbody>
+        <tbody class="tbody__dinner">
+        </tbody>
+        <tbody class="tbody__snack">
+        </tbody>
+        <!-- <tfoot class="no__food__message">
+          <tr>
+            <td class="foods__ate__name">
+              <h4>No foods added</h4>
+            </td>
+            <td class="foods__ate__calories"></td>
+          </tr>
+        </tfoot> -->
+      </table>
+    </section>
+  </main>
+  <script type="text/javascript" src="js/bundle.js"></script>
+</body>
+
+</html>

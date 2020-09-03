@@ -1,0 +1,123 @@
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h2 {
+  font-size: 1rem;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+.calories,
+.portion {
+  font-size: 0.75em;
+}
+
+.calories {
+  color: #fdd035;
+}
+
+.portion {
+  color: #71c3d6;
+}
+
+.calories span,
+.portion span {
+  font-size: 1.25em;
+  font-weight: bolder;
+}
+
+img.icon {
+  height: 1em;
+  width: 1em;
+}
+
+table {
+  width: 100%;
+  min-height: 50px;
+}
+
+table tr td {
+  border-bottom: 1px solid #ddd;
+  padding: 0.75rem 0;
+}
+
+table tr:last-child td {
+  border: none;
+}
+
+.nested__row td:first-child {
+  padding-left: 1.5em;
+}
+
+.form__control {
+  width: 100%;
+  border: none;
+  border: 1px solid #f9f9f9;
+  background-color: #fbfbfb;
+  padding: 0.25em 0.5em;
+  border-radius: 4px;
+  outline: none;
+  /* font: inherit; */
+}
+
+.form__control::placeholder {
+  color: #906e84;
+}
+
+.form__control:focus,
+.form__control:hover {
+  border: 1px solid #fdb035;
+}
+
+.macros__data {
+  margin-top: 0.75em;
+  height: 3em;
+  display: flex;
+  flex-flow: column wrap;
+  text-align: center;
+}
+
+.macros__data > * {
+  flex: 0 0 50%;
+  color: #888;
+}
+
+.macros__data img {
+  font-size: 1.15rem;
+}
+
+.macros__data dd {
+  color: unset;
+}
+
+.macros__data dd .nutrient__amount {
+  font-weight: bolder;
+}
+
+.text__with__ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.vertically-centered {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.test,
+.test > * {
+  border: 1px solid #aaa;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

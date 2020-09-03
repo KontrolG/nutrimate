@@ -1,0 +1,47 @@
+#homeSection {
+  max-width: 360px;
+  background-color: rgb(250, 250, 250);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+h1,
+h2 {
+  line-height: 1.15;
+  color: #fdb035;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+#homeSection h2 {
+  font-weight: normal;
+  font-size: 1.24rem;
+  margin-bottom: 1em;
+}
+
+.copy {
+  color: #906e84;
+  width: 90%;
+  text-align: center;
+}
+
+#homeSection .button {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  width: 66.66%;
+}
+
+.search__shortcut {
+  margin-top: 1.25rem;
+}
+
+.profile__shortcut {
+  margin-top: 0.6125rem;
+}

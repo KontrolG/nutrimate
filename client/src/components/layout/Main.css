@@ -1,0 +1,11 @@
+main {
+  height: 78vh; /* 78.25vh */
+  min-height: 350px;
+  position: relative;
+  overflow: auto;
+}
+
+main > section {
+  height: 100%;
+  overflow: auto;
+}
